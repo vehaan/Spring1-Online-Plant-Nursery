@@ -12,4 +12,6 @@ public class Seed {
 	private Integer seedsStock;
 	private double seedsCost;
 	private Integer seedsPerPacket;
+	
+	//Shubham's Seed module
 }
