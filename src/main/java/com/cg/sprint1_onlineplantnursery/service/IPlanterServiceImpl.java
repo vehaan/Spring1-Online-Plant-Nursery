@@ -1,48 +1,65 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
 import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
 import com.cg.sprint1_onlineplantnursery.repository.IPlanterRepository;
-import com.cg.sprint1_onlineplantnursery.repository.IPlanterRepositoryImpl;
 
+@Service
 public class IPlanterServiceImpl implements IPlanterService {
 	
-	IPlanterRepository iplanterRepo = new IPlanterRepositoryImpl();
-	
-	@Override
-	public Planter addPlanter(Planter planter) {
-		return iplanterRepo.addPlanter(planter);
-	}
+	@Autowired
+	IPlanterRepository iplanterRepo;
 
 	@Override
-	public Planter updatePlanter(Planter planter) {
-		return iplanterRepo.updatePlanter(planter);
+	public Planter addPlanter(Planter planter) {
+		return iplanterRepo.save(planter);
 	}
 
 	@Override
 	public Planter deletePlanter(Planter planter) {
-		return iplanterRepo.deletePlanter(planter);
+		Planter p = iplanterRepo.findById(planter.getPlanterId()).get();
+		if (p != null)
+			iplanterRepo.delete(p);
+		return planter;
 	}
 
 	@Override
 	public Planter viewPlanter(int planterId) {
-		return iplanterRepo.viewPlanter(planterId);
+		return iplanterRepo.findById(planterId).get();
 	}
 
-	@Override
-	public Planter viewPlanter(String planterShape) {
-		return iplanterRepo.viewPlanter(planterShape);
-	}
 
 	@Override
 	public List<Planter> viewAllPlanters() {
-		return iplanterRepo.viewAllPlanters();
+		return iplanterRepo.findAll();
 	}
 
 	@Override
 	public List<Planter> viewAllPlanters(double minCost, double maxCost) {
-		return iplanterRepo.viewAllPlanters(minCost, maxCost);
+		List<Planter> requiredPlanters = iplanterRepo.findAll();
+		for (Planter planter: requiredPlanters) {
+			if (planter.getPlanterCost() < minCost || planter.getPlanterCost() > maxCost)
+				requiredPlanters.remove(planter);
+		}
+		return requiredPlanters;
 	}
 
+	@Override
+	public Planter viewPlanter(String planterShape) {
+		List<Planter> requiredPlanters = iplanterRepo.findAll();
+		for (Planter planter: requiredPlanters) {
+			if (planter.getPlanterShape().equals(planterShape))
+				return planter;
+		}
+		return null;
+			
+	}
+
+	@Override
+	public Planter updatePlanter(Planter planter) {
+		return iplanterRepo.save(planter);
+	}
+	
 }
