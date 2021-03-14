@@ -5,8 +5,9 @@ import javax.persistence.*;
 @Entity
 public class Planter {
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer planterId;
-	private float planterheight;
+	private float planterHeight;
 	private int planterCapacity;
 	private int drinageHoles;
 	private String planterColor;
@@ -19,7 +20,7 @@ public class Planter {
 			String planterShape, int planterStock, int planterCost) {
 		super();
 		this.planterId = planterId;
-		this.planterheight = planterheight;
+		this.planterHeight = planterheight;
 		this.planterCapacity = planterCapacity;
 		this.drinageHoles = drinageHoles;
 		this.planterColor = planterColor;
@@ -41,11 +42,11 @@ public class Planter {
 	}
 
 	public float getPlanterheight() {
-		return planterheight;
+		return planterHeight;
 	}
 
 	public void setPlanterheight(float planterheight) {
-		this.planterheight = planterheight;
+		this.planterHeight = planterheight;
 	}
 
 	public int getPlanterCapacity() {
@@ -99,7 +100,7 @@ public class Planter {
 
 	@Override
 	public String toString() {
-		return "Planter [planterId=" + planterId + ", planterheight=" + planterheight + ", planterCapacity="
+		return "Planter [planterId=" + planterId + ", planterheight=" + planterHeight + ", planterCapacity="
 				+ planterCapacity + ", drinageHoles=" + drinageHoles + ", planterColor=" + planterColor
 				+ ", planterShape=" + planterShape + ", planterStock=" + planterStock + ", planterCost=" + planterCost
 				+ "]";
