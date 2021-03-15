@@ -1,9 +1,13 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
 import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
 
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 
+@Service
 public interface ISeedService {
 	Seed addSeed(Seed seed);
 
@@ -11,7 +15,7 @@ public interface ISeedService {
 
 	Seed deleteSeed(Seed seed);
 
-	Seed viewSeed(int seedId);
+	Optional<Seed> viewSeed(int seedId);
 
 	Seed viewSeed(String commonName);
 
