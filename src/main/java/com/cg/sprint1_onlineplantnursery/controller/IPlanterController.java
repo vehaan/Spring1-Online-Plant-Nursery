@@ -34,7 +34,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
        http.csrf().disable();
     }
 	
-	@PostMapping("/planters")
+	@PostMapping("/planter")
 	public Planter addPlanter(@RequestBody Planter planter) {
 		return planterService.addPlanter(planter);
 	}
@@ -44,12 +44,12 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 		return planterService.viewAllPlanters();
 	}
 	
-	@GetMapping("/planters/{id}")
+	@GetMapping("/planterById/{id}")
 	public Planter getPlanterById(@PathVariable int id){
 		return planterService.viewPlanter(id);
 	}
 	
-	@PutMapping("/planter/{id}")
+	@PutMapping("/planter")
 	public Planter update(@RequestBody Planter planter) {
 		return planterService.updatePlanter(planter);
 	}
@@ -58,5 +58,17 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	public Planter delete(@RequestBody Planter planter) {
 		return planterService.deletePlanter(planter);
 	}
+	
+	@GetMapping("/plantersByShape/{shape}")
+	public List<Planter> getPlanterByShape(@PathVariable String shape){
+		return planterService.viewPlanter(shape);
+	}
+	
+	@GetMapping("/planters/{min}/{max}")
+	public List<Planter> getAllPlantersInRange(@PathVariable double min, @PathVariable double max ){
+		return planterService.viewAllPlanters(min, max);
+	}
+	
+	
 	
 }

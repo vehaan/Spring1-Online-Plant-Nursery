@@ -16,7 +16,7 @@ public interface IPlanterService {
 
 	Planter viewPlanter(int planterId);
 
-	Planter viewPlanter(String planterShape);
+	List<Planter> viewPlanter(String planterShape);
 
 	List<Planter> viewAllPlanters();
 
