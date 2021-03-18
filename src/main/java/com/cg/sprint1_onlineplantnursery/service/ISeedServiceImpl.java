@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.repository.ISeedRepository;
 
@@ -31,23 +30,23 @@ public class ISeedServiceImpl implements ISeedService{
 	}
 
 	@Override
-	public Optional<Seed> viewSeed(int seedId) {
-		return repo.findById(seedId);
+	public Optional<Seed> getSeed(int id) {
+		return repo.findById(id);
 	}
 
 	@Override
-	public Seed viewSeed(String commonName) {
+	public Seed getSeed(String commonName) {
 		return repo.findByCommonName(commonName);
 	}
 
 	@Override
-	public List<Seed> viewAllSeeds() {
+	public List<Seed> getSeeds() {
 		return repo.findAll();
 	}
 
 	@Override
-	public List<Seed> viewAllSeeds(String typeOfSeeds) {
-		return repo.findByTypeOfSeeds(typeOfSeeds);
+	public List<Seed> getSeeds(String type) {
+		return repo.findByType(type);
 	}
 
 }

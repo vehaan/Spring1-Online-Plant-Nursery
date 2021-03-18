@@ -7,8 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 
 public interface ISeedRepository extends JpaRepository<Seed, Integer>{
+	
 	Seed findByCommonName(String commonName);
-	List<Seed> findByTypeOfSeeds(String typeOfSeeds);
+	List<Seed> findByType(String typeOfSeeds);
 //	Seed addSeed(Seed seed);
 //
 //	Seed updateSeed(Seed seed);
