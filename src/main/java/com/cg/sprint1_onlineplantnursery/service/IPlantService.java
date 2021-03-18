@@ -1,6 +1,7 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cg.sprint1_onlineplantnursery.entity.Plant;
 
@@ -11,7 +12,7 @@ public interface IPlantService {
 
 	Plant deletePlant(Plant plant);
 
-	Plant viewPlant(int plantId);
+	Optional<Plant> viewPlant(int plantId);
 
 	Plant viewPlant(String commonName);
 

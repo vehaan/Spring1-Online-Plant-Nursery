@@ -8,6 +8,8 @@ public class Sprint1OnlinePlantNurseryApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Sprint1OnlinePlantNurseryApplication.class, args);
+		
+		//System.out.println();
 	}
 
 }
