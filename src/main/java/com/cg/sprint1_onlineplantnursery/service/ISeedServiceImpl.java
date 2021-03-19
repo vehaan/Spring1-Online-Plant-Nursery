@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
+import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ISeedRepository;
 
 @Service
@@ -30,8 +31,9 @@ public class ISeedServiceImpl implements ISeedService{
 	}
 
 	@Override
-	public Optional<Seed> getSeed(int id) {
-		return repo.findById(id);
+	public Seed getSeed(int id) throws SeedIdNotFoundException{
+		Optional<Seed> seedOptional = repo.findById(id);
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Seed Not Found"));
 	}
 
 	@Override

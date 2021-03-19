@@ -26,13 +26,16 @@ public class Seed {
 	private String temperature;
 	private String type;
 	private String description;
-
+	
+	@NotNull
 	@Positive(message = "A positive value of stock required")
 	private Integer stock;
 
+	@NotNull
 	@Positive(message = "A positive value of cost required")
 	private double cost;
 
+	@NotNull
 	@Positive(message = "A positive value of seeds per packet required")
 	private Integer seedsPerPacket;
 
@@ -145,8 +148,5 @@ public class Seed {
 	}
 	
 	
-	
-	
-	
-	//Shubham's Seed module
+
 }

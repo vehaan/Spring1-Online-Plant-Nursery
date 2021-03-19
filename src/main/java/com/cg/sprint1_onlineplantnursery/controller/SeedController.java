@@ -14,14 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.service.ISeedService;
 
 @RestController
-@RequestMapping("/rest")
 public class SeedController extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
@@ -40,56 +38,56 @@ public class SeedController extends WebSecurityConfigurerAdapter{
 	}
 	
 	@PutMapping("/seeds")
-	public ResponseEntity<Seed> updateSeed(@RequestBody Seed seed){
-		if(seedService.getSeed(seed.getId()).isPresent())
-		{
+	public ResponseEntity<Seed> updateSeed(@RequestBody Seed seed) throws SeedIdNotFoundException{
+//		if(seedService.getSeed(seed.getId()).isPresent())
+//		{
 			seedService.updateSeed(seed);
 			return new ResponseEntity<Seed>(seed,HttpStatus.CREATED);
-		}
-		else 
-		{
-			return new ResponseEntity<Seed>(seed,HttpStatus.BAD_REQUEST);
-		}
+//		}
+//		else 
+//		{
+//			throw new SeedIdNotFoundException("Invalid Seed ID...Cannot update");
+//		}
 	}
 	
 	@DeleteMapping("/seeds")
 	public ResponseEntity<Seed> deleteSeed(@RequestBody Seed seed) throws SeedIdNotFoundException{
-		if(seedService.getSeed(seed.getId()).isPresent())
-		{
+//		if(seedService.getSeed(seed.getId()).isPresent())
+//		{
 			Seed seedDeleted = seedService.deleteSeed(seed);
 			return new ResponseEntity<Seed> (seedDeleted,HttpStatus.ACCEPTED);
-		}
-		else {
-			throw new SeedIdNotFoundException("Cannot be deleted...(Invalid seed Id)");
-		}	
+//		}
+//		else {
+//			throw new SeedIdNotFoundException("Cannot be deleted...(Invalid seed Id)");
+//		}	
 	}
 		
 	@GetMapping("/seeds/id/{id}")
-	public ResponseEntity<Optional<Seed>> viewSeed(@PathVariable int id) throws SeedIdNotFoundException{
-		if(seedService.getSeed(id).isPresent()) {
-			Optional<Seed> seedRes = seedService.getSeed(id);
-			return new ResponseEntity<Optional<Seed>>(seedRes,HttpStatus.OK);
-		}
-		else {
-			throw new SeedIdNotFoundException("Invalid Seed ID...Cannot fetch entities ");
-		}
+	public ResponseEntity<Seed> getSeed(@PathVariable int id) throws SeedIdNotFoundException{
+//		if(seedService.getSeed(id).isPresent()) {
+			Seed seedRes = seedService.getSeed(id);
+			return new ResponseEntity<Seed>(seedRes,HttpStatus.OK);
+//		}
+//		else {
+//			throw new SeedIdNotFoundException("Invalid Seed ID...Cannot fetch entities ");
+//		}
 		
 	}
 	
 	@GetMapping("/seeds/commonName/{commonName}")
-	public ResponseEntity<Seed> viewSeed(@PathVariable String commonName) throws SeedIdNotFoundException{
+	public ResponseEntity<Seed> getSeed(@PathVariable String commonName){
 			Seed seedRes = seedService.getSeed(commonName);
 			return new ResponseEntity<Seed>(seedRes,HttpStatus.ACCEPTED);	
 	}
 	
 	@GetMapping("/seeds")
-	public ResponseEntity<List<Seed>> viewAllSeed(){
+	public ResponseEntity<List<Seed>> getSeeds(){
 		List<Seed> seedList = seedService.getSeeds();
 		return new ResponseEntity<List<Seed>>(seedList,HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping("/seeds/typeOfSeed/{typeOfSeed}")
-	public ResponseEntity<List<Seed>> viewAllSeed(@PathVariable String typeOfSeed){
+	public ResponseEntity<List<Seed>> getSeeds(@PathVariable String typeOfSeed){
 		List<Seed> seedList = seedService.getSeeds(typeOfSeed);
 		return new ResponseEntity<List<Seed>>(seedList,HttpStatus.ACCEPTED);
 	}
