@@ -1,109 +1,141 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
+
+import com.sun.istack.NotNull;
 
 @Entity
 public class Planter {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer planterId;
-	private float planterHeight;
-	private int planterCapacity;
-	private int drinageHoles;
-	private String planterColor;
-	private String planterShape;
-	private int planterStock;
-	private int planterCost;
+	private Integer id;
+	
+	@NotNull
+	@Positive (message = "The height must be positive")
+	private float height;
+	
+	@NotNull
+	private String shape;
+	
+	@Positive (message = "The stock must be positive")
+	private int stock;
+	
+	@Positive(message = "The cost must be a positive amount")
+	private int cost;
+	
+	private int capacity;
+	private int drainageHoles;
+	private String color;
 	
 
-	public Planter(Integer planterId, float planterheight, int planterCapacity, int drinageHoles, String planterColor,
-			String planterShape, int planterStock, int planterCost) {
+	public Planter(Integer id, float height, int capacity, int drainageHoles, String color,
+			String shape, int stock, int cost) {
 		super();
-		this.planterId = planterId;
-		this.planterHeight = planterheight;
-		this.planterCapacity = planterCapacity;
-		this.drinageHoles = drinageHoles;
-		this.planterColor = planterColor;
-		this.planterShape = planterShape;
-		this.planterStock = planterStock;
-		this.planterCost = planterCost;
+		this.id = id;
+		this.height = height;
+		this.capacity = capacity;
+		this.drainageHoles = drainageHoles;
+		this.color = color;
+		this.shape = shape;
+		this.stock = stock;
+		this.cost = cost;
 	}
+	
+	
+
+	public Planter(float height, int capacity, int drainageHoles, String color, String shape, int stock, int cost) {
+		super();
+		this.height = height;
+		this.capacity = capacity;
+		this.drainageHoles = drainageHoles;
+		this.color = color;
+		this.shape = shape;
+		this.stock = stock;
+		this.cost = cost;
+	}
+
+
 
 	public Planter() {
 		super();
 	}
 
-	public Integer getPlanterId() {
-		return planterId;
+	
+
+
+	public Integer getId() {
+		return id;
 	}
 
-	public void setPlanterId(Integer planterId) {
-		this.planterId = planterId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public float getPlanterheight() {
-		return planterHeight;
+	public float getHeight() {
+		return height;
 	}
 
-	public void setPlanterheight(float planterheight) {
-		this.planterHeight = planterheight;
+	public void setHeight(float height) {
+		this.height = height;
 	}
 
-	public int getPlanterCapacity() {
-		return planterCapacity;
+	public int getCapacity() {
+		return capacity;
 	}
 
-	public void setPlanterCapacity(int planterCapacity) {
-		this.planterCapacity = planterCapacity;
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 
-	public int getDrinageHoles() {
-		return drinageHoles;
+	public int getDrainageHoles() {
+		return drainageHoles;
 	}
 
-	public void setDrinageHoles(int drinageHoles) {
-		this.drinageHoles = drinageHoles;
+	public void setDrainageHoles(int drainageHoles) {
+		this.drainageHoles = drainageHoles;
 	}
 
-	public String getPlanterColor() {
-		return planterColor;
+	public String getColor() {
+		return color;
 	}
 
-	public void setPlanterColor(String planterColor) {
-		this.planterColor = planterColor;
+	public void setColor(String color) {
+		this.color = color;
 	}
 
-	public String getPlanterShape() {
-		return planterShape;
+	public String getShape() {
+		return shape;
 	}
 
-	public void setPlanterShape(String planterShape) {
-		this.planterShape = planterShape;
+	public void setShape(String shape) {
+		this.shape = shape;
 	}
 
-	public int getPlanterStock() {
-		return planterStock;
+	public int getStock() {
+		return stock;
 	}
 
-	public void setPlanterStock(int planterStock) {
-		this.planterStock = planterStock;
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 
-	public int getPlanterCost() {
-		return planterCost;
+	public int getCost() {
+		return cost;
 	}
 
-	public void setPlanterCost(int planterCost) {
-		this.planterCost = planterCost;
+	public void setCost(int cost) {
+		this.cost = cost;
 	}
-
 
 	@Override
 	public String toString() {
-		return "Planter [planterId=" + planterId + ", planterheight=" + planterHeight + ", planterCapacity="
-				+ planterCapacity + ", drinageHoles=" + drinageHoles + ", planterColor=" + planterColor
-				+ ", planterShape=" + planterShape + ", planterStock=" + planterStock + ", planterCost=" + planterCost
-				+ "]";
+		return "Planter [id=" + id + ", height=" + height + ", capacity=" + capacity + ", drainageHoles="
+				+ drainageHoles + ", color=" + color + ", shape=" + shape + ", stock=" + stock + ", cost=" + cost + "]";
 	}
+
+
 
 }
