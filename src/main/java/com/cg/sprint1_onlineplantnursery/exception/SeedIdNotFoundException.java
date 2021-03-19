@@ -1,13 +1,24 @@
 package com.cg.sprint1_onlineplantnursery.exception;
 
-public class SeedIdNotFoundException extends Exception {
+public class SeedIdNotFoundException extends RuntimeException {
 
-	public SeedIdNotFoundException() {
-		// TODO Auto-generated constructor stub
+	private static final long serialVersionUID = 1L;
+	private String message;
+	
+	public SeedIdNotFoundException(String message) {
+		super();
+		this.message = message;
 	}
 
-	public SeedIdNotFoundException(String message) {
-		super(message);
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public SeedIdNotFoundException() {
 		// TODO Auto-generated constructor stub
 	}
 

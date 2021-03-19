@@ -1,7 +1,6 @@
 package com.cg.sprint1_onlineplantnursery.controller;
 
 import java.util.List;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
-import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.service.ISeedService;
 
 @RestController
@@ -38,46 +36,39 @@ public class SeedController extends WebSecurityConfigurerAdapter{
 	}
 	
 	@PutMapping("/seeds")
-	public ResponseEntity<Seed> updateSeed(@RequestBody Seed seed) throws SeedIdNotFoundException{
-//		if(seedService.getSeed(seed.getId()).isPresent())
-//		{
-			seedService.updateSeed(seed);
-			return new ResponseEntity<Seed>(seed,HttpStatus.CREATED);
-//		}
-//		else 
-//		{
-//			throw new SeedIdNotFoundException("Invalid Seed ID...Cannot update");
-//		}
+	public ResponseEntity<Seed> updateSeed(@RequestBody Seed seed) {
+		seedService.updateSeed(seed);
+		return new ResponseEntity<Seed>(seed,HttpStatus.CREATED);
+	}
+	
+	@PutMapping("/seeds/{commonName}/{stock}")
+	public ResponseEntity<Seed> addStock(@PathVariable String commonName,@PathVariable int stock){
+		Seed seedResult = seedService.addStock(commonName, stock);
+		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/seeds")
-	public ResponseEntity<Seed> deleteSeed(@RequestBody Seed seed) throws SeedIdNotFoundException{
-//		if(seedService.getSeed(seed.getId()).isPresent())
-//		{
-			Seed seedDeleted = seedService.deleteSeed(seed);
-			return new ResponseEntity<Seed> (seedDeleted,HttpStatus.ACCEPTED);
-//		}
-//		else {
-//			throw new SeedIdNotFoundException("Cannot be deleted...(Invalid seed Id)");
-//		}	
+	public ResponseEntity<Seed> deleteSeed(@RequestBody Seed seed){
+		Seed seedDeleted = seedService.deleteSeed(seed);
+		return new ResponseEntity<Seed> (seedDeleted,HttpStatus.ACCEPTED);
+	}
+	
+	@DeleteMapping("/seeds/{commonName}/{stock}")
+	public ResponseEntity<Seed> buySeeds(@PathVariable String commonName,@PathVariable int stock){
+		Seed seedResult = seedService.buySeeds(commonName, stock);
+		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
 	}
 		
 	@GetMapping("/seeds/id/{id}")
-	public ResponseEntity<Seed> getSeed(@PathVariable int id) throws SeedIdNotFoundException{
-//		if(seedService.getSeed(id).isPresent()) {
-			Seed seedRes = seedService.getSeed(id);
-			return new ResponseEntity<Seed>(seedRes,HttpStatus.OK);
-//		}
-//		else {
-//			throw new SeedIdNotFoundException("Invalid Seed ID...Cannot fetch entities ");
-//		}
-		
+	public ResponseEntity<Seed> getSeed(@PathVariable int id){
+		Seed seedRes = seedService.getSeed(id);
+		return new ResponseEntity<Seed>(seedRes,HttpStatus.OK);	
 	}
 	
 	@GetMapping("/seeds/commonName/{commonName}")
-	public ResponseEntity<Seed> getSeed(@PathVariable String commonName){
-			Seed seedRes = seedService.getSeed(commonName);
-			return new ResponseEntity<Seed>(seedRes,HttpStatus.ACCEPTED);	
+	public ResponseEntity<Seed> getSeed(@PathVariable String commonName) {
+		Seed seedRes = seedService.getSeed(commonName);
+		return new ResponseEntity<Seed>(seedRes,HttpStatus.ACCEPTED);	
 	}
 	
 	@GetMapping("/seeds")

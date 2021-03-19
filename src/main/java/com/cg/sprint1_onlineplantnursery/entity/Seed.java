@@ -13,7 +13,7 @@ import javax.validation.constraints.Positive;
 public class Seed {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
 	@NotBlank(message = "Name is required")

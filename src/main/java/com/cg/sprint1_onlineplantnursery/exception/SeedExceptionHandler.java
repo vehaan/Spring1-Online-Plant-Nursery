@@ -25,8 +25,14 @@ public class SeedExceptionHandler {
 	}
 	
 	@ExceptionHandler(SeedIdNotFoundException.class)
-	ResponseEntity<?> exceptionHandler(SeedIdNotFoundException ex) {
+	ResponseEntity<?> SeedIdNotFound(SeedIdNotFoundException ex) {
 		ErrorMessage errorMessage = new ErrorMessage("400", ex.getMessage());
+		return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(OutOfStockException.class)
+	ResponseEntity<?> OutOfStock(OutOfStockException oex){
+		ErrorMessage errorMessage = new ErrorMessage("400",oex.getMessage());
 		return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
 	}
 
