@@ -69,7 +69,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	
 	@PatchMapping("/{id}")
 	public ResponseEntity<Planter> partialUpdate(@RequestBody Map<Object, Object> fields, @PathVariable int id){
-		return new ResponseEntity<Planter>(planterService.partialUpdate(fields, id), HttpStatus.OK);
+		return new ResponseEntity<Planter>(planterService.partialUpdatePlanter(fields, id), HttpStatus.OK);
 	}
 	
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	
 	@GetMapping("/planters/{min}/{max}")
 	public ResponseEntity<List<Planter>> getAllPlantersInRange(@PathVariable double min, @PathVariable double max ){
-		List<Planter> planters = planterService.viewAllPlanters(min, max);
+		List<Planter> planters = planterService.viewPlanters(min, max);
 		if ( planters.size() != 0)
 			return new ResponseEntity <List<Planter>>(planters,HttpStatus.OK);
 		return new ResponseEntity <List<Planter>>(planters,HttpStatus.NOT_FOUND);
@@ -133,7 +133,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	}
 	
 	@GetMapping("/plantersByHeight/{height}")
-	public ResponseEntity<List<Planter>> getPlanterByShape(@PathVariable float height){
+	public ResponseEntity<List<Planter>> getPlanterByHeight(@PathVariable float height){
 		List<Planter> planters = planterService.viewPlantersByHeight(height);
 		if ( planters.size() != 0)
 			return new ResponseEntity <List<Planter>>(planters,HttpStatus.OK);

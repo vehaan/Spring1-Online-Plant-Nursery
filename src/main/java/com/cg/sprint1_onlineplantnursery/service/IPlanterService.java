@@ -13,8 +13,8 @@ public interface IPlanterService {
 	Planter viewPlanter(int planterId);
 	List<Planter> viewAllPlanters();
 	
-	Planter partialUpdate(Map<Object, Object> fields, int id);
-	List<Planter> viewAllPlanters(double minCost, double maxCost);
+	Planter partialUpdatePlanter(Map<Object, Object> fields, int id);
+	List<Planter> viewPlanters(double minCost, double maxCost);
 	Planter deleteEntireStock(int id);
 	Planter removePlantersFromStock(Planter planter, int quantity);
 
@@ -28,6 +28,8 @@ public interface IPlanterService {
 	List<Planter> viewPlantersByShape(String planterShape);
 	List<Planter> viewPlantersByCapacity(int capacity);
 	List<Planter> viewPlantersByDrainageHoles(int drainageHoles);
+	
+	
 	
 	
 }

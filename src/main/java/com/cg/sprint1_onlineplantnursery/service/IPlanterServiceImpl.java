@@ -78,7 +78,7 @@ public class IPlanterServiceImpl implements IPlanterService {
 	}
 	
 	@Override
-	public Planter partialUpdate(Map<Object,Object> fields, int id) {
+	public Planter partialUpdatePlanter(Map<Object,Object> fields, int id) {
 		Optional<Planter> optionalPlanter = planterRepo.findById(id);
 		if (optionalPlanter.isPresent()) {
 			Planter planter  = optionalPlanter.get();
@@ -96,8 +96,9 @@ public class IPlanterServiceImpl implements IPlanterService {
 	//ADD A SERVICE FOR PATCH HERE
 	
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 	@Override
-	public List<Planter> viewAllPlanters(double minCost, double maxCost) {
+	public List<Planter> viewPlanters(double minCost, double maxCost) {
 		List<Planter> allPlanters = planterRepo.findAll();
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getCost() >minCost && p.getCost() < maxCost).collect(Collectors.toList());
 		return requiredPlanters;

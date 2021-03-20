@@ -55,6 +55,25 @@ public class Planter {
 		this.cost = cost;
 	}
 
+	
+
+	public Planter(float height, String shape,int stock, int cost) {
+		super();
+		this.height = height;
+		this.shape = shape;
+		this.stock = stock;
+		this.cost = cost;
+	}
+	
+	public Planter(int id, float height, String shape,int stock, int cost) {
+		super();
+		this.id = id;
+		this.height = height;
+		this.shape = shape;
+		this.stock = stock;
+		this.cost = cost;
+	}
+
 
 
 	public Planter() {
