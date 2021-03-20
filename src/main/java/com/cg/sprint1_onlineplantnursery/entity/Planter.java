@@ -1,7 +1,6 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 import com.sun.istack.NotNull;
@@ -13,7 +12,6 @@ public class Planter {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
-	@NotNull
 	@Positive (message = "The height must be positive")
 	private float height;
 	

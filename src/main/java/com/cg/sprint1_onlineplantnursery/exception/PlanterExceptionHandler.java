@@ -30,5 +30,11 @@ public class PlanterExceptionHandler {
 		ErrorMessage errorMessage = new ErrorMessage("400", ex.getMessage());
 		return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(InsufficientStockException.class)
+	ResponseEntity<?> exceptionHandler(InsufficientStockException ex) {
+		ErrorMessage errorMessage = new ErrorMessage("400", ex.getMessage());
+		return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+	}
 
 }

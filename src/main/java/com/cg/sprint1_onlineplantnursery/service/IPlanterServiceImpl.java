@@ -1,11 +1,15 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
+import com.cg.sprint1_onlineplantnursery.exception.InsufficientStockException;
 import com.cg.sprint1_onlineplantnursery.exception.ResourceNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.IPlanterRepository;
 
@@ -13,89 +17,177 @@ import com.cg.sprint1_onlineplantnursery.repository.IPlanterRepository;
 public class IPlanterServiceImpl implements IPlanterService {
 	
 	@Autowired
-	IPlanterRepository iplanterRepo;
+	IPlanterRepository planterRepo;
 		
 	@Override
 	public Planter addPlanter(Planter planter) {
 		if (planter.getId() == null)
-			return iplanterRepo.save(planter);
-		Optional<Planter> optionalPlanter = iplanterRepo.findById(planter.getId()); //if not present gives NoSuchElementException. If id is null then IllegalArgumentException. So tackle that  
+			return planterRepo.save(planter);
+		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId()); 
 		if (optionalPlanter.isPresent()) {
 			Planter p = optionalPlanter.get();
 			p.setStock(p.getStock()+1);
-			return iplanterRepo.save(p);
+			return planterRepo.save(p);
 		}else {
-			return iplanterRepo.save(planter);
+			return planterRepo.save(planter);
 		}
 	}
 
 	@Override
-	public Planter deletePlanter(Planter planter) throws ResourceNotFoundException{
-		Optional<Planter> optionalPlanter = iplanterRepo.findById(planter.getId()); //if not present gives NoSuchElementException. If id is null then IllegalArgumentException. So tackle that  
+	public Planter deletePlanter(Planter planter) {
+		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId()); 
 		if (optionalPlanter.isPresent()) {
 			Planter p = optionalPlanter.get();
 			p.setStock(p.getStock()-1);
 			if (p.getStock() < 1)
-				iplanterRepo.delete(p);
+				planterRepo.delete(p);
 			else
-				iplanterRepo.save(p);
+				planterRepo.save(p);
 		}
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The planter with given id does not exist"));
 	}
 	
 	@Override
-	public Planter deleteEntireStock(int id) throws ResourceNotFoundException{
-		Optional<Planter> optionalPlanter = iplanterRepo.findById(id); //if not present gives NoSuchElementException. If id is null then IllegalArgumentException. So tackle that  
-		if (optionalPlanter.isPresent()) {
-			Planter p = optionalPlanter.get();
-			iplanterRepo.delete(p);
-			
-		}
-		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The stock for planter with given id does not exist"));
-	}
-	
-	@Override
-	public Planter viewPlanter(int id) throws ResourceNotFoundException {
-		Optional<Planter> optionalPlanter =  iplanterRepo.findById(id); //if not present gives NoSuchElementException. If id is null then IllegalArgumentException. So tackle that  
+	public Planter viewPlanter(int id) {
+		Optional<Planter> optionalPlanter =  planterRepo.findById(id); 
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("Planter does not exist with given id"));
 	}
 
 
 	@Override
 	public List<Planter> viewAllPlanters() {
-		return iplanterRepo.findAll();
+		return planterRepo.findAll();
 	}
-
+	
+	@Override
+	public Planter updatePlanter(Planter planter) {
+		//id must be given
+		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId());  
+		if (optionalPlanter.isPresent()) {
+			//not null check
+			/*
+			 * Planter p = optionalPlanter.get(); p.setColor(planter.getColor());
+			 * p.setDrainageHoles(planter.getDrainageHoles());
+			 * p.setCapacity(planter.getCapacity()); p.setCost(planter.getCost());
+			 * p.setHeight(planter.getHeight()); p.setShape(planter.getShape());
+			 * p.setStock(planter.getStock());
+			 */
+			planterRepo.save(planter);
+		}
+		return planterRepo.findById(planter.getId()).orElseThrow(() -> new ResourceNotFoundException("Planter with given id does not exist. So, update can not be done"));
+	}
+	
+	@Override
+	public Planter partialUpdate(Map<Object,Object> fields, int id) {
+		Optional<Planter> optionalPlanter = planterRepo.findById(id);
+		if (optionalPlanter.isPresent()) {
+			Planter planter  = optionalPlanter.get();
+			fields.forEach((k,v) -> {
+				Field field = ReflectionUtils.findRequiredField(Planter.class, (String)k);
+				field.setAccessible(true);
+				ReflectionUtils.setField(field, planter, v);
+			});
+			return planterRepo.save(planter);
+		}
+		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("Planter with given id does not exist. So, patch can not be done."));
+	}
+	
+	
+	//ADD A SERVICE FOR PATCH HERE
+	
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	@Override
 	public List<Planter> viewAllPlanters(double minCost, double maxCost) {
-		List<Planter> allPlanters = iplanterRepo.findAll();
+		List<Planter> allPlanters = planterRepo.findAll();
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getCost() >minCost && p.getCost() < maxCost).collect(Collectors.toList());
 		return requiredPlanters;
 	}
-
+	
 	@Override
-	public List<Planter> viewPlantersByShape(String planterShape) {
-		List<Planter> allPlanters = iplanterRepo.findAll();
-		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getShape().equals(planterShape)).collect(Collectors.toList());
+	public Planter deleteEntireStock(int id) {
+		Optional<Planter> optionalPlanter = planterRepo.findById(id);
+		if (optionalPlanter.isPresent()) {
+			Planter p = optionalPlanter.get();
+			planterRepo.delete(p);
+			
+		}
+		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The stock for planter with given id does not exist"));
+	}
+	
+	@Override
+	public Planter removePlantersFromStock(Planter planter,int quantity) {
+		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId()); 
+		if (optionalPlanter.isPresent()) {
+			Planter p = optionalPlanter.get();
+			if (p.getStock()-quantity < 0)
+				throw new InsufficientStockException("Insufficient Stock");
+				
+			p.setStock(p.getStock() - quantity);
+			if (p.getStock() == 0)
+				planterRepo.delete(p);
+			else
+				planterRepo.save(p);
+		}
+		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The planter with given id does not exist"));
+	}
+	
+	//SORTBY
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	@Override
+	public List<Planter> costLowToHigh() {
+		List<Planter> allPlanters = planterRepo.findAll();
+		List<Planter> sortedPlanters = allPlanters.stream().sorted((Planter o1,Planter o2) -> o1.getCost() - o2.getCost()).collect(Collectors.toList());
+		return sortedPlanters;
+	}
+	
+	@Override
+	public List<Planter> costHighToLow() {
+		List<Planter> allPlanters = planterRepo.findAll();
+		List<Planter> sortedPlanters = allPlanters.stream().sorted((Planter o1,Planter o2) -> o2.getCost() - o1.getCost()).collect(Collectors.toList());
+		return sortedPlanters;
+	}
+	
+	
+	//FILTER
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	@Override
+	public List<Planter> viewPlantersByColor(String color) {
+		List<Planter> allPlanters = planterRepo.findAll();
+		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getColor().equals(color)).collect(Collectors.toList());
 		return requiredPlanters;
 			
 	}
-
+	
 	@Override
-	public Planter updatePlanter(Planter planter) throws ResourceNotFoundException {
-		Optional<Planter> optionalPlanter = iplanterRepo.findById(planter.getId()); //if not present gives NoSuchElementException. If id is null then IllegalArgumentException. So tackle that and 
-		if (optionalPlanter.isPresent()) {
-			Planter p = optionalPlanter.get();
-			p.setColor(planter.getColor());
-			p.setDrainageHoles(planter.getDrainageHoles());
-			p.setCapacity(planter.getCapacity());
-			p.setCost(planter.getCost());
-			p.setHeight(planter.getHeight());
-			p.setShape(planter.getShape());
-			p.setStock(planter.getStock());
-			iplanterRepo.save(p);
-		}
-		return iplanterRepo.findById(planter.getId()).orElseThrow(() -> new ResourceNotFoundException("Planter with given id does not exist. So update can not be done"));
+	public List<Planter> viewPlantersByShape(String shape) {
+		List<Planter> allPlanters = planterRepo.findAll();
+		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getShape().equals(shape)).collect(Collectors.toList());
+		return requiredPlanters;
+			
+	}
+	
+	@Override
+	public List<Planter> viewPlantersByHeight(float height) {
+		List<Planter> allPlanters = planterRepo.findAll();
+		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getHeight() == height).collect(Collectors.toList());
+		return requiredPlanters;
+			
+	}
+	
+	@Override
+	public List<Planter> viewPlantersByCapacity(int capacity) {
+		List<Planter> allPlanters = planterRepo.findAll();
+		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getCapacity() == capacity).collect(Collectors.toList());
+		return requiredPlanters;
+			
+	}
+	
+	@Override
+	public List<Planter> viewPlantersByDrainageHoles(int drainageHoles) {
+		List<Planter> allPlanters = planterRepo.findAll();
+		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getDrainageHoles() == drainageHoles).collect(Collectors.toList());
+		return requiredPlanters;
+			
 	}
 	
 }
