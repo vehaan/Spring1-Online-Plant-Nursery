@@ -1,5 +1,6 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,11 @@ import javax.validation.constraints.Positive;
 public class Plant {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer Id;
-	private Integer Height;
-	private String Spread;
+	
+	private Integer id;
+	private Integer height;
+	private String spread;
+	@Column(unique = true)
 	@NotBlank(message = "Name is necessary")
 	private String commonName;  //NotEmpty
 	private String bloomTime;
@@ -22,12 +25,12 @@ public class Plant {
 	private String difficultyLevel;
 	private String temparature;
 	private String typeOfPlant;
-	private String Description;
+	private String description;
 	@NotNull
 	@Positive(message = "Stock should be specified and should be a positive number")
-	private Integer Stock; //NotEmpty
+	private Integer stock; //NotEmpty
 	@Positive(message = "Plant cost should be specified and should be a positive number")
-	private double Cost;  //Positive and NotEmtpy
+	private double cost;  //Positive and NotEmtpy
 	
 	
 
@@ -43,54 +46,54 @@ public class Plant {
 			@NotNull @Positive(message = "Stock should be specified and should be a positive number") Integer stock,
 			@Positive(message = "Plant cost should be specified and should be a positive number") double cost) {
 		super();
-		Id = id;
-		Height = height;
-		Spread = spread;
+		this.id = id;
+		this.height = height;
+		this.spread = spread;
 		this.commonName = commonName;
 		this.bloomTime = bloomTime;
 		this.medicinalOrCulinaryUse = medicinalOrCulinaryUse;
 		this.difficultyLevel = difficultyLevel;
 		this.temparature = temparature;
 		this.typeOfPlant = typeOfPlant;
-		Description = description;
-		Stock = stock;
-		Cost = cost;
+		this.description = description;
+		this.stock = stock;
+		this.cost = cost;
 	}
 
 
 
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 
 
 
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
 
 
 	public Integer getHeight() {
-		return Height;
+		return height;
 	}
 
 
 
 	public void setHeight(Integer height) {
-		Height = height;
+		this.height = height;
 	}
 
 
 
 	public String getSpread() {
-		return Spread;
+		return spread;
 	}
 
 
 
 	public void setSpread(String spread) {
-		Spread = spread;
+		this.spread = spread;
 	}
 
 
@@ -168,50 +171,48 @@ public class Plant {
 
 
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 
 
 
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 
 
 
 	public Integer getStock() {
-		return Stock;
+		return stock;
 	}
 
 
 
 	public void setStock(Integer stock) {
-		Stock = stock;
+		this.stock = stock;
 	}
 
 
 
 	public double getCost() {
-		return Cost;
+		return cost;
 	}
 
 
 
 	public void setCost(double cost) {
-		Cost = cost;
+		this.cost = cost;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Plant [Id=" + Id + ", Height=" + Height + ", Spread=" + Spread + ", commonName=" + commonName
+		return "Plant [id=" + id + ", height=" + height + ", spread=" + spread + ", commonName=" + commonName
 				+ ", bloomTime=" + bloomTime + ", medicinalOrCulinaryUse=" + medicinalOrCulinaryUse
 				+ ", difficultyLevel=" + difficultyLevel + ", temparature=" + temparature + ", typeOfPlant="
-				+ typeOfPlant + ", Description=" + Description + ", Stock=" + Stock + ", Cost=" + Cost + "]";
+				+ typeOfPlant + ", description=" + description + ", Stock=" + stock + ", Cost=" + cost + "]";
 	}
-
-	
 
 	
 	

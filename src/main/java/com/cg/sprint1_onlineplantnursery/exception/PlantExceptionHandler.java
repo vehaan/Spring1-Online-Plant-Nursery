@@ -28,8 +28,8 @@ public class PlantExceptionHandler {
 	
 	@ResponseBody
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(NullPointerException.class)
-	public ErrorMessage handleNullPointerException(NullPointerException ex) {
+	@ExceptionHandler(PlantIdNotFoundException.class)
+	public ErrorMessage handleNullPointerException(PlantIdNotFoundException ex) {
 		//System.out.println(ex.getMessage());
 		return new ErrorMessage("400",ex.getMessage());
 		//return("this plant does not exist !");
