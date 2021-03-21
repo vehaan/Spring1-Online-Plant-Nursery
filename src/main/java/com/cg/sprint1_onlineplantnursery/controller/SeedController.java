@@ -51,7 +51,7 @@ public class SeedController extends WebSecurityConfigurerAdapter{
 		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
 	}
 	
-	@PatchMapping("/seeds/{id}")
+	@PatchMapping("/seeds/id/{id}")
 	public ResponseEntity<Seed> updateSeed(@PathVariable int id, @RequestBody Map<Object,Object> fields){
 		Seed seed = seedService.getSeed(id);
 		fields.forEach((k,v) -> {
@@ -96,5 +96,29 @@ public class SeedController extends WebSecurityConfigurerAdapter{
 	public ResponseEntity<List<Seed>> getSeeds(@PathVariable String typeOfSeed){
 		List<Seed> seedList = seedService.getSeeds(typeOfSeed);
 		return new ResponseEntity<List<Seed>>(seedList,HttpStatus.ACCEPTED);
+	}
+	
+	@GetMapping("/seeds/costLowToHigh")
+	public ResponseEntity<List<Seed>> costLowToHigh(){
+		List<Seed> seeds = seedService.costLowToHigh();
+		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
+	}
+		
+	@GetMapping("/seeds/costHighToLow")
+	public ResponseEntity<List<Seed>> costHighToLow(){
+		List<Seed> seeds = seedService.costHighToLow();
+		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
+	}
+	
+	@GetMapping("/seeds/filterOnType/{type}")
+	public ResponseEntity<List<Seed>> filterByType(@PathVariable String type){
+		List<Seed> seeds = seedService.filterSeedByType(type);
+		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
+	}
+	
+	@GetMapping("/seeds/filterOnDifficulty/{difficulty}")
+	public ResponseEntity<List<Seed>> filterByDifficulty(@PathVariable String difficulty){
+		List<Seed> seeds = seedService.filterSeedByDifficulty(difficulty);
+		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
 	}
 }

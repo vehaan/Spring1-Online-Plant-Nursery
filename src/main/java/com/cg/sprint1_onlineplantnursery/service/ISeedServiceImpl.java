@@ -2,6 +2,8 @@ package com.cg.sprint1_onlineplantnursery.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
@@ -89,5 +91,38 @@ public class ISeedServiceImpl implements ISeedService{
 	public List<Seed> getSeeds(String type) {
 		return seedRepo.findByType(type);
 	}
-
+	
+	//SORT BY
+	
+	@Override
+	public List<Seed> costLowToHigh() {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> sortedSeeds = seeds.stream().sorted((Seed s1,Seed s2) -> (int)s1.getCost() - (int)s2.getCost()).collect(Collectors.toList());
+		return sortedSeeds;
+	}
+	
+	@Override
+	public List<Seed> costHighToLow() {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> sortedSeeds = seeds.stream().sorted((Seed s1,Seed s2) -> (int)s2.getCost() - (int)s1.getCost()).collect(Collectors.toList());
+		return sortedSeeds;
+	}
+	
+	//Filter
+	
+	@Override
+	public List<Seed> filterSeedByType(String type) {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getType().equals(type)).collect(Collectors.toList());
+		return filteredSeeds;
+			
+	}
+	
+	@Override
+	public List<Seed> filterSeedByDifficulty(String difficultyLevel) {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getDifficultyLevel().equals(difficultyLevel)).collect(Collectors.toList());
+		return filteredSeeds;
+			
+	}
 }

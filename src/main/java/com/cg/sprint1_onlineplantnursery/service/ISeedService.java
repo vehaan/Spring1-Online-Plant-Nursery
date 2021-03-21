@@ -16,5 +16,9 @@ public interface ISeedService {
 	List<Seed> getSeeds(String type);
 	Seed addStock(String commonName, int stock) throws SeedIdNotFoundException;
 	Seed buySeeds(String commonName,int stock) throws SeedIdNotFoundException, OutOfStockException;
+	List<Seed> costLowToHigh();
+	List<Seed> costHighToLow();
+	List<Seed> filterSeedByType(String type);
+	List<Seed> filterSeedByDifficulty(String shape);
 	
 }
