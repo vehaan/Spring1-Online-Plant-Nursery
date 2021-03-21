@@ -1,14 +1,18 @@
 package com.cg.sprint1_onlineplantnursery.controller;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,6 +49,17 @@ public class SeedController extends WebSecurityConfigurerAdapter{
 	public ResponseEntity<Seed> addStock(@PathVariable String commonName,@PathVariable int stock){
 		Seed seedResult = seedService.addStock(commonName, stock);
 		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
+	}
+	
+	@PatchMapping("/seeds/{id}")
+	public ResponseEntity<Seed> updateSeed(@PathVariable int id, @RequestBody Map<Object,Object> fields){
+		Seed seed = seedService.getSeed(id);
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(Seed.class, (String) k);
+			field.setAccessible(true);
+			ReflectionUtils.setField(field, seed, v);
+		});
+		return new ResponseEntity<Seed>(seedService.updateSeed(seed),HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/seeds")
