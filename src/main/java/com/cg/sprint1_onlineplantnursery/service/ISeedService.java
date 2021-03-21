@@ -19,6 +19,6 @@ public interface ISeedService {
 	List<Seed> costLowToHigh();
 	List<Seed> costHighToLow();
 	List<Seed> filterSeedByType(String type);
-	List<Seed> filterSeedByDifficulty(String shape);
+	List<Seed> filterSeedByDifficulty(String difficulty);
 	
 }

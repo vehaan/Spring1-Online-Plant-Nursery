@@ -1,13 +1,17 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 @Entity
 public class Seed {
@@ -19,7 +23,7 @@ public class Seed {
 	@NotBlank(message = "Name is required")
 	@Column(unique = true)
 	private String commonName;
-	
+
 	private String bloomTime;
 	private String watering;
 	private String difficultyLevel;
@@ -38,6 +42,10 @@ public class Seed {
 	@NotNull
 	@Positive(message = "A positive value of seeds per packet required")
 	private Integer seedsPerPacket;
+	
+//	@JsonInclude()
+//	@Transient
+//	List<SeedLink> links = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -116,6 +124,12 @@ public class Seed {
 		this.seedsPerPacket = seedsPerPacket;
 	}
 	
+//	public List<SeedLink> getLinks() {
+//		return links;
+//	}
+//	public void setLinks(List<SeedLink> links) {
+//		this.links = links;
+//	}
 	public Seed(Integer id, @NotBlank(message = "Name is required") String commonName, String bloomTime,
 			String watering, String difficultyLevel, String temperature, String type, String description,
 			@NotNull @Positive(message = "A positive value of stock required") Integer stock,
@@ -123,6 +137,26 @@ public class Seed {
 			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
 		super();
 		this.id = id;
+		this.commonName = commonName;
+		this.bloomTime = bloomTime;
+		this.watering = watering;
+		this.difficultyLevel = difficultyLevel;
+		this.temperature = temperature;
+		this.type = type;
+		this.description = description;
+		this.stock = stock;
+		this.cost = cost;
+		this.seedsPerPacket = seedsPerPacket;
+	}
+	
+
+	
+	public Seed(@NotBlank(message = "Name is required") String commonName, String bloomTime, String watering,
+			String difficultyLevel, String temperature, String type, String description,
+			@NotNull @Positive(message = "A positive value of stock required") Integer stock,
+			@NotNull @Positive(message = "A positive value of cost required") double cost,
+			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
+		super();
 		this.commonName = commonName;
 		this.bloomTime = bloomTime;
 		this.watering = watering;
