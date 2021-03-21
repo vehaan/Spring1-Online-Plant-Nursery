@@ -41,7 +41,6 @@ public class Sprint1OnlinePlantNurseryApplication {
 	      new Contact("Vehaan Singh Kundra", "https://www.google.com/", "vehaanskundra@gmail.com"), 
 	      "License of API", "http://www.apache.org/licenses/LICENSE-2.0", Collections.emptyList());
 	}
-	
 	//http://localhost:9191/OnlinePlantNursery/swagger-ui/index.html
 
 }
