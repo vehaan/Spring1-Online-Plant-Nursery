@@ -20,5 +20,6 @@ public interface ISeedService {
 	List<Seed> costHighToLow();
 	List<Seed> filterSeedByType(String type);
 	List<Seed> filterSeedByDifficulty(String difficulty);
+	Seed buySeeds(int id, int stock);
 	
 }

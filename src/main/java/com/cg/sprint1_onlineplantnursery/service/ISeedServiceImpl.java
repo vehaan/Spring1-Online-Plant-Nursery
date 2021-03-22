@@ -67,7 +67,25 @@ public class ISeedServiceImpl implements ISeedService{
 				return seedNew;
 			}
 		}
-		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Invalid Common name ... cannot update stock"));
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Invalid Common name ... Please select other seed"));
+	}
+	
+	@Override
+	public Seed buySeeds(int id, int stock) {
+		Optional<Seed> seedOptional = seedRepo.findById(id);
+		if(seedOptional.isPresent()) {
+			Seed seedNew = seedOptional.get();
+			int newStock = seedNew.getStock() - stock;
+			if(newStock<0) {
+				throw new OutOfStockException("Not enough stock");
+			}
+			else {
+				seedNew.setStock(newStock);
+				seedRepo.save(seedNew);
+				return seedNew;
+			}
+		}
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Invalid ID ... please select other seed"));
 	}
 	
 	@Override
@@ -125,4 +143,5 @@ public class ISeedServiceImpl implements ISeedService{
 		return filteredSeeds;
 			
 	}
+
 }

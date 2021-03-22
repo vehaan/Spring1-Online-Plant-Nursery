@@ -137,7 +137,7 @@ class SeedServiceTest {
 		sortedList.add(seed2);
 		sortedList.add(seed3);		
 		when(seedRepoMock.findAll()).thenReturn(sortedList);
-		assertEquals(sortedList, seedServiceMock.costLowToHigh());
+		assertEquals(sortedList, seedServiceMock.costHighToLow());
 	}
 	
 	

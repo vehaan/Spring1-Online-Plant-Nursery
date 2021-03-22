@@ -68,9 +68,15 @@ public class SeedController extends WebSecurityConfigurerAdapter{
 		return new ResponseEntity<Seed> (seedDeleted,HttpStatus.ACCEPTED);
 	}
 	
-	@DeleteMapping("/seeds/{commonName}/{stock}")
+	@DeleteMapping("/seeds/name/{commonName}/{stock}")
 	public ResponseEntity<Seed> buySeeds(@PathVariable String commonName,@PathVariable int stock){
 		Seed seedResult = seedService.buySeeds(commonName, stock);
+		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
+	}
+	
+	@DeleteMapping("/seeds/id/{id}/{stock}")
+	public ResponseEntity<Seed> buySeeds(@PathVariable int id,@PathVariable int stock){
+		Seed seedResult = seedService.buySeeds(id, stock);
 		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
 	}
 		
@@ -110,13 +116,13 @@ public class SeedController extends WebSecurityConfigurerAdapter{
 		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
 	}
 	
-	@GetMapping("/seeds/filterOnType/{type}")
+	@GetMapping("/seeds/filterbyType/{type}")
 	public ResponseEntity<List<Seed>> filterByType(@PathVariable String type){
 		List<Seed> seeds = seedService.filterSeedByType(type);
 		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
 	}
 	
-	@GetMapping("/seeds/filterOnDifficulty/{difficulty}")
+	@GetMapping("/seeds/filterbyDifficulty/{difficulty}")
 	public ResponseEntity<List<Seed>> filterByDifficulty(@PathVariable String difficulty){
 		List<Seed> seeds = seedService.filterSeedByDifficulty(difficulty);
 		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
