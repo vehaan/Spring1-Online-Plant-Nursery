@@ -2,8 +2,6 @@ package com.cg.sprint1_onlineplantnursery.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -12,18 +10,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
-
 
 @Component
 @Entity
 @Table(name = "CUSTOMERS", uniqueConstraints = { @UniqueConstraint(columnNames = "id"),
-		@UniqueConstraint(columnNames = "username") })
+		@UniqueConstraint(columnNames = "email") })
 
 public class Customer {
 
@@ -31,14 +30,20 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
 	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ_FOR_CUSTOMER", initialValue = 101, allocationSize = 1)
 	private Integer id;
+
+	@NotBlank
+	@Size(min = 3, message = "Name should be atleast three characters")
 	private String name;
+
+	@Email(message = "Enter a valid Email")
+	@NotBlank
 	private String email;
-	private String username;
+
+	@NotBlank
 	private String password;
 
 	@Embedded
 	private Address address;
-	
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Order> orders;
@@ -47,17 +52,26 @@ public class Customer {
 		super();
 	}
 
-	public Customer(String username, String password) {
+	public Customer(String email, String password) {
 		super();
-		this.username = username;
+		this.email = email;
 		this.password = password;
 	}
 
-	public Customer(String name, String email, String username, String password) {
+	public Customer(String name, String email, String password) {
 		super();
 		this.name = name;
 		this.email = email;
-		this.username = username;
+		this.password = password;
+	}
+
+	public Customer(Integer id,
+			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
+			@Email(message = "Enter a valid Email") @NotBlank String email, @NotBlank String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
 		this.password = password;
 	}
 
@@ -83,14 +97,6 @@ public class Customer {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getPassword() {
@@ -144,8 +150,8 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", username=" + username + ", password="
-				+ password + ", address=" + address + ", orders=" + orders + "]";
+		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address="
+				+ address + ", orders=" + orders + "]";
 	}
 
 }

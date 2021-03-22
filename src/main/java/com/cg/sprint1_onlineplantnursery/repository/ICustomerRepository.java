@@ -13,7 +13,7 @@ import com.cg.sprint1_onlineplantnursery.entity.Customer;
 
 public interface ICustomerRepository extends JpaRepository<Customer, Integer> {
 	
-	Optional<Customer> findByUsername(String username);
+	Optional<Customer> findByEmail(String email);
     
      Optional<Customer> findById(Integer id);
     

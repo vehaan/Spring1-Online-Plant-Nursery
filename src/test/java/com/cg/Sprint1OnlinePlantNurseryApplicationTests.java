@@ -23,7 +23,7 @@ class Sprint1OnlinePlantNurseryApplicationTests {
 	@Test
 	public void testaddcustomer() {
 
-		Customer c = new Customer("Pavan", "PavanKumar", "Pavan@123", "kumar");
+		Customer c = new Customer("Pavan", "PavanKumar",  "kumar");
 
 		Address a = new Address("2-31", "Sri ram", "Ongole", "Andhra", 523279);
 
@@ -40,7 +40,7 @@ class Sprint1OnlinePlantNurseryApplicationTests {
            
 		Order order2 =new Order(LocalDate.now().plusMonths(1),"CASH",37,300.0);
 
-		Customer c = new Customer("Pavan", "PavanKumar", "Pavan@123", "kumar");
+		Customer c = new Customer("Pavan", "PavanKumar",  "kumar");
 
 		Address a = new Address("2-31", "Sri ram", "Ongole", "Andhra", 523279);
 
