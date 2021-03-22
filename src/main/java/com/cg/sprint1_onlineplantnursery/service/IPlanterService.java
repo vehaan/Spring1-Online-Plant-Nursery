@@ -15,8 +15,8 @@ public interface IPlanterService {
 	
 	Planter partialUpdatePlanter(Map<Object, Object> fields, int id);
 	List<Planter> viewPlanters(double minCost, double maxCost);
-	Planter deleteEntireStock(int id);
-	Planter removePlantersFromStock(Planter planter, int quantity);
+	Planter removePlanterStock(Planter planter, int quantity);
+	Planter addPlanterStock(int id, int quantity);
 
 	//SORTBY
 	List<Planter> costLowToHigh();
@@ -28,6 +28,9 @@ public interface IPlanterService {
 	List<Planter> viewPlantersByShape(String planterShape);
 	List<Planter> viewPlantersByCapacity(int capacity);
 	List<Planter> viewPlantersByDrainageHoles(int drainageHoles);
+	List<Planter> deletePlanters();
+	
+	
 	
 	
 	

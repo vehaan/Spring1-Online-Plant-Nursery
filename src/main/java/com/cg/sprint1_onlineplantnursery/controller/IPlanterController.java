@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
 import com.cg.sprint1_onlineplantnursery.service.IPlanterService;
 
 @RestController
+//@RequestMapping("/planters")
 public class IPlanterController extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -46,7 +48,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	}
 	
 	//BOTH CUSTOMER AND ADMIN
-	@GetMapping("/planterById/{id}")
+	@GetMapping("/id/{id}")
 	public ResponseEntity<Planter> getPlanterById(@PathVariable int id) {
 		Planter planter = planterService.viewPlanter(id);
 		return new ResponseEntity<Planter>(planter,HttpStatus.OK); 
@@ -67,18 +69,13 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 		
 	}
 	
-	@PatchMapping("/{id}")
+	@PatchMapping("/planters/id/{id}")
 	public ResponseEntity<Planter> partialUpdate(@RequestBody Map<Object, Object> fields, @PathVariable int id){
 		return new ResponseEntity<Planter>(planterService.partialUpdatePlanter(fields, id), HttpStatus.OK);
 	}
 	
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	//WHEN CUSTOMER BUYS THE ENTIRE STOCK OR ADMIN NO MORE WANTS TO SELL THAT ITEM
-	@DeleteMapping("/planters/deleteStock/{id}")
-	public ResponseEntity<Planter> deleteEntireStock(@PathVariable int id) {
-		Planter planter =  planterService.deleteEntireStock(id);
-		return new ResponseEntity<Planter>(planter,HttpStatus.OK);
-	}
 	
 	@GetMapping("/planters/{min}/{max}")
 	public ResponseEntity<List<Planter>> getAllPlantersInRange(@PathVariable double min, @PathVariable double max ){
@@ -88,11 +85,24 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 		return new ResponseEntity <List<Planter>>(planters,HttpStatus.NOT_FOUND);
 	}
 	
-	@DeleteMapping("/planters/removeFromStock/{quantity}")
-	public ResponseEntity<Planter> removePlantersFromStock(@RequestBody Planter planter, @PathVariable int quantity) {
-		planter =  planterService.removePlantersFromStock(planter, quantity);
+	@DeleteMapping("/planters/{stock}")
+	public ResponseEntity<Planter> removeStock(@RequestBody Planter planter, @PathVariable int stock) {
+		planter =  planterService.removePlanterStock(planter, stock);
 		return new ResponseEntity<Planter>(planter,HttpStatus.OK);
 	}
+	
+	@PutMapping("/planter/{id}/{stock}")
+	public ResponseEntity<Planter> addStock(@PathVariable int id, @PathVariable int stock) {
+		Planter newPlanter =  planterService.addPlanterStock(id, stock);
+		return new ResponseEntity<Planter>(newPlanter,HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/planters")
+	public ResponseEntity<List<Planter>> deletePlanters() {
+		List<Planter> planters =  planterService.deletePlanters();
+		return new ResponseEntity<List<Planter>>(planters,HttpStatus.OK);
+	}
+	
 	
 	
 //	SORTBY
@@ -114,7 +124,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 //	FILTER
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 
-	@GetMapping("/plantersByColor/{color}")
+	@GetMapping("/filterByColor/{color}")
 	public ResponseEntity<List<Planter>> getPlanterByColor(@PathVariable String color){
 		List<Planter> planters = planterService.viewPlantersByColor(color);
 		if ( planters.size() != 0)
@@ -123,7 +133,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 		
 	}
 	
-	@GetMapping("/plantersByShape/{shape}")
+	@GetMapping("/filterByShape/{shape}")
 	public ResponseEntity<List<Planter>> getPlanterByShape(@PathVariable String shape){
 		List<Planter> planters = planterService.viewPlantersByShape(shape);
 		if ( planters.size() != 0)
@@ -132,7 +142,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 		
 	}
 	
-	@GetMapping("/plantersByHeight/{height}")
+	@GetMapping("/filterByHeight/{height}")
 	public ResponseEntity<List<Planter>> getPlanterByHeight(@PathVariable float height){
 		List<Planter> planters = planterService.viewPlantersByHeight(height);
 		if ( planters.size() != 0)
@@ -141,7 +151,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 		
 	}
 	
-	@GetMapping("/plantersByCapacity/{capacity}")
+	@GetMapping("/filterByCapacity/{capacity}")
 	public ResponseEntity<List<Planter>> getPlanterByCapacity(@PathVariable int capacity){
 		List<Planter> planters = planterService.viewPlantersByCapacity(capacity);
 		if ( planters.size() != 0)
@@ -150,7 +160,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 		
 	}
 	
-	@GetMapping("/plantersByDrainageHoles/{drainageHoles}")
+	@GetMapping("/filterByDrainageHoles/{drainageHoles}")
 	public ResponseEntity<List<Planter>> getPlanterBydrainageHoles(@PathVariable int drainageHoles){
 		List<Planter> planters = planterService.viewPlantersByDrainageHoles(drainageHoles);
 		if ( planters.size() != 0)

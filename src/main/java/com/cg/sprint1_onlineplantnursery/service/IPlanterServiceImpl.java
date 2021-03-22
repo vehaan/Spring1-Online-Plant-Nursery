@@ -105,18 +105,14 @@ public class IPlanterServiceImpl implements IPlanterService {
 	}
 	
 	@Override
-	public Planter deleteEntireStock(int id) {
-		Optional<Planter> optionalPlanter = planterRepo.findById(id);
-		if (optionalPlanter.isPresent()) {
-			Planter p = optionalPlanter.get();
-			planterRepo.delete(p);
-			
-		}
-		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The stock for planter with given id does not exist"));
+	public List<Planter> deletePlanters() {
+		List<Planter> allPlanters = planterRepo.findAll();
+		allPlanters.stream().forEach((p) -> planterRepo.delete(p));
+		return planterRepo.findAll();
 	}
 	
 	@Override
-	public Planter removePlantersFromStock(Planter planter,int quantity) {
+	public Planter removePlanterStock(Planter planter,int quantity) {
 		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId()); 
 		if (optionalPlanter.isPresent()) {
 			Planter p = optionalPlanter.get();
@@ -130,6 +126,26 @@ public class IPlanterServiceImpl implements IPlanterService {
 				planterRepo.save(p);
 		}
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The planter with given id does not exist"));
+	}
+	
+	@Override
+	public Planter addPlanterStock(int id, int quantity) {
+		//id must be given
+		Optional<Planter> optionalPlanter = planterRepo.findById(id);  
+		if (optionalPlanter.isPresent()) {
+			//not null check
+			/*
+			 * Planter p = optionalPlanter.get(); p.setColor(planter.getColor());
+			 * p.setDrainageHoles(planter.getDrainageHoles());
+			 * p.setCapacity(planter.getCapacity()); p.setCost(planter.getCost());
+			 * p.setHeight(planter.getHeight()); p.setShape(planter.getShape());
+			 * p.setStock(planter.getStock());
+			 */
+			Planter p = optionalPlanter.get();
+			p.setStock(p.getStock()+quantity);
+			planterRepo.save(p);
+		}
+		return planterRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Planter with given id does not exist. So, update can not be done"));
 	}
 	
 	//SORTBY
