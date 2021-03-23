@@ -22,7 +22,7 @@ import com.cg.sprint1_onlineplantnursery.service.IPlanterService;
 
 @RestController
 //@RequestMapping("/planters")
-public class IPlanterController extends WebSecurityConfigurerAdapter {
+public class PlanterController extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private IPlanterService planterService;
@@ -43,14 +43,14 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	//BOTH CUSTOMER AND ADMIN
 	@GetMapping("/planters")
 	public ResponseEntity<List<Planter>> getAllPlanters(){
-		List<Planter> planters = planterService.viewAllPlanters();
+		List<Planter> planters = planterService.getPlanters();
 		return new ResponseEntity<List<Planter>>(planters,HttpStatus.OK);
 	}
 	
 	//BOTH CUSTOMER AND ADMIN
 	@GetMapping("/id/{id}")
 	public ResponseEntity<Planter> getPlanterById(@PathVariable int id) {
-		Planter planter = planterService.viewPlanter(id);
+		Planter planter = planterService.getPlanter(id);
 		return new ResponseEntity<Planter>(planter,HttpStatus.OK); 
 	}
 	
@@ -79,7 +79,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	
 	@GetMapping("/planters/{min}/{max}")
 	public ResponseEntity<List<Planter>> getAllPlantersInRange(@PathVariable double min, @PathVariable double max ){
-		List<Planter> planters = planterService.viewPlanters(min, max);
+		List<Planter> planters = planterService.getPlanters(min, max);
 		if ( planters.size() != 0)
 			return new ResponseEntity <List<Planter>>(planters,HttpStatus.OK);
 		return new ResponseEntity <List<Planter>>(planters,HttpStatus.NOT_FOUND);
@@ -126,7 +126,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 
 	@GetMapping("/filterByColor/{color}")
 	public ResponseEntity<List<Planter>> getPlanterByColor(@PathVariable String color){
-		List<Planter> planters = planterService.viewPlantersByColor(color);
+		List<Planter> planters = planterService.filterPlantersByColor(color);
 		if ( planters.size() != 0)
 			return new ResponseEntity <List<Planter>>(planters,HttpStatus.OK);
 		return new ResponseEntity <List<Planter>>(planters,HttpStatus.NOT_FOUND);
@@ -135,7 +135,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	
 	@GetMapping("/filterByShape/{shape}")
 	public ResponseEntity<List<Planter>> getPlanterByShape(@PathVariable String shape){
-		List<Planter> planters = planterService.viewPlantersByShape(shape);
+		List<Planter> planters = planterService.filterPlantersByShape(shape);
 		if ( planters.size() != 0)
 			return new ResponseEntity <List<Planter>>(planters,HttpStatus.OK);
 		return new ResponseEntity <List<Planter>>(planters,HttpStatus.NOT_FOUND);
@@ -144,7 +144,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	
 	@GetMapping("/filterByHeight/{height}")
 	public ResponseEntity<List<Planter>> getPlanterByHeight(@PathVariable float height){
-		List<Planter> planters = planterService.viewPlantersByHeight(height);
+		List<Planter> planters = planterService.filterPlantersByHeight(height);
 		if ( planters.size() != 0)
 			return new ResponseEntity <List<Planter>>(planters,HttpStatus.OK);
 		return new ResponseEntity <List<Planter>>(planters,HttpStatus.NOT_FOUND);
@@ -153,7 +153,7 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	
 	@GetMapping("/filterByCapacity/{capacity}")
 	public ResponseEntity<List<Planter>> getPlanterByCapacity(@PathVariable int capacity){
-		List<Planter> planters = planterService.viewPlantersByCapacity(capacity);
+		List<Planter> planters = planterService.filterPlantersByCapacity(capacity);
 		if ( planters.size() != 0)
 			return new ResponseEntity <List<Planter>>(planters,HttpStatus.OK);
 		return new ResponseEntity <List<Planter>>(planters,HttpStatus.NOT_FOUND);
@@ -162,11 +162,19 @@ public class IPlanterController extends WebSecurityConfigurerAdapter {
 	
 	@GetMapping("/filterByDrainageHoles/{drainageHoles}")
 	public ResponseEntity<List<Planter>> getPlanterBydrainageHoles(@PathVariable int drainageHoles){
-		List<Planter> planters = planterService.viewPlantersByDrainageHoles(drainageHoles);
+		List<Planter> planters = planterService.filterPlantersByDrainageHoles(drainageHoles);
 		if ( planters.size() != 0)
 			return new ResponseEntity <List<Planter>>(planters,HttpStatus.OK);
 		return new ResponseEntity <List<Planter>>(planters,HttpStatus.NOT_FOUND);
 		
 	}
 	
+//	SERVICES WITH SEED
+//--------------------------------------------------------------------------------------------------------------------------------------------
+	
+//	@GetMapping("/planter/{planterId}/{seedId}/{seedStock}")
+//	public ResponseEntity<Planter> addCustomPlanter(@PathVariable int planterId,@PathVariable int seedId, @PathVariable int seedStock) {
+//		Planter planter =  planterService.addCustomPlanter(planterId, seedId, seedStock);
+//			return new ResponseEntity<Planter>(planter,HttpStatus.CREATED);
+//	}
 }

@@ -1,16 +1,16 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
 
 import com.sun.istack.NotNull;
 
 @Entity
-public class Planter {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+//@DiscriminatorColumn(name="type",discriminatorType=DiscriminatorType.STRING)
+//@DiscriminatorValue(value="Planter")
+public class Planter extends Product{
 	
 	@Positive (message = "The height must be positive")
 	private float height;
@@ -18,79 +18,65 @@ public class Planter {
 	@NotNull
 	private String shape;
 	
-	@Positive (message = "The stock must be positive")
-	private int stock;
-	
-	@Positive(message = "The cost must be a positive amount")
-	private int cost;
+//	@OneToMany(cascade = CascadeType.ALL)
+//	private List<Seed> seeds;
 	
 	private int capacity;
 	private int drainageHoles;
 	private String color;
-	
-	public Planter(Integer id, @Positive(message = "The height must be positive") float height, String shape,
-			@Positive(message = "The stock must be positive") int stock,
-			@Positive(message = "The cost must be a positive amount") int cost, int capacity, int drainageHoles,
-			String color) {
+			
+	public Planter(@Positive(message = "The height must be positive") float height, String shape, int capacity,
+			int drainageHoles, String color) {
 		super();
-		this.id = id;
 		this.height = height;
 		this.shape = shape;
-		this.stock = stock;
-		this.cost = cost;
 		this.capacity = capacity;
 		this.drainageHoles = drainageHoles;
 		this.color = color;
 	}
 
-	public Planter(@Positive(message = "The height must be positive") float height, String shape,
-			@Positive(message = "The stock must be positive") int stock,
-			@Positive(message = "The cost must be a positive amount") int cost, int capacity, int drainageHoles,
-			String color) {
-		super();
+	public Planter(int cost, int stock, @Positive(message = "The height must be positive") float height, String shape,
+			int capacity, int drainageHoles, String color) {
+		super(cost, stock);
 		this.height = height;
 		this.shape = shape;
-		this.stock = stock;
-		this.cost = cost;
+		this.capacity = capacity;
+		this.drainageHoles = drainageHoles;
+		this.color = color;
+	}
+
+	public Planter(int id, int cost, int stock, Type type,
+			@Positive(message = "The height must be positive") float height, String shape, int capacity,
+			int drainageHoles, String color) {
+		super(id, cost, stock, type);
+		this.height = height;
+		this.shape = shape;
 		this.capacity = capacity;
 		this.drainageHoles = drainageHoles;
 		this.color = color;
 	}
 	
-	public Planter(@Positive(message = "The height must be positive") float height, String shape,
-			@Positive(message = "The stock must be positive") int stock,
-			@Positive(message = "The cost must be a positive amount") int cost) {
-		super();
+	
+
+	public Planter(int cost, int stock, Type type, @Positive(message = "The height must be positive") float height,
+			String shape, int capacity, int drainageHoles, String color) {
+		super(cost, stock, type);
 		this.height = height;
 		this.shape = shape;
-		this.stock = stock;
-		this.cost = cost;
+		this.capacity = capacity;
+		this.drainageHoles = drainageHoles;
+		this.color = color;
 	}
 
-	public Planter(Integer id, @Positive(message = "The height must be positive") float height, String shape,
-			@Positive(message = "The stock must be positive") int stock,
-			@Positive(message = "The cost must be a positive amount") int cost) {
-		super();
-		this.id = id;
+	public Planter(int id, @Positive(message = "The height must be positive") float height, String shape, int cost, int stock
+			) {
+		super(id, cost, stock);
 		this.height = height;
 		this.shape = shape;
-		this.stock = stock;
-		this.cost = cost;
 	}
 
 	public Planter() {
 		super();
-	}
-
-
-
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public float getHeight() {
@@ -107,22 +93,6 @@ public class Planter {
 
 	public void setShape(String shape) {
 		this.shape = shape;
-	}
-
-	public int getStock() {
-		return stock;
-	}
-
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-
-	public int getCost() {
-		return cost;
-	}
-
-	public void setCost(int cost) {
-		this.cost = cost;
 	}
 
 	public int getCapacity() {
@@ -151,11 +121,8 @@ public class Planter {
 
 	@Override
 	public String toString() {
-		return "Planter [id=" + id + ", height=" + height + ", shape=" + shape + ", stock=" + stock + ", cost=" + cost
-				+ ", capacity=" + capacity + ", drainageHoles=" + drainageHoles + ", color=" + color + "]";
+		return "Planter [height=" + height + ", shape=" + shape + ", capacity=" + capacity + ", drainageHoles="
+				+ drainageHoles + ", color=" + color + "]";
 	}
-
 	
-
-
 }

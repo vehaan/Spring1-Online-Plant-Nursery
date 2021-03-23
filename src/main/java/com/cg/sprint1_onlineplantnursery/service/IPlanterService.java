@@ -10,25 +10,31 @@ public interface IPlanterService {
 	Planter addPlanter(Planter planter);
 	Planter updatePlanter(Planter planter);
 	Planter deletePlanter(Planter planter);
-	Planter viewPlanter(int planterId);
-	List<Planter> viewAllPlanters();
+	Planter getPlanter(int planterId);
+	List<Planter> getPlanters();
+	Planter deletePlanterById(int id);
 	
 	Planter partialUpdatePlanter(Map<Object, Object> fields, int id);
-	List<Planter> viewPlanters(double minCost, double maxCost);
+	List<Planter> getPlanters(double minCost, double maxCost);
 	Planter removePlanterStock(Planter planter, int quantity);
 	Planter addPlanterStock(int id, int quantity);
+	List<Planter> deletePlanters();
 
 	//SORTBY
 	List<Planter> costLowToHigh();
 	List<Planter> costHighToLow();
 
 	//FILTER
-	List<Planter> viewPlantersByColor(String color);
-	List<Planter> viewPlantersByHeight(float height);
-	List<Planter> viewPlantersByShape(String planterShape);
-	List<Planter> viewPlantersByCapacity(int capacity);
-	List<Planter> viewPlantersByDrainageHoles(int drainageHoles);
-	List<Planter> deletePlanters();
+	List<Planter> filterPlantersByColor(String color);
+	List<Planter> filterPlantersByHeight(float height);
+	List<Planter> filterPlantersByShape(String planterShape);
+	List<Planter> filterPlantersByCapacity(int capacity);
+	List<Planter> filterPlantersByDrainageHoles(int drainageHoles);
+	
+	
+	//WITH SEED AND PLANT SERVICES
+//	Planter addCustomPlanter(int planterId, int seedId, int seedStock);
+	
 	
 	
 	

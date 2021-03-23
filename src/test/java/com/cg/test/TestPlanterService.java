@@ -69,7 +69,7 @@ class TestPlanterService {
 	@Test
 	public void viewAllPlantersTest() {
 		when(dao.findAll()).thenReturn(planterList);
-		assertEquals(4, service.viewAllPlanters().size());
+		assertEquals(4, service.getPlanters().size());
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ class TestPlanterService {
 	@Test
 	public void viewPlanterTest() {
 		when(dao.findById(planter1.getId())).thenReturn(Optional.of(planter1));
-		assertEquals(planter1, service.viewPlanter(planter1.getId()));
+		assertEquals(planter1, service.getPlanter(planter1.getId()));
 	}
 	
 	@Test
@@ -103,7 +103,7 @@ class TestPlanterService {
 		newList.add(planter2);
 		newList.add(planter4);
 		when(dao.findAll()).thenReturn(newList);
-		assertEquals(2, service.viewPlanters(500,1000).size());
+		assertEquals(2, service.getPlanters(500,1000).size());
 	}
 	
 	@Test
@@ -125,7 +125,7 @@ class TestPlanterService {
 		newList.add(planter4);
 		
 		when(dao.findAll()).thenReturn(newList);
-		assertEquals(newList, service.viewPlantersByHeight(28.0f));
+		assertEquals(newList, service.filterPlantersByHeight(28.0f));
 	}
 	
 	

@@ -1,6 +1,7 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
+import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.exception.InsufficientStockException;
 import com.cg.sprint1_onlineplantnursery.exception.ResourceNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.IPlanterRepository;
@@ -18,10 +20,13 @@ public class IPlanterServiceImpl implements IPlanterService {
 	
 	@Autowired
 	IPlanterRepository planterRepo;
+	
+	@Autowired
+	ISeedService seedService;
 		
 	@Override
 	public Planter addPlanter(Planter planter) {
-		if (planter.getId() == null)
+		if (planter.getId() == 0)
 			return planterRepo.save(planter);
 		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId()); 
 		if (optionalPlanter.isPresent()) {
@@ -39,23 +44,33 @@ public class IPlanterServiceImpl implements IPlanterService {
 		if (optionalPlanter.isPresent()) {
 			Planter p = optionalPlanter.get();
 			p.setStock(p.getStock()-1);
-			if (p.getStock() < 1)
-				planterRepo.delete(p);
-			else
+			if (p.getStock() < 0)
+				throw new InsufficientStockException("Stock is insufficient");
 				planterRepo.save(p);
 		}
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The planter with given id does not exist"));
 	}
 	
 	@Override
-	public Planter viewPlanter(int id) {
+	public Planter deletePlanterById(int id) {
+		Optional<Planter> optionalPlanter = planterRepo.findById(id); 
+		if (optionalPlanter.isPresent()) {
+			Planter p = optionalPlanter.get();
+			p.setStock(p.getStock()-1);
+				planterRepo.save(p);
+		}
+		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The planter with given id does not exist"));
+	}
+	
+	@Override
+	public Planter getPlanter(int id) {
 		Optional<Planter> optionalPlanter =  planterRepo.findById(id); 
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("Planter does not exist with given id"));
 	}
 
 
 	@Override
-	public List<Planter> viewAllPlanters() {
+	public List<Planter> getPlanters() {
 		return planterRepo.findAll();
 	}
 	
@@ -98,7 +113,7 @@ public class IPlanterServiceImpl implements IPlanterService {
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	@Override
-	public List<Planter> viewPlanters(double minCost, double maxCost) {
+	public List<Planter> getPlanters(double minCost, double maxCost) {
 		List<Planter> allPlanters = planterRepo.findAll();
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getCost() >minCost && p.getCost() < maxCost).collect(Collectors.toList());
 		return requiredPlanters;
@@ -168,7 +183,7 @@ public class IPlanterServiceImpl implements IPlanterService {
 	//FILTER
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	@Override
-	public List<Planter> viewPlantersByColor(String color) {
+	public List<Planter> filterPlantersByColor(String color) {
 		List<Planter> allPlanters = planterRepo.findAll();
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getColor().equals(color)).collect(Collectors.toList());
 		return requiredPlanters;
@@ -176,7 +191,7 @@ public class IPlanterServiceImpl implements IPlanterService {
 	}
 	
 	@Override
-	public List<Planter> viewPlantersByShape(String shape) {
+	public List<Planter> filterPlantersByShape(String shape) {
 		List<Planter> allPlanters = planterRepo.findAll();
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getShape().equals(shape)).collect(Collectors.toList());
 		return requiredPlanters;
@@ -184,7 +199,7 @@ public class IPlanterServiceImpl implements IPlanterService {
 	}
 	
 	@Override
-	public List<Planter> viewPlantersByHeight(float height) {
+	public List<Planter> filterPlantersByHeight(float height) {
 		List<Planter> allPlanters = planterRepo.findAll();
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getHeight() == height).collect(Collectors.toList());
 		return requiredPlanters;
@@ -192,7 +207,7 @@ public class IPlanterServiceImpl implements IPlanterService {
 	}
 	
 	@Override
-	public List<Planter> viewPlantersByCapacity(int capacity) {
+	public List<Planter> filterPlantersByCapacity(int capacity) {
 		List<Planter> allPlanters = planterRepo.findAll();
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getCapacity() == capacity).collect(Collectors.toList());
 		return requiredPlanters;
@@ -200,11 +215,25 @@ public class IPlanterServiceImpl implements IPlanterService {
 	}
 	
 	@Override
-	public List<Planter> viewPlantersByDrainageHoles(int drainageHoles) {
+	public List<Planter> filterPlantersByDrainageHoles(int drainageHoles) {
 		List<Planter> allPlanters = planterRepo.findAll();
 		List<Planter> requiredPlanters = allPlanters.stream().filter((p) -> p.getDrainageHoles() == drainageHoles).collect(Collectors.toList());
 		return requiredPlanters;
 			
 	}
 	
+//	WITH SEED SERVICES
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+	
+
+//	@Override
+//	public Planter addCustomPlanter(int planterId, int seedId, int seedStock){
+//		List<Seed> seedList = new ArrayList<>();
+//		Planter planter = deletePlanterById(planterId);
+//		Seed seed = seedService.buySeeds(seedId, seedStock);
+//			seedList.add(seed);
+//			planter.setSeeds(seedList);
+//		return planter;
+//	}
+
 }
