@@ -1,11 +1,15 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
+
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.exception.OutOfStockException;
 import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
@@ -144,4 +148,20 @@ public class ISeedServiceImpl implements ISeedService{
 			
 	}
 
+	@Override
+	public Seed updateSeed(int id, Map<Object, Object> fields) {
+		Optional<Seed> seedOptional = seedRepo.findById(id);
+		if(seedOptional.isPresent()) {
+		
+			Seed seed = seedRepo.findById(id).get();
+			fields.forEach((k,v)->{
+				Field field = ReflectionUtils.findRequiredField(Seed.class, (String)k);
+				field.setAccessible(true);
+				ReflectionUtils.setField(field, seed, v);	
+			});
+			return seedRepo.save(seed);
+		}
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Plant Not Found"));
+
+}
 }

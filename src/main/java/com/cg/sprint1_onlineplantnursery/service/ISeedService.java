@@ -1,6 +1,8 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
 import java.util.List;
+import java.util.Map;
+
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.exception.OutOfStockException;
 import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
@@ -21,5 +23,6 @@ public interface ISeedService {
 	List<Seed> filterSeedByType(String type);
 	List<Seed> filterSeedByDifficulty(String difficulty);
 	Seed buySeeds(int id, int stock);
+	Seed updateSeed(int id, Map<Object, Object> fields);
 	
 }

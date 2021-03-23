@@ -53,13 +53,13 @@ public class SeedController extends WebSecurityConfigurerAdapter{
 	
 	@PatchMapping("/seeds/id/{id}")
 	public ResponseEntity<Seed> updateSeed(@PathVariable int id, @RequestBody Map<Object,Object> fields){
-		Seed seed = seedService.getSeed(id);
-		fields.forEach((k,v) -> {
-			Field field = ReflectionUtils.findRequiredField(Seed.class, (String) k);
-			field.setAccessible(true);
-			ReflectionUtils.setField(field, seed, v);
-		});
-		return new ResponseEntity<Seed>(seedService.updateSeed(seed),HttpStatus.ACCEPTED);
+//		Seed seed = seedService.getSeed(id);
+//		fields.forEach((k,v) -> {
+//			Field field = ReflectionUtils.findRequiredField(Seed.class, (String) k);
+//			field.setAccessible(true);
+//			ReflectionUtils.setField(field, seed, v);
+//		});
+		return new ResponseEntity<Seed>(seedService.updateSeed(id,fields),HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/seeds")
