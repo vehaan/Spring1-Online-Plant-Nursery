@@ -18,7 +18,7 @@ public interface IPlantService {
 
 	Plant deletePlant(Plant plant);
 	
-	Plant decreaseStock(String commonName, int stock);
+	Plant decreaseStock(int id, int stock);
 
 	Plant getPlant(int plantId);
 
@@ -27,4 +27,14 @@ public interface IPlantService {
 	List<Plant> getAllPlants();
 
 	List<Plant> getAllPlants(String typeOfPlant);
+	
+	List<Plant> costLowToHigh();
+	
+	List<Plant> costHighToLow();
+	
+	List<Plant> filterPlantByType(String type);
+	
+	List<Plant> filterPlantByDifficulty(String difficulty);
+	
+	String getBloomingStatus(int id);
 }

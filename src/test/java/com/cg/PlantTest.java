@@ -22,6 +22,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.sprint1_onlineplantnursery.entity.Plant;
+import com.cg.sprint1_onlineplantnursery.entity.Plant.BloomTime;
+import com.cg.sprint1_onlineplantnursery.entity.Plant.Difficulty;
 import com.cg.sprint1_onlineplantnursery.exception.PlantIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.IPlantRepository;
 import com.cg.sprint1_onlineplantnursery.service.IPlantServiceImpl;
@@ -49,10 +51,11 @@ class PlantTest {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		plant1 = new Plant(11,5,"fast","Jasmine","whole-year","for beauty", "easy","warm","herb","flowering-plant",30,5.0);
-		plant2 = new Plant(12,5,"fast","Mango","whole-year","for beauty", "easy","warm","herb","flowering-plant",30,5.0);
-		plant3 = new Plant(13,5,"fast","Banana","whole-year","for beauty", "easy","warm","shrub","flowering-plant",30,5.0);
-		plants.add(plant1);
+		plant1 = new Plant(11,5,"fast",BloomTime.WINTER,"for beauty", Difficulty.EASY,"warm","herb","Jasmine","flowering-plant",30,5.0);
+		plant2 = new Plant(12,5,"fast",BloomTime.SUMMER,"for beauty", Difficulty.HARD,"warm","herb","Mango","flowering-plant",30,5.0);
+		plant3 = new Plant(13,5,"fast",BloomTime.AUTUMN,"for beauty", Difficulty.HARD,"warm","shrub","Banana","flowering-plant",30,5.0);
+
+		plant3 = new Plant();
 		plants.add(plant2);
 		plants.add(plant3);
 	}
@@ -85,17 +88,17 @@ class PlantTest {
 	public void decreasePlantStockTest(){
 		
 		when(plantRepoMock.findByCommonName("Jasmine")).thenReturn(Optional.of(plant1));
-		assertEquals("28",plantServiceMock.decreaseStock("Jasmine", 2).getStock().toString());
+		assertEquals("28",plantServiceMock.decreaseStock(11, 2).getStock().toString());
 		
 		//trying to add stock to a plant which does not exists
-		assertThrows(PlantIdNotFoundException.class,()-> plantServiceMock.decreaseStock("jaj", 2)); 
+		assertThrows(PlantIdNotFoundException.class,()-> plantServiceMock.decreaseStock(909, 2)); 
 	}
 	@Order(4)
 	//@Disabled
 	@Test
 	public void updatePlantTest() {
 		when(plantRepoMock.findById(11)).thenReturn(Optional.of(plant1));
-		Plant plant1Update = new Plant(11,10,"fast","Jasmine","whole-year","for beauty", "easy","warm","herb","flowering-plant",30,5.0);
+		Plant plant1Update = new Plant(11,10,"fast",BloomTime.WINTER,"for beauty", Difficulty.EASY,"warm","herb","Jasmine","flowering-plant",30,5.0);
 		//updating height 5 to 10
 		assertEquals("10", plantServiceMock.updatePlant(plant1Update, 11).getHeight().toString());
 		
