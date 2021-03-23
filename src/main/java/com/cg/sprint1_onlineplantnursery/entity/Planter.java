@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Planter {
-	//@Id
+	@Id
 	private Integer planterId;
 	private float planterheight;
 	private int planterCapacity;

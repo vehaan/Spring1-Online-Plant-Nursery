@@ -8,11 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-@Embeddable
-//@Entity
+@Entity
 public class Seed {
 	
-	//@Id
+	@Id
 	private Integer seedId;
 	private String commonName;
 	private String bloomTime;

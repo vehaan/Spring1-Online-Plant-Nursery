@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +18,22 @@ import com.cg.sprint1_onlineplantnursery.repository.IOrderRepository;
 import com.cg.sprint1_onlineplantnursery.repository.IPlantRepository;
 
 @Service
+@Transactional
 public class IOrderServiceImpl implements IOrderService {
 
 	@Autowired
 	IOrderRepository orderRepository;
 	
 	
-	  @Autowired IPlantService plantService;
-	  
-	  @Autowired IPlantRepository plantRepository;
-	  
-	  @Autowired IPlanterService planterService;
-	  
-	  @Autowired ISeedService seedService;
+	/*
+	 * @Autowired IPlantService plantService;
+	 * 
+	 * @Autowired IPlantRepository plantRepository;
+	 * 
+	 * @Autowired IPlanterService planterService;
+	 * 
+	 * @Autowired ISeedService seedService;
+	 */
 	 
 	//public Order selectOrder(Order order) {
 		
@@ -37,11 +42,12 @@ public class IOrderServiceImpl implements IOrderService {
 	@Override
 	public Order addOrder(Order order) {
 		
-		Map<Integer, Integer> pmap = order.getPlants();
-		
-		for(Map.Entry<Integer, Integer> entry : pmap.entrySet()) {
-			plantService.deletePlant(plantRepository.viewPlant(entry.getKey()));
-		}
+		/*
+		 * Map<Integer, Integer> pmap = order.getPlants();
+		 * 
+		 * for(Map.Entry<Integer, Integer> entry : pmap.entrySet()) {
+		 * plantService.deletePlant(plantRepository.viewPlant(entry.getKey())); }
+		 */
 		 
 		
 		//Plant p = order.getPlants().entrySet()
@@ -78,7 +84,7 @@ public class IOrderServiceImpl implements IOrderService {
 		 */
 		return orderRepository.save(order);
 	}
-	 // Stock +, - is to be included
+	// Stock +, - is to be included
 	@Override
 	public Order updateOrder(Order order) {
 		Optional<Order> orderToBeUpdated = orderRepository.findById(order.getBookingId());

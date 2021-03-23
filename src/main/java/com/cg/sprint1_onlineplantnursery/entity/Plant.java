@@ -10,10 +10,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
-@Embeddable
-//@Entity
+@Entity
 public class Plant {
-	//@Id
+	@Id
 	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;

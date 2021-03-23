@@ -1,7 +1,6 @@
 package com.cg;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -24,6 +23,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.cg.sprint1_onlineplantnursery.entity.Address;
+import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
 import com.cg.sprint1_onlineplantnursery.entity.Plant;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
@@ -44,7 +45,6 @@ class OrderTest {
 	
 	static Order order1;
 	static Order order2;
-	//static Order order3;
 	static List<Order> orders = new ArrayList<>();
 	
 	@BeforeAll
@@ -52,20 +52,19 @@ class OrderTest {
 		Map<Integer, Integer> pmap = new HashMap<>();
 		Plant p = new Plant(3,8,"fast","Lemon","summer","for lemons","easy","hot","shrub","fruit-plant",50/*stock*/,10.0);
 		pmap.put(p.getId(), 10);
-		System.out.println("Plant map is created");
 		
 		Seed s = new Seed(14,"Rose","5 days","Easy","Medium","20 degree celcius","Flower","For Rose",50/*stock*/,2,4);
 		Map<Integer, Integer> smap = new HashMap<>();
 		smap.put(s.getSeedId(), 100);
-		System.out.println("Seed map is created");
 		
 		Planter pr = new Planter(1,34.50f,500,2,"Red","Circle",300/*stock*/,2000);
 		Map<Integer, Integer> prmap = new HashMap<>();
 		prmap.put(pr.getPlanterId(), 5);
-		System.out.println("Planter map is created");
 		
-		order1 = new Order(1, LocalDate.now(), "UPI", 100, 200.0, pmap, smap, prmap);
-		order2 = new Order(5, LocalDate.now(), "Cash", 150, 200.0, pmap, smap, prmap);
+		Customer cust = new Customer("Kamalesh", "ks@gmail.com", "kamal1234", new Address("24-3-437", "JVR", "Nellore", "AP", 524003));
+		
+		order1 = new Order(1, LocalDate.now(), "UPI", 100, 200.0, pmap, smap, prmap, cust);
+		order2 = new Order(5, LocalDate.now(), "Cash", 150, 200.0, pmap, smap, prmap, cust);
 		
 		orders.add(order1);
 		orders.add(order2);
@@ -91,11 +90,12 @@ class OrderTest {
 		assertEquals("UPI", orderServiceMock.addOrder(order1).getTransactionMode());	
 	}
 	
+	//Some Problem with UPDATE ORDER
 	//@Order(2)
 	//@Disabled
 	@Test
 	public void updateOrderTest() {
-		when(orderRepoMock.findById(5)).thenReturn(Optional.of(order1));
+		when(orderRepoMock.findById(5)).thenReturn(Optional.of(order2));
 		
 		Map<Integer, Integer> pmap = new HashMap<>();
 		Plant p = new Plant(3,8,"fast","Lemon","summer","for lemons","easy","hot","shrub","fruit-plant",50/*stock*/,10.0);
@@ -112,9 +112,12 @@ class OrderTest {
 		prmap.put(pr.getPlanterId(), 5);
 		System.out.println("Planter map is created");
 		
-		Order updateOrder2 = new Order(5, LocalDate.now(), "Cash", 160, 200.0, pmap, smap, prmap);
-		//updating quantity 150 to 160
-		assertEquals(100, orderServiceMock.updateOrder(updateOrder2).getQuantity());
+		Customer cust = new Customer("Kamalesh", "ks@gmail.com", "kamal1234", new Address("24-3-437", "JVR", "Nellore", "AP", 524003));
+		
+		Order updateOrder2 = new Order(5, LocalDate.now(), "Cash", 160, 200.0, pmap, smap, prmap, cust);
+		//updating quantity from 150 to 160
+		when(orderRepoMock.save(order2)).thenReturn(order2);
+		assertEquals(160, orderServiceMock.updateOrder(updateOrder2).getQuantity());
 		
 	}
 	
@@ -130,8 +133,8 @@ class OrderTest {
 	//@Disabled
 	@Test
 	public void viewOrder() {
-		when(orderRepoMock.findById(5)).thenReturn(Optional.of(order2));		
-		assertEquals("2021-03-22", orderServiceMock.viewOrder(5).getOrderDate());
+		when(orderRepoMock.findById(1)).thenReturn(Optional.of(order1));		
+		assertEquals(100, orderServiceMock.viewOrder(1).getQuantity());
 	}
 	
 	//@Order(5)

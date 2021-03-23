@@ -1,5 +1,6 @@
 package com.cg.sprint1_onlineplantnursery.controller;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,7 +28,7 @@ import com.cg.sprint1_onlineplantnursery.exception.OrderIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.service.IOrderService;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class IOrderController extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
@@ -48,14 +50,14 @@ public class IOrderController extends WebSecurityConfigurerAdapter{
 		return new ResponseEntity<Order>(orderService.updateOrder(order), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/id/{bookingId}")
-	public ResponseEntity<Order> delete(@PathVariable int bookingId)  {
-		return new ResponseEntity<Order>(orderService.deleteOrder(bookingId), HttpStatus.OK);
+	@DeleteMapping("/id/{id}")
+	public ResponseEntity<Order> delete(@PathVariable int id)  {
+		return new ResponseEntity<Order>(orderService.deleteOrder(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("/id/{bookingId}")
-	public ResponseEntity<Order> viewOrder(@PathVariable int bookingId) {
-		return new ResponseEntity<Order>(orderService.viewOrder(bookingId), HttpStatus.OK);
+	@GetMapping("/id/{id}")
+	public ResponseEntity<Order> viewOrder(@PathVariable int id) {
+		return new ResponseEntity<Order>(orderService.viewOrder(id), HttpStatus.OK);
 	}
 	
 	@GetMapping
@@ -63,14 +65,15 @@ public class IOrderController extends WebSecurityConfigurerAdapter{
 		return new ResponseEntity<List<Order>>(orderService.viewAllOrders(), HttpStatus.OK);
 	}
 	
-	/*
-	 * @PatchMapping("id/{bookingId}") public ResponseEntity<Order>
-	 * updateSeed(@PathVariable int bookingId, @RequestBody Map<Object,Object>
-	 * fields){ Order order = orderService. Seed seed = seedService.getSeed(id);
-	 * fields.forEach((k,v) -> { Field field =
-	 * ReflectionUtils.findRequiredField(Seed.class, (String) k);
-	 * field.setAccessible(true); ReflectionUtils.setField(field, seed, v); });
-	 * return new
-	 * ResponseEntity<Seed>(seedService.updateSeed(seed),HttpStatus.ACCEPTED); }
-	 */
+	@PatchMapping("id/{id}")
+	public ResponseEntity<Order> updateOrder(@PathVariable int id, @RequestBody Map<Object,Object> fields){
+		Order order = orderService.viewOrder(id);
+		fields.forEach((k,v) -> {
+			Field field = ReflectionUtils.findRequiredField(Order.class, (String) k);
+			field.setAccessible(true);
+			ReflectionUtils.setField(field, order, v);
+		});
+		return new ResponseEntity<Order>(orderService.updateOrder(order),HttpStatus.ACCEPTED);
+	}
+	
 }
