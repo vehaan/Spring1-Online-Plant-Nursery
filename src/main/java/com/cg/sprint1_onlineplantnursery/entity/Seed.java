@@ -22,11 +22,12 @@ public class Seed {
 	@NotBlank(message = "Name is required")
 	@Column(unique = true)
 	private String commonName;
-
+	
+	@Enumerated(EnumType.STRING)
 	private BloomTime bloomTime;
 	private String watering;
 	
-	@Enumerated(EnumType.ORDINAL)
+	@Enumerated(EnumType.STRING)
 	private Difficulty difficultyLevel;
 	private String temperature;
 	private String type;
