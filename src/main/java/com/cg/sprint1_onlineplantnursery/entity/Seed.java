@@ -23,7 +23,7 @@ public class Seed {
 	@Column(unique = true)
 	private String commonName;
 
-	private String bloomTime;
+	private BloomTime bloomTime;
 	private String watering;
 	
 	@Enumerated(EnumType.ORDINAL)
@@ -54,7 +54,7 @@ public class Seed {
 		this.addOns = addOns;
 	}
 
-	public Seed(@NotBlank(message = "Name is required") String commonName, String bloomTime, String watering,
+	public Seed(@NotBlank(message = "Name is required") String commonName, BloomTime bloomTime, String watering,
 			Difficulty difficultyLevel, String temperature, String type, String description,
 			@NotNull @Positive(message = "A positive value of stock required") Integer stock,
 			@NotNull @Positive(message = "A positive value of cost required") double cost,
@@ -73,7 +73,7 @@ public class Seed {
 		this.seedsPerPacket = seedsPerPacket;
 		this.addOns = addOns;
 	}
-	public Seed(Integer id, @NotBlank(message = "Name is required") String commonName, String bloomTime,
+	public Seed(Integer id, @NotBlank(message = "Name is required") String commonName, BloomTime bloomTime,
 			String watering, Difficulty difficultyLevel, String temperature, String type, String description,
 			@NotNull @Positive(message = "A positive value of stock required") Integer stock,
 			@NotNull @Positive(message = "A positive value of cost required") double cost,
@@ -100,6 +100,10 @@ public class Seed {
 	    EASY, MEDIUM, HARD;
 	}
 	
+	public enum BloomTime {
+	    WINTER, SUMMER, AUTUMN, MONSOON;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -114,10 +118,10 @@ public class Seed {
 		this.commonName = commonName;
 	}
 
-	public String getBloomTime() {
+	public BloomTime getBloomTime() {
 		return bloomTime;
 	}
-	public void setBloomTime(String bloomTime) {
+	public void setBloomTime(BloomTime bloomTime) {
 		this.bloomTime = bloomTime;
 	}
 
@@ -177,7 +181,7 @@ public class Seed {
 		this.seedsPerPacket = seedsPerPacket;
 	}
 	
-	public Seed(Integer id, @NotBlank(message = "Name is required") String commonName, String bloomTime,
+	public Seed(Integer id, @NotBlank(message = "Name is required") String commonName, BloomTime bloomTime,
 			String watering, Difficulty difficultyLevel, String temperature, String type, String description,
 			@NotNull @Positive(message = "A positive value of stock required") Integer stock,
 			@NotNull @Positive(message = "A positive value of cost required") double cost,
@@ -198,7 +202,7 @@ public class Seed {
 	
 
 	
-	public Seed(@NotBlank(message = "Name is required") String commonName, String bloomTime, String watering,
+	public Seed(@NotBlank(message = "Name is required") String commonName, BloomTime bloomTime, String watering,
 			Difficulty difficultyLevel, String temperature, String type, String description,
 			@NotNull @Positive(message = "A positive value of stock required") Integer stock,
 			@NotNull @Positive(message = "A positive value of cost required") double cost,
