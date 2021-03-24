@@ -11,6 +11,7 @@ import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
+import com.cg.sprint1_onlineplantnursery.entity.Seed.BloomTime;
 import com.cg.sprint1_onlineplantnursery.entity.Seed.Difficulty;
 import com.cg.sprint1_onlineplantnursery.exception.OutOfStockException;
 import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
@@ -28,7 +29,7 @@ public class ISeedServiceImpl implements ISeedService{
 	}
 	
 	@Override
-	public Seed addStock(String commonName, int stock) throws SeedIdNotFoundException {
+	public Seed addStock(String commonName, int stock){
 		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
 		if(seedOptional.isPresent()) {
 			Seed seedNew = seedOptional.get();
@@ -41,7 +42,7 @@ public class ISeedServiceImpl implements ISeedService{
 	}
 
 	@Override
-	public Seed updateSeed(Seed seed) throws SeedIdNotFoundException{
+	public Seed updateSeed(Seed seed){
 		Optional<Seed> seedOptional = seedRepo.findById(seed.getId());
 		if(seedOptional.isPresent()) {
 			return seedRepo.save(seed);
@@ -50,7 +51,7 @@ public class ISeedServiceImpl implements ISeedService{
 	}
 
 	@Override
-	public Seed deleteSeed(Seed seed) throws SeedIdNotFoundException {
+	public Seed deleteSeed(Seed seed) {
 		Optional<Seed> seedOptional = seedRepo.findById(seed.getId());		
 		if(seedOptional.isPresent()) {
 			seedRepo.delete(seed);
@@ -59,7 +60,7 @@ public class ISeedServiceImpl implements ISeedService{
 	}
 	
 	@Override
-	public Seed deleteSeedById(int id) throws SeedIdNotFoundException {
+	public Seed deleteSeedById(int id) {
 		Optional<Seed> seedOptional = seedRepo.findById(id);		
 		if(seedOptional.isPresent()) {
 			seedRepo.delete(seedOptional.get());
@@ -67,7 +68,7 @@ public class ISeedServiceImpl implements ISeedService{
 		return seedOptional.orElseThrow(()->new SeedIdNotFoundException("Invalid seed id...Cannot delete"));	
 	}
 	
-	public Seed buySeeds(String commonName, int stock) throws SeedIdNotFoundException, OutOfStockException {
+	public Seed buySeeds(String commonName, int stock) {
 		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
 		if(seedOptional.isPresent()) {
 			Seed seedNew = seedOptional.get();
@@ -103,13 +104,13 @@ public class ISeedServiceImpl implements ISeedService{
 	}
 	
 	@Override
-	public Seed getSeed(int id) throws SeedIdNotFoundException{
+	public Seed getSeed(int id) {
 		Optional<Seed> seedOptional = seedRepo.findById(id);
 		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Seed Not Found...Invalid ID"));
 	}
 
 	@Override
-	public Seed getSeed(String commonName) throws SeedIdNotFoundException {
+	public Seed getSeed(String commonName) {
 		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
 		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Seed Not Found...Invalid Name"));
 	}
@@ -142,8 +143,9 @@ public class ISeedServiceImpl implements ISeedService{
 	
 	//Filter
 	
+
 	@Override
-	public List<Seed> filterSeedByType(String type) {
+	public List<Seed> filterSeedByBloomTime(BloomTime type) {
 		List<Seed> seeds = seedRepo.findAll();
 		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getType().equals(type)).collect(Collectors.toList());
 		return filteredSeeds;
