@@ -6,104 +6,58 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "CUSTOMERS", uniqueConstraints = { @UniqueConstraint(columnNames = "id"),
-		@UniqueConstraint(columnNames = "email") })
-
-public class Customer {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ_FOR_CUSTOMER", initialValue = 101, allocationSize = 1)
-	private Integer id;
+@Table(name = "CUSTOMERS")
+public class Customer extends User {
 
 	@NotBlank
 	@Size(min = 3, message = "Name should be atleast three characters")
 	private String name;
 
-	@Email(message = "Enter a valid Email")
-	@NotBlank
-	private String email;
-
-	@NotBlank
-	private String password;
+	@NotNull
+	private String phone;
 
 	@Embedded
 	private Address address;
 
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Order> orders;
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private List<Order> orders = null;
 
 	public Customer() {
 		super();
 	}
 
-	public Customer(String email, String password) {
-		super();
-		this.email = email;
-		this.password = password;
-	}
-
-	public Customer(String name, String email, String password) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.password = password;
-	}
-
-	public Customer(Integer id,
+	
+	public Customer(Integer id, @Email(message = "Enter a valid  Email") String email, String password, String role,
 			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
-			@Email(message = "Enter a valid Email") @NotBlank String email, @NotBlank String password) {
-		super();
-		this.id = id;
+			@NotNull String phone, Address address) {
+		super(id, email, password, role);
 		this.name = name;
-		this.email = email;
-		this.password = password;
+		this.phone = phone;
+		this.address = address;
+	
 	}
 
-	public Customer(@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
-			@Email(message = "Enter a valid Email") @NotBlank String email, @NotBlank String password,
-			Address address) {
-		super();
+
+	public Customer(@Email(message = "Enter a valid  Email") String email, String password, String role,
+			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
+			@NotNull String phone, Address address) {
+		super(email, password, role);
 		this.name = name;
-		this.email = email;
-		this.password = password;
+		this.phone = phone;
 		this.address = address;
 	}
-
-	public Customer(Integer id,
-			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
-			@Email(message = "Enter a valid Email") @NotBlank String email, @NotBlank String password,
-			Address address) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.password = password;
-		this.address = address;
-	}
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	
 
 	public String getName() {
 		return name;
@@ -113,20 +67,12 @@ public class Customer {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public Address getAddress() {
@@ -145,35 +91,58 @@ public class Customer {
 		this.orders = orders;
 	}
 
-	public void addOrder(Order order) {
-
-		if (order != null) {
-			if (orders == null) {
-				orders = new ArrayList<>();
-			}
-
-			orders.add(order);
-			order.setCustomer(this);
-		}
-
-	}
 
 	@Override
 	public int hashCode() {
-		// TODO Auto-generated method stub
-		return super.hashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((orders == null) ? 0 : orders.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		return super.equals(obj);
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Customer other = (Customer) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (orders == null) {
+			if (other.orders != null)
+				return false;
+		} else if (!orders.equals(other.orders))
+			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		return true;
 	}
+
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address="
-				+ address + ", orders=" + orders + "]";
+		return "Customer [name=" + name + ", phone=" + phone + ", address=" + address + ", orders=" + orders + "]";
 	}
+
+	
+	
 
 }

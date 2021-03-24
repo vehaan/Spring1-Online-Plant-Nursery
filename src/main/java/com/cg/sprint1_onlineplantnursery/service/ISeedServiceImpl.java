@@ -1,0 +1,147 @@
+package com.cg.sprint1_onlineplantnursery.service;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.cg.sprint1_onlineplantnursery.entity.Seed;
+import com.cg.sprint1_onlineplantnursery.exception.OutOfStockException;
+import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
+import com.cg.sprint1_onlineplantnursery.repository.ISeedRepository;
+
+@Service
+public class ISeedServiceImpl implements ISeedService{
+	
+	@Autowired
+	private ISeedRepository seedRepo;
+
+	@Override
+	public Seed addSeed(Seed seed) {
+		return seedRepo.save(seed);
+	}
+	
+	@Override
+	public Seed addStock(String commonName, int stock) throws SeedIdNotFoundException {
+		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
+		if(seedOptional.isPresent()) {
+			Seed seedNew = seedOptional.get();
+			int newStock = seedNew.getStock() + stock;
+			seedNew.setStock(newStock);
+			seedRepo.save(seedNew);
+			return seedNew;
+		}
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Invalid Common name ... cannot update stock"));
+	}
+
+	@Override
+	public Seed updateSeed(Seed seed) throws SeedIdNotFoundException{
+		Optional<Seed> seedOptional = seedRepo.findById(seed.getId());
+		if(seedOptional.isPresent()) {
+			return seedRepo.save(seed);
+		}
+		return seedOptional.orElseThrow(()->new SeedIdNotFoundException("Invalid seed id...Cannot update"));	
+	}
+
+	@Override
+	public Seed deleteSeed(Seed seed) throws SeedIdNotFoundException {
+		Optional<Seed> seedOptional = seedRepo.findById(seed.getId());		
+		if(seedOptional.isPresent()) {
+			seedRepo.delete(seed);
+		}
+		return seedOptional.orElseThrow(()->new SeedIdNotFoundException("Invalid seed id...Cannot delete"));	
+	}
+	
+	public Seed buySeeds(String commonName, int stock) throws SeedIdNotFoundException, OutOfStockException {
+		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
+		if(seedOptional.isPresent()) {
+			Seed seedNew = seedOptional.get();
+			int newStock = seedNew.getStock() - stock;
+			if(newStock<0) {
+				throw new OutOfStockException("Not enough stock");
+			}
+			else {
+				seedNew.setStock(newStock);
+				seedRepo.save(seedNew);
+				return seedNew;
+			}
+		}
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Invalid Common name ... Please select other seed"));
+	}
+	
+	@Override
+	public Seed buySeeds(int id, int stock) {
+		Optional<Seed> seedOptional = seedRepo.findById(id);
+		if(seedOptional.isPresent()) {
+			Seed seedNew = seedOptional.get();
+			int newStock = seedNew.getStock() - stock;
+			if(newStock<0) {
+				throw new OutOfStockException("Not enough stock");
+			}
+			else {
+				seedNew.setStock(newStock);
+				seedRepo.save(seedNew);
+				return seedNew;
+			}
+		}
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Invalid ID ... please select other seed"));
+	}
+	
+	@Override
+	public Seed getSeed(int id) throws SeedIdNotFoundException{
+		Optional<Seed> seedOptional = seedRepo.findById(id);
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Seed Not Found...Invalid ID"));
+	}
+
+	@Override
+	public Seed getSeed(String commonName) throws SeedIdNotFoundException {
+		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Seed Not Found...Invalid Name"));
+	}
+
+	@Override
+	public List<Seed> getSeeds() {
+		return seedRepo.findAll();
+	}
+
+	@Override
+	public List<Seed> getSeeds(String type) {
+		return seedRepo.findByType(type);
+	}
+	
+	//SORT BY
+	
+	@Override
+	public List<Seed> costLowToHigh() {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> sortedSeeds = seeds.stream().sorted((Seed s1,Seed s2) -> (int)s1.getCost() - (int)s2.getCost()).collect(Collectors.toList());
+		return sortedSeeds;
+	}
+	
+	@Override
+	public List<Seed> costHighToLow() {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> sortedSeeds = seeds.stream().sorted((Seed s1,Seed s2) -> (int)s2.getCost() - (int)s1.getCost()).collect(Collectors.toList());
+		return sortedSeeds;
+	}
+	
+	//Filter
+	
+	@Override
+	public List<Seed> filterSeedByType(String type) {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getTypeOfSeed().equals(type)).collect(Collectors.toList());
+		return filteredSeeds;
+			
+	}
+	
+	@Override
+	public List<Seed> filterSeedByDifficulty(String difficultyLevel) {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getDifficultyLevel().equals(difficultyLevel)).collect(Collectors.toList());
+		return filteredSeeds;
+			
+	}
+
+}

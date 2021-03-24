@@ -35,32 +35,24 @@ public class Order {
 	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ_FOR_ORDER", initialValue = 101, allocationSize = 1)
 	private Integer bookingId;
 	
-	@NotNull
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	//@NotNull
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	private LocalDate bookingDate;
 	
 	@NotBlank
 	private String transactionMode;
 	
-	@NotNull
-	@Positive(message = "Quantity must be positive")
+	//@NotNull
+	//@Positive(message = "Quantity must be positive")
 	private int quantity; // total quantity, i.e., planter+plant+seed
 	
 	private double totalCost;
 	
-	@CollectionTable(name = "Test_Plant")
+	@CollectionTable(name = "Test_Product")
 	@ElementCollection
-	private Map<Integer, Integer> plants = new HashMap<Integer, Integer>(); //Plantid -> Quantity bought 
+	private Map<Integer, Integer> products = new HashMap<Integer, Integer>(); //Productid -> Quantity bought
 	
-	@CollectionTable(name = "Test_Seed")
-	@ElementCollection
-	private Map<Integer, Integer> seeds = new HashMap<Integer, Integer>();
-	 
-	@CollectionTable(name = "Test_Planter")
-	@ElementCollection
-	private Map<Integer, Integer> planters = new HashMap<Integer, Integer>();
-	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private Customer customer;
@@ -88,90 +80,53 @@ public class Order {
 		this.totalCost = totalCost;
 	}
 
-	//Any one of following Plant or Seed or Planter
 	public Order(@NotNull LocalDate bookingDate, @NotBlank String transactionMode,
 			@NotNull @Positive(message = "Quantity must be positive") int quantity, double totalCost,
-			Map<Integer, Integer> plants, Customer customer) {
+			Map<Integer, Integer> products, Customer customer) {
 		super();
 		this.bookingDate = bookingDate;
 		this.transactionMode = transactionMode;
 		this.quantity = quantity;
 		this.totalCost = totalCost;
-		this.plants = plants;
+		this.products = products;
 		this.customer = customer;
 	}
 
 	public Order(Integer bookingId, @NotNull LocalDate bookingDate, @NotBlank String transactionMode,
 			@NotNull @Positive(message = "Quantity must be positive") int quantity, double totalCost,
-			Map<Integer, Integer> plants, Customer customer) {
+			Map<Integer, Integer> products, Customer customer) {
 		super();
 		this.bookingId = bookingId;
 		this.bookingDate = bookingDate;
 		this.transactionMode = transactionMode;
 		this.quantity = quantity;
 		this.totalCost = totalCost;
-		this.plants = plants;
+		this.products = products;
 		this.customer = customer;
 	}
-
-	//Any two of Plant or Seed or Planter
-	public Order(@NotNull LocalDate bookingDate, @NotBlank String transactionMode,
-			@NotNull @Positive(message = "Quantity must be positive") int quantity, double totalCost,
-			Map<Integer, Integer> plants, Map<Integer, Integer> seeds, Customer customer) {
-		super();
-		this.bookingDate = bookingDate;
-		this.transactionMode = transactionMode;
-		this.quantity = quantity;
-		this.totalCost = totalCost;
-		this.plants = plants;
-		this.seeds = seeds;
-		this.customer = customer;
-	}
-
-	public Order(Integer bookingId, @NotNull LocalDate bookingDate, @NotBlank String transactionMode,
-			@NotNull @Positive(message = "Quantity must be positive") int quantity, double totalCost,
-			Map<Integer, Integer> plants, Map<Integer, Integer> seeds, Customer customer) {
+	
+	public Order(Integer bookingId, @NotBlank String transactionMode) {
 		super();
 		this.bookingId = bookingId;
-		this.bookingDate = bookingDate;
 		this.transactionMode = transactionMode;
-		this.quantity = quantity;
-		this.totalCost = totalCost;
-		this.plants = plants;
-		this.seeds = seeds;
-		this.customer = customer;
 	}
 
-	//Constructor with all the 3
-	public Order(@NotNull LocalDate bookingDate, @NotBlank String transactionMode,
-			@NotNull @Positive(message = "Quantity must be positive") int quantity, double totalCost,
-			Map<Integer, Integer> plants, Map<Integer, Integer> seeds, Map<Integer, Integer> planters,
-			Customer customer) {
+	public Order(Map<Integer, Integer> products, Customer customer) {
 		super();
-		this.bookingDate = bookingDate;
-		this.transactionMode = transactionMode;
-		this.quantity = quantity;
-		this.totalCost = totalCost;
-		this.plants = plants;
-		this.seeds = seeds;
-		this.planters = planters;
+		this.products = products;
 		this.customer = customer;
 	}
+	
 
-	public Order(Integer bookingId, @NotNull LocalDate bookingDate, @NotBlank String transactionMode,
-			@NotNull @Positive(message = "Quantity must be positive") int quantity, double totalCost,
-			Map<Integer, Integer> plants, Map<Integer, Integer> seeds, Map<Integer, Integer> planters,
-			Customer customer) {
+	public Order(Map<Integer, Integer> products) {
 		super();
-		this.bookingId = bookingId;
-		this.bookingDate = bookingDate;
+		this.products = products;
+	}
+
+	public Order(@NotBlank String transactionMode, Map<Integer, Integer> products) {
+		super();
 		this.transactionMode = transactionMode;
-		this.quantity = quantity;
-		this.totalCost = totalCost;
-		this.plants = plants;
-		this.seeds = seeds;
-		this.planters = planters;
-		this.customer = customer;
+		this.products = products;
 	}
 
 	public Integer getBookingId() {
@@ -214,30 +169,15 @@ public class Order {
 		this.totalCost = totalCost;
 	}
 
-	public Map<Integer, Integer> getPlants() {
-		return plants;
+	public Map<Integer, Integer> getProducts() {
+		return products;
 	}
 
-	public void setPlants(Map<Integer, Integer> plants) {
-		this.plants = plants;
+	public void setProducts(Map<Integer, Integer> products) {
+		this.products = products;
 	}
-
-	public Map<Integer, Integer> getSeeds() {
-		return seeds;
-	}
-
-	public void setSeeds(Map<Integer, Integer> seeds) {
-		this.seeds = seeds;
-	}
-
-	public Map<Integer, Integer> getPlanters() {
-		return planters;
-	}
-
-	public void setPlanters(Map<Integer, Integer> planters) {
-		this.planters = planters;
-	}
-
+	
+	// @JsonIgnore
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -253,10 +193,8 @@ public class Order {
 		result = prime * result + ((bookingDate == null) ? 0 : bookingDate.hashCode());
 		result = prime * result + ((bookingId == null) ? 0 : bookingId.hashCode());
 		result = prime * result + ((customer == null) ? 0 : customer.hashCode());
-		result = prime * result + ((planters == null) ? 0 : planters.hashCode());
-		result = prime * result + ((plants == null) ? 0 : plants.hashCode());
+		result = prime * result + ((products == null) ? 0 : products.hashCode());
 		result = prime * result + quantity;
-		result = prime * result + ((seeds == null) ? 0 : seeds.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(totalCost);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -288,22 +226,12 @@ public class Order {
 				return false;
 		} else if (!customer.equals(other.customer))
 			return false;
-		if (planters == null) {
-			if (other.planters != null)
+		if (products == null) {
+			if (other.products != null)
 				return false;
-		} else if (!planters.equals(other.planters))
-			return false;
-		if (plants == null) {
-			if (other.plants != null)
-				return false;
-		} else if (!plants.equals(other.plants))
+		} else if (!products.equals(other.products))
 			return false;
 		if (quantity != other.quantity)
-			return false;
-		if (seeds == null) {
-			if (other.seeds != null)
-				return false;
-		} else if (!seeds.equals(other.seeds))
 			return false;
 		if (Double.doubleToLongBits(totalCost) != Double.doubleToLongBits(other.totalCost))
 			return false;
@@ -318,8 +246,9 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [bookingId=" + bookingId + ", bookingDate=" + bookingDate + ", transactionMode=" + transactionMode
-				+ ", quantity=" + quantity + ", totalCost=" + totalCost + ", plants=" + plants + ", seeds=" + seeds
-				+ ", planters=" + planters + ", customer=" + customer + "]";
+				+ ", quantity=" + quantity + ", totalCost=" + totalCost + ", products=" + products + ", customer="
+				+ customer + "]";
 	}
+	
 	
 }

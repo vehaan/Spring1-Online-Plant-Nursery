@@ -7,9 +7,14 @@ import com.cg.sprint1_onlineplantnursery.exception.OrderIdNotFoundException;
 
 public interface IOrderService {
 	Order addOrder(Order order);
+	
 	Order updateOrder(Order order);
+	
 	Order deleteOrder(int bookingId);
+	
 	Order viewOrder(int bookingId);
+	
 	List<Order> viewAllOrders();
-	Order updateOrder(int bookingId);
+	
+	Order patchOrder(Order order);
 }

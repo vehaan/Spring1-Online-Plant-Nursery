@@ -45,9 +45,15 @@ public class IOrderController extends WebSecurityConfigurerAdapter{
 		return new ResponseEntity<Order>(orderService.addOrder(order), HttpStatus.CREATED);
 	}
 	
+	/*
+	 * @PutMapping public ResponseEntity<Order> update(@Valid @RequestBody Order
+	 * order) { return new ResponseEntity<Order>(orderService.updateOrder(order),
+	 * HttpStatus.OK); }
+	 */
+	
 	@PutMapping
-	public ResponseEntity<Order> update(@Valid @RequestBody Order order) {
-		return new ResponseEntity<Order>(orderService.updateOrder(order), HttpStatus.OK);
+	public ResponseEntity<Order> patch(@Valid @RequestBody Order order) {
+		return new ResponseEntity<Order>(orderService.patchOrder(order), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/id/{id}")
@@ -65,15 +71,13 @@ public class IOrderController extends WebSecurityConfigurerAdapter{
 		return new ResponseEntity<List<Order>>(orderService.viewAllOrders(), HttpStatus.OK);
 	}
 	
-	@PatchMapping("id/{id}")
-	public ResponseEntity<Order> updateOrder(@PathVariable int id, @RequestBody Map<Object,Object> fields){
-		Order order = orderService.viewOrder(id);
-		fields.forEach((k,v) -> {
-			Field field = ReflectionUtils.findRequiredField(Order.class, (String) k);
-			field.setAccessible(true);
-			ReflectionUtils.setField(field, order, v);
-		});
-		return new ResponseEntity<Order>(orderService.updateOrder(order),HttpStatus.ACCEPTED);
-	}
-	
+	/*
+	 * @PatchMapping("id/{id}") public ResponseEntity<Order>
+	 * updateOrder(@PathVariable int id, @RequestBody Map<Object,Object> fields){
+	 * Order order = orderService.viewOrder(id); fields.forEach((k,v) -> { Field
+	 * field = ReflectionUtils.findRequiredField(Order.class, (String) k);
+	 * field.setAccessible(true); ReflectionUtils.setField(field, order, v); });
+	 * return new
+	 * ResponseEntity<Order>(orderService.updateOrder(order),HttpStatus.ACCEPTED); }
+	 */
 }

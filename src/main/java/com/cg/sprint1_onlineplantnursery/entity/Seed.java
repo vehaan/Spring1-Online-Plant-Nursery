@@ -1,126 +1,156 @@
 package com.cg.sprint1_onlineplantnursery.entity;
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @Entity
-public class Seed {
+public class Seed extends Product {
 	
-	@Id
-	private Integer seedId;
+	@NotBlank(message = "Name is required")
+	@Column(unique = true)
 	private String commonName;
-	private String bloomTime;
+	
+	@Enumerated(EnumType.STRING)
+	private BloomTime bloomTime;
 	private String watering;
-	private String difficultyLevel;
-	private String temparature;
-	private String typeOfSeeds;
-	private String seedsDescription;
-	private Integer seedsStock;
-	private double seedsCost;
+	
+	@Enumerated(EnumType.STRING)
+	private Difficulty difficultyLevel;
+	private String temperature;
+	private String typeOfSeed;
+	private String description;
+
+	@NotNull
+	@Positive(message = "A positive value of seeds per packet required")
 	private Integer seedsPerPacket;
 	
-	
-	public Integer getSeedId() {
-		return seedId;
-	}
-	public void setSeedId(Integer seedId) {
-		this.seedId = seedId;
+	public enum Difficulty {
+	    EASY, MEDIUM, HARD;
 	}
 	
+	public enum BloomTime {
+	    WINTER, SUMMER, AUTUMN, MONSOON;
+	}
+	
+
+	public Seed(@NotBlank(message = "Name is required") String commonName, BloomTime bloomTime, String watering,
+			Difficulty difficultyLevel, String temperature, String typeOfSeed, String description,
+			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
+		super();
+		this.commonName = commonName;
+		this.bloomTime = bloomTime;
+		this.watering = watering;
+		this.difficultyLevel = difficultyLevel;
+		this.temperature = temperature;
+		this.typeOfSeed = typeOfSeed;
+		this.description = description;
+		this.seedsPerPacket = seedsPerPacket;
+	}
+
+	public Seed(int cost, int stock, @NotBlank(message = "Name is required") String commonName, BloomTime bloomTime,
+			String watering, Difficulty difficultyLevel, String temperature, String typeOfSeed, String description,
+			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
+		super(cost, stock);
+		this.commonName = commonName;
+		this.bloomTime = bloomTime;
+		this.watering = watering;
+		this.difficultyLevel = difficultyLevel;
+		this.temperature = temperature;
+		this.typeOfSeed = typeOfSeed;
+		this.description = description;
+		this.seedsPerPacket = seedsPerPacket;
+	}
+
+	public Seed(int id, int cost, int stock, Type type, @NotBlank(message = "Name is required") String commonName,
+			BloomTime bloomTime, String watering, Difficulty difficultyLevel, String temperature, String typeOfSeed,
+			String description,
+			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
+		super(id, cost, stock, type);
+		this.commonName = commonName;
+		this.bloomTime = bloomTime;
+		this.watering = watering;
+		this.difficultyLevel = difficultyLevel;
+		this.temperature = temperature;
+		this.typeOfSeed = typeOfSeed;
+		this.description = description;
+		this.seedsPerPacket = seedsPerPacket;
+	}
+
+	public Seed() {
+		super();
+	}
+
 	public String getCommonName() {
 		return commonName;
 	}
 	public void setCommonName(String commonName) {
 		this.commonName = commonName;
 	}
-	
-	public String getBloomTime() {
+
+	public BloomTime getBloomTime() {
 		return bloomTime;
 	}
-	public void setBloomTime(String bloomTime) {
+	public void setBloomTime(BloomTime bloomTime) {
 		this.bloomTime = bloomTime;
 	}
-	
+
 	public String getWatering() {
 		return watering;
 	}
 	public void setWatering(String watering) {
 		this.watering = watering;
 	}
-	
-	public String getDifficultyLevel() {
+
+	public Difficulty getDifficultyLevel() {
 		return difficultyLevel;
 	}
-	public void setDifficultyLevel(String difficultyLevel) {
+	public void setDifficultyLevel(Difficulty difficultyLevel) {
 		this.difficultyLevel = difficultyLevel;
 	}
-	
-	public String getTemparature() {
-		return temparature;
+
+	public String getTemperature() {
+		return temperature;
 	}
-	public void setTemparature(String temparature) {
-		this.temparature = temparature;
+	public void setTemperature(String temperature) {
+		this.temperature = temperature;
 	}
-	
-	public String getTypeOfSeeds() {
-		return typeOfSeeds;
+
+
+	public String getDescription() {
+		return description;
 	}
-	public void setTypeOfSeeds(String typeOfSeeds) {
-		this.typeOfSeeds = typeOfSeeds;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-	
-	public String getSeedsDescription() {
-		return seedsDescription;
-	}
-	public void setSeedsDescription(String seedsDescription) {
-		this.seedsDescription = seedsDescription;
-	}
-	
-	public Integer getSeedsStock() {
-		return seedsStock;
-	}
-	public void setSeedsStock(Integer seedsStock) {
-		this.seedsStock = seedsStock;
-	}
-	
-	public double getSeedsCost() {
-		return seedsCost;
-	}
-	public void setSeedsCost(double seedsCost) {
-		this.seedsCost = seedsCost;
-	}
-	
+
 	public Integer getSeedsPerPacket() {
 		return seedsPerPacket;
 	}
 	public void setSeedsPerPacket(Integer seedsPerPacket) {
 		this.seedsPerPacket = seedsPerPacket;
 	}
-	
-	public Seed(Integer seedId, String commonName, String bloomTime, String watering, String difficultyLevel,
-			String temparature, String typeOfSeeds, String seedsDescription, Integer seedsStock, double seedsCost,
-			Integer seedsPerPacket) {
-		super();
-		this.seedId = seedId;
-		this.commonName = commonName;
-		this.bloomTime = bloomTime;
-		this.watering = watering;
-		this.difficultyLevel = difficultyLevel;
-		this.temparature = temparature;
-		this.typeOfSeeds = typeOfSeeds;
-		this.seedsDescription = seedsDescription;
-		this.seedsStock = seedsStock;
-		this.seedsCost = seedsCost;
-		this.seedsPerPacket = seedsPerPacket;
+
+	public String getTypeOfSeed() {
+		return typeOfSeed;
 	}
-	
-	public Seed() {
-		
+
+	public void setTypeOfSeed(String typeOfSeed) {
+		this.typeOfSeed = typeOfSeed;
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Seed [commonName=" + commonName + ", bloomTime=" + bloomTime + ", watering=" + watering
+				+ ", difficultyLevel=" + difficultyLevel + ", temperature=" + temperature + ", typeOfSeed=" + typeOfSeed
+				+ ", description=" + description + ", seedsPerPacket=" + seedsPerPacket + "]";
+	}
 }
