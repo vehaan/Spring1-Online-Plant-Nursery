@@ -11,6 +11,7 @@ import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
+import com.cg.sprint1_onlineplantnursery.entity.Seed.Difficulty;
 import com.cg.sprint1_onlineplantnursery.exception.OutOfStockException;
 import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ISeedRepository;
@@ -53,6 +54,15 @@ public class ISeedServiceImpl implements ISeedService{
 		Optional<Seed> seedOptional = seedRepo.findById(seed.getId());		
 		if(seedOptional.isPresent()) {
 			seedRepo.delete(seed);
+		}
+		return seedOptional.orElseThrow(()->new SeedIdNotFoundException("Invalid seed id...Cannot delete"));	
+	}
+	
+	@Override
+	public Seed deleteSeedById(int id) throws SeedIdNotFoundException {
+		Optional<Seed> seedOptional = seedRepo.findById(id);		
+		if(seedOptional.isPresent()) {
+			seedRepo.delete(seedOptional.get());
 		}
 		return seedOptional.orElseThrow(()->new SeedIdNotFoundException("Invalid seed id...Cannot delete"));	
 	}
@@ -141,7 +151,7 @@ public class ISeedServiceImpl implements ISeedService{
 	}
 	
 	@Override
-	public List<Seed> filterSeedByDifficulty(String difficultyLevel) {
+	public List<Seed> filterSeedByDifficulty(Difficulty difficultyLevel) {
 		List<Seed> seeds = seedRepo.findAll();
 		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getDifficultyLevel().equals(difficultyLevel)).collect(Collectors.toList());
 		return filteredSeeds;

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -34,6 +35,12 @@ public class SeedExceptionHandler {
 	ResponseEntity<?> OutOfStock(OutOfStockException oex){
 		ErrorMessage errorMessage = new ErrorMessage("400",oex.getMessage());
 		return new ResponseEntity<>(errorMessage,HttpStatus.BAD_REQUEST);
+	}
+	
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ErrorMessage handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+		return new ErrorMessage("400","The value of BloomTime or Difficulty is INVALID");
 	}
 
 }

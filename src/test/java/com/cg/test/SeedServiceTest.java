@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cg.sprint1_onlineplantnursery.entity.AddOns;
+import com.cg.sprint1_onlineplantnursery.entity.Product.Type;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.entity.Seed.BloomTime;
 import com.cg.sprint1_onlineplantnursery.entity.Seed.Difficulty;
@@ -52,9 +53,9 @@ class SeedServiceTest {
 	@BeforeEach
 	void setUp() throws Exception{
 		seedList = new ArrayList<>();
-		seed1 = new Seed(12,"Grape",BloomTime.MONSOON,"normal",Difficulty.EASY,"25 degree celcius","Vegetable","For Lemon",20,8,10,new AddOns(true,"Perlite"));
-		seed2 = new Seed(13,"Mango",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",20,5,10,new AddOns(false,"Perlite"));
-		seed3 = new Seed(14,"Apple",BloomTime.MONSOON,"normal",Difficulty.HARD,"25 degree celcius","Vegetable","For Lemon",20,4,10,new AddOns(true,"Sterameal"));
+		seed1 = new Seed(12,20,8,Type.SEED,"Grape",BloomTime.MONSOON,"normal",Difficulty.EASY,"25 degree celcius","Vegetable","For Lemon",10);
+		seed2 = new Seed(20,5,Type.SEED,"Mango",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",10);
+		seed3 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",10);
 		seedList.add(seed1);
 		seedList.add(seed2);
 		seedList.add(seed3);
@@ -92,8 +93,8 @@ class SeedServiceTest {
 	
 	@Test
 	public void getSeedsByTypeTest() {
-		Seed seed1 = new Seed(12,"Apple",BloomTime.AUTUMN,"normal",Difficulty.EASY,"25 degree celcius","Vegetable","For Lemon",20,2,10,new AddOns(true,"Perlite"));
-		Seed seed2 = new Seed(13,"Apple",BloomTime.MONSOON,"normal",Difficulty.EASY,"25 degree celcius","Vegetable","For Lemon",20,2,10,new AddOns(true,"Perlite"));
+		Seed seed1 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",10);
+		Seed seed2 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",10);
 		List<Seed> seedList = new ArrayList<>();
 		seedList.add(seed1);
 		seedList.add(seed2);
@@ -111,7 +112,7 @@ class SeedServiceTest {
 	public void buySeedsTest() {
 		when(seedRepoMock.findByCommonName("Grape")).thenReturn(Optional.of(seed1));
 		when(seedRepoMock.save(seed1)).thenReturn(seed1);
-		assertEquals(15,seedServiceMock.buySeeds("Grape", 5).getStock());
+		assertEquals(3,seedServiceMock.buySeeds("Grape", 5).getStock());
 		assertThrows(SeedIdNotFoundException.class, ()->seedServiceMock.buySeeds("Watermelon", 2));
 	}
 	
@@ -119,7 +120,7 @@ class SeedServiceTest {
 	public void addStockTest() {
 		when(seedRepoMock.findByCommonName("Grape")).thenReturn(Optional.of(seed1));
 		when(seedRepoMock.save(seed1)).thenReturn(seed1);
-		assertEquals(25,seedServiceMock.addStock("Grape", 5).getStock());
+		assertEquals(13,seedServiceMock.addStock("Grape", 5).getStock());
 		assertThrows(SeedIdNotFoundException.class, ()->seedServiceMock.buySeeds("Watermelon", 2));
 	}
 	
