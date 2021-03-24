@@ -1,30 +1,32 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
-import java.lang.reflect.Field;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
-import com.cg.sprint1_onlineplantnursery.exception.CustomerNotFoundException;
+import com.cg.sprint1_onlineplantnursery.exception.UserNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ICustomerRepository;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
 
 	@Autowired
-	private ICustomerRepository repo;
+	private ICustomerRepository customerRepository;
+
+	// method to register the customer
 
 	@Override
-	public Customer addCustomer(Customer customer) throws CustomerNotFoundException {
+	public Customer addCustomer(Customer customer) throws UserNotFoundException {
 		Customer save = null;
 
-		if (repo.findByEmail(customer.getEmail()).isPresent())
-			throw new CustomerNotFoundException("Email is already registered.Try to login");
+		if (customerRepository.findByEmail(customer.getEmail()).isPresent())
+			throw new UserNotFoundException("Email is already registered.Try to login");
+		else if (customer.getRole().equalsIgnoreCase("admin"))
+			throw new UserNotFoundException("Customer role cannot be admin");
 
 		else {
 
@@ -34,96 +36,86 @@ public class CustomerServiceImpl implements ICustomerService {
 				for (Order order : orders)
 					order.setCustomer(customer);
 			}
-			save = repo.save(customer);
+			save = customerRepository.save(customer);
 		}
 		return save;
 	}
 
-	@Override
-	public Customer updateCustomer(int customerId, Customer customer) throws CustomerNotFoundException {
-
-		Optional<Customer> findById = repo.findById(customerId);
-		findById.orElseThrow(() -> new CustomerNotFoundException("There are no customer having id: " + customerId));
-
-		return repo.save(customer);
-	}
+	// method to update the customer using customer Id
 
 	@Override
-	public Customer resetPasswordById(Integer id, Map<Object, Object> fields) {
+	public Customer updateCustomer(int customerId, Customer customer) throws UserNotFoundException {
 
-		if (repo.findById(id).isEmpty())
-			throw new CustomerNotFoundException("Not customer found by id : " + id);
-		else {
+		Optional<Customer> findById = customerRepository.findById(customerId);
+		findById.orElseThrow(() -> new UserNotFoundException("There are no customer having id: " + customerId));
 
-			Customer customer = repo.findById(id).get();
-
-			fields.forEach((k, v) -> {
-				Field field = ReflectionUtils.findRequiredField(Customer.class, (String) k);
-
-				field.setAccessible(true);
-
-				try {
-					if (field.getName().equals("email")) {
-						if (!field.get(customer).toString().equals(v.toString()))
-							throw new CustomerNotFoundException("Email mismatch for the id :" + id);
-
-					}
-				} catch (IllegalArgumentException | IllegalAccessException e) {
-                       
-					
-				}
-				ReflectionUtils.setField(field, customer, v);
-			});
-
-			return repo.save(customer);
-		}
-
+		return customerRepository.save(customer);
 	}
-	
-	
-	@Override
-	public Customer deleteCustomer(int customerId) throws CustomerNotFoundException {
 
-		Optional<Customer> findById = repo.findById(customerId);
-		findById.orElseThrow(() -> new CustomerNotFoundException("There are no customer having id:" + customerId));
-
-		repo.deleteById(customerId);
-
-		return findById.get();
-	}
+	// method to find the details of the customer using customer Id
 
 	@Override
-	public Customer getCustomer(int customerId) throws CustomerNotFoundException {
-		Optional<Customer> findById = repo.findById(customerId);
+	public Customer getCustomer(int customerId) throws UserNotFoundException {
+		Optional<Customer> findById = customerRepository.findById(customerId);
 
-		return findById
-				.orElseThrow(() -> new CustomerNotFoundException("There are no customer having id:" + customerId));
+		return findById.orElseThrow(() -> new UserNotFoundException("There are no customer having id:" + customerId));
 	}
+
+	// method to get all the customers
 
 	@Override
 	public List<Customer> getCustomers() {
 
-		if (repo.findAll().isEmpty())
-			throw new CustomerNotFoundException("There are no records");
+		if (customerRepository.findAll().isEmpty())
+			throw new UserNotFoundException("There are no records");
 
-		return repo.findAll();
+		return customerRepository.findAll();
 
 	}
 
+	// method to delete the customer using customer Id
+
 	@Override
-	public Customer validateCustomer(Customer tenant) throws CustomerNotFoundException {
+	public Customer deleteCustomer(int customerId) throws UserNotFoundException {
 
-		String userName = tenant.getEmail();
-		String password = tenant.getPassword();
+		Optional<Customer> findById = customerRepository.findById(customerId);
+		findById.orElseThrow(() -> new UserNotFoundException("There are no customer having id:" + customerId));
 
-		Optional<Customer> customer = repo.findByEmail(userName);
+		customerRepository.deleteById(customerId);
 
-		if (customer.isEmpty() || !customer.get().getPassword().equals(password)) {
+		return findById.get();
+	}
 
-			throw new CustomerNotFoundException("Bad Credentials");
+	// method to find the all the order details of the customer using customer Id
+	@Override
+	public List<Order> getOrders(Integer id) {
+
+		Optional<Customer> findById = customerRepository.findById(id);
+		Customer customer = findById.orElseThrow(() -> new UserNotFoundException("Customer not found:"));
+		
+		if(customer.getOrders().isEmpty())
+			throw new UserNotFoundException("Order not found");
+		return customer.getOrders();
+	}
+
+	// method to get the order details of a customerId and orderId
+
+	@Override
+	public Order getOrderDetails(Integer customerId, Integer orderId) {
+
+		Customer customer = customerRepository.findById(customerId)
+				                        .orElseThrow(() -> new UserNotFoundException("Customer not found"));
+
+		List<Order> collect = customer.getOrders().stream().filter(order -> order.getBookingId() == orderId)
+				                                                    .collect(Collectors.toList());
+
+		// TODO change the exception to order not found
+
+		if (collect.isEmpty()) {
+			throw new UserNotFoundException("Order not found");
 		}
 
-		return customer.get();
+		return collect.get(0);
 	}
 
 }

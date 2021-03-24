@@ -1,6 +1,6 @@
 package com.cg.sprint1_onlineplantnursery.exception;
 
-public class ResourceNotFoundException extends Exception {
+public class ResourceNotFoundException extends RuntimeException {
 
 	public ResourceNotFoundException() {
 		// TODO Auto-generated constructor stub

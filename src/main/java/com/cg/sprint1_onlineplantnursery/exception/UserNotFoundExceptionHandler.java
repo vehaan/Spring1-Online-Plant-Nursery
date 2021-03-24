@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class CustomerNotFoundExceptionHandler {
+public class UserNotFoundExceptionHandler {
 
-	@ExceptionHandler(CustomerNotFoundException.class)
-	public ResponseEntity<String> handleCustomerNotFoundException(CustomerNotFoundException exception) {
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<String> handleCustomerNotFoundException(UserNotFoundException exception) {
 
 		return new ResponseEntity<String>(exception.getMessage(), HttpStatus.BAD_REQUEST);
 	}

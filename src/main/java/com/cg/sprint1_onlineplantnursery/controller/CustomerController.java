@@ -25,14 +25,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
+import com.cg.sprint1_onlineplantnursery.entity.Order;
+import com.cg.sprint1_onlineplantnursery.entity.User;
 import com.cg.sprint1_onlineplantnursery.service.ICustomerService;
+import com.cg.sprint1_onlineplantnursery.service.IUserService;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customers")
 public class CustomerController extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private ICustomerService customerService;
+
+	@Autowired
+	private IUserService userService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -43,30 +49,34 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 	Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
 	@PostMapping("/register")
-	public ResponseEntity<Customer> register(@Valid @RequestBody Customer customer) {
-		
+	public ResponseEntity<User> register(@Valid @RequestBody Customer customer) {
+
 		logger.trace("Adding  the customer");
 
-		return new ResponseEntity<Customer>(customerService.addCustomer(customer), HttpStatus.CREATED);
+		return new ResponseEntity<>(userService.register(customer), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/account")
+	public ResponseEntity<String> login(@RequestBody User user) {
 
-	public ResponseEntity<String> login(@RequestBody Customer customer) {
-
-		logger.trace("Validing  the customer using Email and Password");
-
-		return new ResponseEntity<String>("Welcome " + customerService.validateCustomer(customer).getName(),
+		return new ResponseEntity<String>("Welcome " + ((Customer) userService.login(user)).getName(),
 				HttpStatus.ACCEPTED);
 
 	}
 
-	@GetMapping("/id/{id}")
-	public ResponseEntity<Customer> viewById(@PathVariable Integer id) {
+	@PatchMapping("/resetPassword/{id}")
+	public ResponseEntity<String> resetPassword(@Valid @PathVariable Integer id,
+			@RequestBody Map<Object, Object> fields) {
 
-		logger.trace("Getting  the customer having id : " + id);
+		return new ResponseEntity<>("Your password is successfully updated "
+				+ ((Customer) userService.resetPasswordById(id, fields)).getName(), HttpStatus.CREATED);
+	}
 
-		return new ResponseEntity<>(customerService.getCustomer(id), HttpStatus.OK);
+	@PatchMapping("/resetEmail/{id}")
+	public ResponseEntity<String> resetEmail(@Valid @PathVariable Integer id, @RequestBody Map<Object, Object> fields) {
+
+		return new ResponseEntity<>("Your password is successfully updated "
+				+ (((Customer) userService.resetEmailById(id, fields)).getName()), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/id/{id}")
@@ -77,15 +87,6 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 		return new ResponseEntity<Customer>(customerService.updateCustomer(id, customer), HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/id/{id}")
-	public ResponseEntity<String> resetPassword(@Valid @PathVariable Integer id,@RequestBody Map<Object, Object> fields) {
-
-		logger.trace("Resetting the password for the customer id : " + id);
-		customerService.resetPasswordById(id, fields);
-
-		return new ResponseEntity<>("Your password is successfully updated", HttpStatus.CREATED);
-	}
-
 	@DeleteMapping("/id/{id}")
 	public ResponseEntity<Customer> deleteById(@PathVariable Integer id) {
 
@@ -94,11 +95,29 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 		return new ResponseEntity<Customer>(customerService.deleteCustomer(id), HttpStatus.OK);
 	}
 
-	@GetMapping("/customers")
-	public ResponseEntity<List<Customer>> allCustomers() {
-		logger.trace("Getting the records of the customers");
-		return new ResponseEntity<List<Customer>>(customerService.getCustomers(), HttpStatus.OK);
+	@GetMapping("/id/{id}")
+	public ResponseEntity<Customer> getCustomer(@PathVariable Integer id) {
 
+		return new ResponseEntity<>(customerService.getCustomer(id), HttpStatus.OK);
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Customer>> getCustomers() {
+
+		return new ResponseEntity<>(customerService.getCustomers(), HttpStatus.OK);
+	}
+
+	@GetMapping("/orders/id/{id}")
+	public ResponseEntity<List<Order>> getByCustomerId(@PathVariable Integer id) {
+
+		return new ResponseEntity<>(customerService.getOrders(id), HttpStatus.OK);
+	}
+
+	@GetMapping("/orders/{customerId}/{orderId}")
+	public ResponseEntity<Order> getBycustomerIdAndOrderId(@PathVariable Integer customerId,
+			@PathVariable Integer orderId) {
+
+		return new ResponseEntity<>(customerService.getOrderDetails(customerId, orderId), HttpStatus.OK);
 	}
 
 }

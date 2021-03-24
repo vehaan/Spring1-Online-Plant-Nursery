@@ -25,7 +25,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.cg.sprint1_onlineplantnursery.entity.Address;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
-import com.cg.sprint1_onlineplantnursery.exception.CustomerNotFoundException;
+import com.cg.sprint1_onlineplantnursery.exception.UserNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ICustomerRepository;
 import com.cg.sprint1_onlineplantnursery.service.CustomerServiceImpl;
 
@@ -40,28 +40,19 @@ class CustomerTest {
 	@InjectMocks
 	CustomerServiceImpl customerServiceMock;
 
-	static Customer c1;
-	static Customer c2;
-	static Customer c3;
-
-	static Address a1;
-	static Address a2;
-	static Address a3;
+	static Customer c1, c2, c3;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 
-		c1 = new Customer(1, "Pavan", "pavankumar@gmail.com", "Pavan@123");
-		a1 = new Address("2-31", "Ram Nagar", "Ongole", "Andhra Pradesh", 523279);
-		c1.setAddress(a1);
+		c1 = new Customer(1, "pavan@gmail.com", "Pavan@123", "customer", "Pavan Kumar", "9182183522",
+				new Address("2-31", "Sai nagar", "Ongole", "Andhra Pradesh", 523279));
 
-		c2 = new Customer(2, "Rahul", "rahulsai@gmail.com", "Sai@123");
-		a2 = new Address("3-21", "Sri Nagar", "Ongole", "Andhra Pradesh", 523279);
-		c2.setAddress(a2);
+		c2 = new Customer(2, "rahul@gmail.com", "rahul@123", "customer", "Rahul sai", "9666635326",
+				new Address("3-21", "sarathnagar", "kondepi", "Andhra Pradesh", 523276));
 
-		c3 = new Customer(3, "Kumar", "kantu@gmail.com", "kantu@123");
-		a3 = new Address("2-31", "Ram Nagar", "Hyderabad", "Telangana", 324389);
-		c3.setAddress(a3);
+		c3 = new Customer(3, "kantu@gmail.com", "kantu@123", "customer", "Kantu Kumar", "9846478462",
+				new Address("3-22", "Jogipet", "Sangareddy", "Telangana", 532456));
 
 	}
 
@@ -82,7 +73,7 @@ class CustomerTest {
 
 		when(customerRepositoryMock.save(Mockito.anyObject())).thenReturn(c1);
 
-		assertEquals("Pavan", customerServiceMock.addCustomer(c1).getName());
+		assertEquals("Pavan Kumar", customerServiceMock.addCustomer(c1).getName());
 
 		// verify(customerServiceMock).addCustomer(c1);
 
@@ -90,10 +81,9 @@ class CustomerTest {
 
 	@Test
 	public void updateCustomerTest() {
-		c1 = new Customer(1, "Pavan", "pavankumarkantu@gmail.com", "Pavan@123");
-		a1 = new Address("2-31", "Ram Nagar", "Ongole", "Andhra Pradesh", 523279);
-		c1.setAddress(a1);
 
+		c1 = new Customer("pavankumarkantu@gmail.com", "Pavan@123", "customer", "Pavan Kumar", "9182183522",
+				new Address("2-31", "Sai nagar", "Ongole", "Andhra Pradesh", 523279));
 
 		when(customerRepositoryMock.findById(1)).thenReturn(Optional.of(c1));
 		when(customerRepositoryMock.save(Mockito.anyObject())).thenReturn(c1);
@@ -106,22 +96,11 @@ class CustomerTest {
 	public void deleteCustomerTest() {
 
 		when(customerRepositoryMock.findById(2)).thenReturn(Optional.of(c2));
-		assertEquals("Ongole", customerServiceMock.deleteCustomer(2).getAddress().getCity());
+		assertEquals("kondepi", customerServiceMock.deleteCustomer(2).getAddress().getCity());
 
-		Exception exception = assertThrows(CustomerNotFoundException.class,
+		Exception exception = assertThrows(UserNotFoundException.class,
 				() -> customerServiceMock.deleteCustomer(12));
 		assertTrue(exception.getMessage().contains("There are no customer having id:12"));
-
-	} 
-
-	@Test
-	public void validateCustomerTest() {
-
-		when(customerRepositoryMock.findByEmail("kantu@gmail.com")).thenReturn(Optional.of(c3));
-		assertEquals("kantu@123", customerServiceMock.validateCustomer(c3).getPassword());
-
-		Exception exception = assertThrows(CustomerNotFoundException.class,() -> customerServiceMock.validateCustomer(c1));
-		assertTrue(exception.getMessage().contains("Bad Credentials"));
 
 	}
 
@@ -129,9 +108,9 @@ class CustomerTest {
 	public void getCustomerTest() {
 
 		when(customerRepositoryMock.findById(2)).thenReturn(Optional.of(c2));
-		assertEquals("Rahul", customerServiceMock.getCustomer(2).getName());
+		assertEquals("Rahul sai", customerServiceMock.getCustomer(2).getName());
 
-		Exception exception = assertThrows(CustomerNotFoundException.class, () -> customerServiceMock.getCustomer(11));
+		Exception exception = assertThrows(UserNotFoundException.class, () -> customerServiceMock.getCustomer(11));
 		assertTrue(exception.getMessage().contains("There are no customer having id:11"));
 
 	}

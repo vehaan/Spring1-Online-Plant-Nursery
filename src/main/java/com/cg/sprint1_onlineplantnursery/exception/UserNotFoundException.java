@@ -1,11 +1,11 @@
 package com.cg.sprint1_onlineplantnursery.exception;
 
-public class CustomerNotFoundException extends RuntimeException {
+public class UserNotFoundException extends RuntimeException {
 
 	
 	private String message;
 
-	public CustomerNotFoundException(String message) {
+	public UserNotFoundException(String message) {
 		this.setMessage(message);
 	}
 

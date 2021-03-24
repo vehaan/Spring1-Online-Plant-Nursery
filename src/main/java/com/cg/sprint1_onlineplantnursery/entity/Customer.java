@@ -6,82 +6,58 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name = "CUSTOMERS", uniqueConstraints = { @UniqueConstraint(columnNames = "id"),
-		@UniqueConstraint(columnNames = "email") })
-
-public class Customer {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_Sequence")
-	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ_FOR_CUSTOMER", initialValue = 101, allocationSize = 1)
-	private Integer id;
+@Table(name = "CUSTOMERS")
+public class Customer extends User {
 
 	@NotBlank
 	@Size(min = 3, message = "Name should be atleast three characters")
 	private String name;
 
-	@Email(message = "Enter a valid Email")
-	@NotBlank
-	private String email;
-
-	@NotBlank
-	private String password;
+	@NotNull
+	private String phone;
 
 	@Embedded
 	private Address address;
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Order> orders;
+	private List<Order> orders = null;
 
 	public Customer() {
 		super();
 	}
 
-	public Customer(String email, String password) {
-		super();
-		this.email = email;
-		this.password = password;
-	}
-
-	public Customer(String name, String email, String password) {
-		super();
-		this.name = name;
-		this.email = email;
-		this.password = password;
-	}
-
-	public Customer(Integer id,
+	
+	public Customer(Integer id, @Email(message = "Enter a valid  Email") String email, String password, String role,
 			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
-			@Email(message = "Enter a valid Email") @NotBlank String email, @NotBlank String password) {
-		super();
-		this.id = id;
+			@NotNull String phone, Address address) {
+		super(id, email, password, role);
 		this.name = name;
-		this.email = email;
-		this.password = password;
+		this.phone = phone;
+		this.address = address;
+	
 	}
 
-	public Integer getId() {
-		return id;
-	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public Customer(@Email(message = "Enter a valid  Email") String email, String password, String role,
+			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
+			@NotNull String phone, Address address) {
+		super(email, password, role);
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
 	}
+	
 
 	public String getName() {
 		return name;
@@ -91,20 +67,12 @@ public class Customer {
 		this.name = name;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	public Address getAddress() {
@@ -150,8 +118,7 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", address="
-				+ address + ", orders=" + orders + "]";
+		return "Customer [name=" + name + ", phone=" + phone + ", address=" + address + ", orders=" + orders + "]";
 	}
 
 }
