@@ -2,6 +2,8 @@ package com.cg.sprint1_onlineplantnursery.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,8 +35,8 @@ public class User {
 	@NotBlank
 	private String password;
 
-	@NotBlank
-	private String role;
+	@Enumerated(EnumType.STRING)
+	private Role role;
 
 	
 	//constructors
@@ -51,17 +53,16 @@ public class User {
 	}
 
 
-	public User(@Email(message = "Enter a valid  Email") String email, String password, String role) {
+	public User(@NotBlank @Email(message = "Enter a valid Email") String email, @NotBlank String password, Role role) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.role = role;
 	}
-	
-	
-	
 
-	public User(Integer id, @Email(message = "Enter a valid  Email") String email, String password, String role) {
+
+	public User(Integer id, @NotBlank @Email(message = "Enter a valid Email") String email, @NotBlank String password,
+			Role role) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -69,7 +70,8 @@ public class User {
 		this.role = role;
 	}
 
-   //setters and getters
+
+//setters and getters
 	
 	public Integer getId() {
 		return id;
@@ -93,15 +95,17 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
+	}	
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+
+	public void setRole(Role role) {
 		this.role = role;
 	}
+
 
 	@Override
 	public String toString() {

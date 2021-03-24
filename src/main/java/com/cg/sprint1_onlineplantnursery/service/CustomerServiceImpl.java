@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
+import com.cg.sprint1_onlineplantnursery.entity.Role;
 import com.cg.sprint1_onlineplantnursery.exception.UserNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ICustomerRepository;
 
@@ -22,22 +23,11 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public Customer addCustomer(Customer customer) throws UserNotFoundException {
 		Customer save = null;
-
 		if (customerRepository.findByEmail(customer.getEmail()).isPresent())
 			throw new UserNotFoundException("Email is already registered.Try to login");
-		else if (customer.getRole().equalsIgnoreCase("admin"))
+		else if (customer.getRole() == Role.ADMIN)
 			throw new UserNotFoundException("Customer role cannot be admin");
-
-		else {
-
-			List<Order> orders = customer.getOrders();
-
-			if (orders != null) {
-				for (Order order : orders)
-					order.setCustomer(customer);
-			}
-			save = customerRepository.save(customer);
-		}
+		save = customerRepository.save(customer);
 		return save;
 	}
 

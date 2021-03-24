@@ -22,7 +22,7 @@ public class Admin extends User {
 		super();
 	}
 
-	public Admin(@Email(message = "Enter a valid  Email") String email, String password, String role,
+	public Admin(@NotBlank @Email(message = "Enter a valid Email") String email, @NotBlank String password, Role role,
 			@NotBlank String name, @NotBlank String phone) {
 		super(email, password, role);
 		this.name = name;
@@ -44,6 +44,8 @@ public class Admin extends User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	
+	
 
 	@Override
 	public String toString() {

@@ -37,27 +37,26 @@ public class Customer extends User {
 		super();
 	}
 
-	
-	public Customer(Integer id, @Email(message = "Enter a valid  Email") String email, String password, String role,
+	public Customer(Integer id, @NotBlank @Email(message = "Enter a valid Email") String email,
+			@NotBlank String password, Role role,
 			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
-			@NotNull String phone, Address address) {
+			@NotNull String phone, Address address, List<Order> orders) {
 		super(id, email, password, role);
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
+		this.orders = orders;
+	}	
 	
-	}
-
-
-	public Customer(@Email(message = "Enter a valid  Email") String email, String password, String role,
-			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
-			@NotNull String phone, Address address) {
+	public Customer(@NotBlank @Email(message = "Enter a valid Email") String email, @NotBlank String password,
+			Role role, @NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
+			@NotNull String phone, Address address, List<Order> orders) {
 		super(email, password, role);
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
+		this.orders = orders;
 	}
-	
 
 	public String getName() {
 		return name;

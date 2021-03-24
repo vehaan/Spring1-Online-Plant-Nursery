@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Admin;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
+import com.cg.sprint1_onlineplantnursery.entity.Role;
 import com.cg.sprint1_onlineplantnursery.entity.User;
 import com.cg.sprint1_onlineplantnursery.exception.UserNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.IUserRepository;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements IUserService {
 
 			if (userRepository.findByEmail(user.getEmail()).isPresent())
 				throw new UserNotFoundException("Email is already registered.Try to login");
-			else if (user.getRole().equalsIgnoreCase("admin"))
+			else if (user.getRole() == Role.ADMIN)
 				throw new UserNotFoundException("Customer role cannot be admin");
 			
 			userToBeCreated = userRepository.save(user);

@@ -34,8 +34,8 @@ public class Sprint1OnlinePlantNurseryApplication {
 	
 	private ApiInfo apiInfo() {
 	    return new ApiInfo(
-	      "Online Plant Nursery: Planter", 
-	      "API for Planter module", 
+	      "Online Plant Nursery", 
+	      "API for Online Plant Nursery", 
 	      "1.0", 
 	      "https://www.google.com/", 
 	      new Contact("Vehaan Singh Kundra", "https://www.google.com/", "vehaanskundra@gmail.com"), 
