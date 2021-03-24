@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
+import io.swagger.annotations.ApiModelProperty;
+
 //import com.cg.sprint1_onlineplantnursery.util.plant.BloomTime;
 //import com.cg.sprint1_onlineplantnursery.util.plant.Difficulty;
 
@@ -20,6 +22,8 @@ public class Plant{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	
+	@ApiModelProperty(notes = "Provide in inches")							//changed
 	private Integer height;
 	private String spread;
 	

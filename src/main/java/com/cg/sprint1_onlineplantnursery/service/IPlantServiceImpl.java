@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.cg.sprint1_onlineplantnursery.entity.Plant;
 import com.cg.sprint1_onlineplantnursery.entity.Plant.BloomTime;
+import com.cg.sprint1_onlineplantnursery.entity.Plant.Difficulty;
 import com.cg.sprint1_onlineplantnursery.exception.PlantIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.IPlantRepository;
 @Transactional
@@ -92,9 +93,9 @@ public class IPlantServiceImpl implements IPlantService{
 	}
 
 	@Override
-	public Plant deletePlant(Plant plant){
+	public Plant deletePlant(int plantId){
 		
-		Optional<Plant> plantOptional = plantRepo.findById(plant.getId());
+		Optional<Plant> plantOptional = plantRepo.findById(plantId);
 		
 		if(plantOptional.isPresent()) {
 			Plant here = plantOptional.get();
@@ -177,14 +178,14 @@ public class IPlantServiceImpl implements IPlantService{
 	}
 
 	@Override
-	public List<Plant> filterPlantByType(String type) {
+	public List<Plant> filterPlantByBloomTime(BloomTime type) {
 		List<Plant> plants = plantRepo.findAll();
-		List<Plant> filteredPlants = plants.stream().filter((p) -> p.getTypeOfPlant().equals(type)).collect(Collectors.toList());
+		List<Plant> filteredPlants = plants.stream().filter((p) -> p.getBloomTime().equals(type)).collect(Collectors.toList());
 		return filteredPlants;
 	}
 
 	@Override
-	public List<Plant> filterPlantByDifficulty(String difficultyLevel) {
+	public List<Plant> filterPlantByDifficulty(Difficulty difficultyLevel) {
 		List<Plant> plants = plantRepo.findAll();
 		List<Plant> filteredPlants = plants.stream().filter((p) -> p.getDifficultyLevel().equals(difficultyLevel)).collect(Collectors.toList());
 		return filteredPlants;

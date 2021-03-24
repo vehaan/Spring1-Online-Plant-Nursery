@@ -110,7 +110,7 @@ class PlantTest {
 		when(plantRepoMock.findById(11)).thenReturn(Optional.of(plant1));
 		//when(plantRepoMock.(plant1)).thenReturn(plant1);
 		
-		assertEquals("Jasmine",plantServiceMock.deletePlant(plant1).getCommonName());
+		assertEquals("Jasmine",plantServiceMock.deletePlant(11).getCommonName());
 	}
 	@Order(6)
 	//@Disabled

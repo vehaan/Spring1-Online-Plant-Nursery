@@ -5,8 +5,6 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.sprint1_onlineplantnursery.entity.Plant;
+import com.cg.sprint1_onlineplantnursery.entity.Plant.BloomTime;
+import com.cg.sprint1_onlineplantnursery.entity.Plant.Difficulty;
 import com.cg.sprint1_onlineplantnursery.exception.PlantIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.service.IPlantService;
 
 @RestController
-@RequestMapping("/plant")
+@RequestMapping("/plants")
 public class PlantController extends WebSecurityConfigurerAdapter {
 
 	@Override
@@ -51,27 +51,26 @@ public class PlantController extends WebSecurityConfigurerAdapter {
 	public ResponseEntity<Plant> updatePlant(@Valid @RequestBody Plant plant, @PathVariable int id) {
 		// logger.trace("updating the whole plant having id "+ id);  
 		plantService.updatePlant(plant, id);
-		return new ResponseEntity<Plant>(plant, HttpStatus.CREATED);
+		return new ResponseEntity<Plant>(plant, HttpStatus.ACCEPTED);
 	}
 
 	@PutMapping("/{commonName}/{stock}")
 	public ResponseEntity<Plant> addPlantStock(@PathVariable String commonName, @PathVariable int stock){
 		//logger.trace("adding "+stock+" plants to the stock");
-		return new ResponseEntity<Plant>(plantService.addPlantStock(commonName,stock), HttpStatus.CREATED);
+		return new ResponseEntity<Plant>(plantService.addPlantStock(commonName,stock), HttpStatus.ACCEPTED);
 	}
 	
 
 	@PatchMapping("/id/{id}")
 	public ResponseEntity<Plant> partialUpdate(@RequestBody Map<Object, Object> fields, @PathVariable("id") int id) {
 	 // logger.trace("updating partially using partialUpadate");    
-	  return new ResponseEntity<Plant>(plantService.partialUpdatePlant(fields, id), HttpStatus.OK);
+	  return new ResponseEntity<Plant>(plantService.partialUpdatePlant(fields, id), HttpStatus.ACCEPTED);
 	}
 	
-	@DeleteMapping()
-	public ResponseEntity<Plant> deletePlant(@RequestBody Plant plant) throws PlantIdNotFoundException{
-		//logger.trace("deleting the whole plant");
-		plantService.deletePlant(plant);
-		return new ResponseEntity<Plant>(plant, HttpStatus.OK);
+	@DeleteMapping("/id/{id}")
+	public ResponseEntity<Plant> deletePlant(@PathVariable int id) throws PlantIdNotFoundException{
+		//logger.trace("deleting the whole plant");	
+		return new ResponseEntity<Plant>(plantService.deletePlant(id), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/id/{id}/{stock}")       
@@ -114,13 +113,13 @@ public class PlantController extends WebSecurityConfigurerAdapter {
 		return new ResponseEntity<List<Plant>>(plantService.costHighToLow(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/filterByType/{type}")
-	public ResponseEntity<List<Plant>> filterByType(@PathVariable String type){
-		return new ResponseEntity<List<Plant>>(plantService.filterPlantByType(type),HttpStatus.OK);
+	@GetMapping("/filterByBloomTime/{bloomTime}")
+	public ResponseEntity<List<Plant>> filterByType(@PathVariable BloomTime bloomTime){
+		return new ResponseEntity<List<Plant>>(plantService.filterPlantByBloomTime(bloomTime),HttpStatus.OK);
 	}
 	
 	@GetMapping("/filterByDifficulty/{difficulty}")
-	public ResponseEntity<List<Plant>> filterByDifficulty(@PathVariable String difficulty){
+	public ResponseEntity<List<Plant>> filterByDifficulty(@PathVariable Difficulty difficulty){
 		return new ResponseEntity<List<Plant>>(plantService.filterPlantByDifficulty(difficulty),HttpStatus.OK);
 	}
 	

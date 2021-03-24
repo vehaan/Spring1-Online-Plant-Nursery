@@ -2,10 +2,10 @@ package com.cg.sprint1_onlineplantnursery.service;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import com.cg.sprint1_onlineplantnursery.entity.Plant;
-import com.cg.sprint1_onlineplantnursery.exception.PlantIdNotFoundException;
+import com.cg.sprint1_onlineplantnursery.entity.Plant.BloomTime;
+import com.cg.sprint1_onlineplantnursery.entity.Plant.Difficulty;
 
 public interface IPlantService {
 	Plant addNewPlant(Plant plant);
@@ -16,7 +16,7 @@ public interface IPlantService {
 	
 	Plant partialUpdatePlant(Map<Object, Object> fields, int id);
 
-	Plant deletePlant(Plant plant);
+	Plant deletePlant(int plantId);
 	
 	Plant decreaseStock(int id, int stock);
 
@@ -32,9 +32,9 @@ public interface IPlantService {
 	
 	List<Plant> costHighToLow();
 	
-	List<Plant> filterPlantByType(String type);
+	List<Plant> filterPlantByBloomTime(BloomTime type);
 	
-	List<Plant> filterPlantByDifficulty(String difficulty);
+	List<Plant> filterPlantByDifficulty(Difficulty difficulty);
 	
 	String getBloomingStatus(int id);
 }
