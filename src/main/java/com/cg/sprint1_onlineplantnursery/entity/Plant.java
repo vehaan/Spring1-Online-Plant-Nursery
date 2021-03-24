@@ -9,10 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
+import io.swagger.annotations.ApiModelProperty;
+
 
 @Entity
 public class Plant extends Product{
 	
+	@ApiModelProperty(notes = "Provide in inches")							
 	private Integer height;
 	private String spread;
 	
@@ -32,25 +35,8 @@ public class Plant extends Product{
 	private String description;
 	
 	public Plant() {
-		// TODO Auto-generated constructor stub
 	}
 
-	public Difficulty getDifficultyLevel() {
-		return difficultyLevel;
-	}
-
-	public void setDifficultyLevel(Difficulty difficultyLevel) {
-		this.difficultyLevel = difficultyLevel;
-	}
-	
-	public enum Difficulty{
-		EASY, MEDIUM, HARD;
-	}
-
-	public enum BloomTime {
-		WINTER, SUMMER, MONSOON, AUTUMN;
-	}
-	
 	public Plant(Integer height, String spread, BloomTime bloomTime, String medicinalOrCulinaryUse,
 			Difficulty difficultyLevel, String temperature, String typeOfPlant,
 			@NotBlank(message = "Name is necessary") String commonName, String description) {
@@ -66,6 +52,37 @@ public class Plant extends Product{
 		this.description = description;
 	}
 
+	public Plant(int cost, int stock, Type type, Integer height, String spread, BloomTime bloomTime,
+			String medicinalOrCulinaryUse, Difficulty difficultyLevel, String temperature, String typeOfPlant,
+			@NotBlank(message = "Name is necessary") String commonName, String description) {
+		super(cost, stock, type);
+		this.height = height;
+		this.spread = spread;
+		this.bloomTime = bloomTime;
+		this.medicinalOrCulinaryUse = medicinalOrCulinaryUse;
+		this.difficultyLevel = difficultyLevel;
+		this.temperature = temperature;
+		this.typeOfPlant = typeOfPlant;
+		this.commonName = commonName;
+		this.description = description;
+	}
+	
+	
+	public Plant(int id, int cost, int stock, Type type, Integer height, String spread, BloomTime bloomTime,
+			String medicinalOrCulinaryUse, Difficulty difficultyLevel, String temperature, String typeOfPlant,
+			@NotBlank(message = "Name is necessary") String commonName, String description) {
+		super(id, cost, stock, type);
+		this.height = height;
+		this.spread = spread;
+		this.bloomTime = bloomTime;
+		this.medicinalOrCulinaryUse = medicinalOrCulinaryUse;
+		this.difficultyLevel = difficultyLevel;
+		this.temperature = temperature;
+		this.typeOfPlant = typeOfPlant;
+		this.commonName = commonName;
+		this.description = description;
+	}
+	
 	public Plant(int cost, int stock, Integer height, String spread, BloomTime bloomTime, String medicinalOrCulinaryUse,
 			Difficulty difficultyLevel, String temperature, String typeOfPlant,
 			@NotBlank(message = "Name is necessary") String commonName, String description) {
@@ -81,22 +98,14 @@ public class Plant extends Product{
 		this.description = description;
 	}
 
-
-
-	public Plant(int id, int cost, int stock, Type type, Integer height, String spread, BloomTime bloomTime,
-			String medicinalOrCulinaryUse, Difficulty difficultyLevel, String temperature, String typeOfPlant,
-			@NotBlank(message = "Name is necessary") String commonName, String description) {
-		super(id, cost, stock, type);
-		this.height = height;
-		this.spread = spread;
-		this.bloomTime = bloomTime;
-		this.medicinalOrCulinaryUse = medicinalOrCulinaryUse;
-		this.difficultyLevel = difficultyLevel;
-		this.temperature = temperature;
-		this.typeOfPlant = typeOfPlant;
-		this.commonName = commonName;
-		this.description = description;
+	public Difficulty getDifficultyLevel() {
+		return difficultyLevel;
 	}
+
+	public void setDifficultyLevel(Difficulty difficultyLevel) {
+		this.difficultyLevel = difficultyLevel;
+	}
+
 
 	public Integer getHeight() {
 		return height;
@@ -113,7 +122,7 @@ public class Plant extends Product{
 	public void setSpread(String spread) {
 		this.spread = spread;
 	}
-	
+
 	public BloomTime getBloomTime() {
 		return bloomTime;
 	}
@@ -147,7 +156,7 @@ public class Plant extends Product{
 	public void setTypeOfPlant(String typeOfPlant) {
 		this.typeOfPlant = typeOfPlant;
 	}
-	
+
 	public String getCommonName() {
 		return commonName;
 	}
@@ -169,8 +178,8 @@ public class Plant extends Product{
 		return "Plant [height=" + height + ", spread=" + spread + ", bloomTime=" + bloomTime
 				+ ", medicinalOrCulinaryUse=" + medicinalOrCulinaryUse + ", difficultyLevel=" + difficultyLevel
 				+ ", temperature=" + temperature + ", typeOfPlant=" + typeOfPlant + ", commonName=" + commonName
-				+ ", description=" + description + "]";
+				+ ", description=" + description + ", getType()=" + getType() + ", getId()=" + getId() + ", getCost()="
+				+ getCost() + ", getStock()=" + getStock() + "]";
 	}
-	
-	
+
 }

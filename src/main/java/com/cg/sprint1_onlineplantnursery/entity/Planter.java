@@ -1,15 +1,10 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
-import java.util.List;
-
 import javax.persistence.*;
 import javax.validation.constraints.Positive;
-
 import com.sun.istack.NotNull;
 
 @Entity
-//@DiscriminatorColumn(name="type",discriminatorType=DiscriminatorType.STRING)
-//@DiscriminatorValue(value="Planter")
 public class Planter extends Product{
 	
 	@Positive (message = "The height must be positive")
@@ -17,10 +12,6 @@ public class Planter extends Product{
 	
 	@NotNull
 	private String shape;
-	
-//	@OneToMany(cascade = CascadeType.ALL)
-//	private List<Seed> seeds;
-	
 	private int capacity;
 	private int drainageHoles;
 	private String color;
@@ -56,8 +47,6 @@ public class Planter extends Product{
 		this.color = color;
 	}
 	
-	
-
 	public Planter(int cost, int stock, Type type, @Positive(message = "The height must be positive") float height,
 			String shape, int capacity, int drainageHoles, String color) {
 		super(cost, stock, type);
@@ -122,7 +111,8 @@ public class Planter extends Product{
 	@Override
 	public String toString() {
 		return "Planter [height=" + height + ", shape=" + shape + ", capacity=" + capacity + ", drainageHoles="
-				+ drainageHoles + ", color=" + color + "]";
+				+ drainageHoles + ", color=" + color + ", getType()=" + getType() + ", getId()=" + getId()
+				+ ", getCost()=" + getCost() + ", getStock()=" + getStock() + "]";
 	}
-	
+
 }

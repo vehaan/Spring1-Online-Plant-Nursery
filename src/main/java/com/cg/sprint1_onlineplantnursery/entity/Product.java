@@ -87,9 +87,7 @@ public class Product {
 		this.stock = stock;
 	}
 	
-	public enum Type{
-		PLANTER, SEED, PLANT;
-	}
+
 
 	
 

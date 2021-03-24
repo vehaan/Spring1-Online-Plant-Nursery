@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -30,9 +31,16 @@ public class PlantExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(PlantIdNotFoundException.class)
 	public ErrorMessage handleNullPointerException(PlantIdNotFoundException ex) {
-		//System.out.println(ex.getMessage());
-		return new ErrorMessage("400",ex.getMessage());
-		//return("this plant does not exist !");
+		return new ErrorMessage("400",ex.getMessage());		
+	}
+	
+	@ResponseBody
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ErrorMessage handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+		return new ErrorMessage("400","this value of Difficulty level or Blooming time is not accepted."
+				+ " Accepted values are 1) Difficulty: EASY, MEDIUM, HARD "
+				+ " 2) BloomingTime: WINTER, SUMMER, MONSOON, AUTUMN");
 	}
 	
 }

@@ -30,15 +30,5 @@ public interface IPlanterService {
 	List<Planter> filterPlantersByShape(String planterShape);
 	List<Planter> filterPlantersByCapacity(int capacity);
 	List<Planter> filterPlantersByDrainageHoles(int drainageHoles);
-	
-	
-	//WITH SEED AND PLANT SERVICES
-//	Planter addCustomPlanter(int planterId, int seedId, int seedStock);
-	
-	
-	
-	
-	
-	
-	
+		
 }

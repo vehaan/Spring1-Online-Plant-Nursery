@@ -17,7 +17,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
 import com.cg.sprint1_onlineplantnursery.repository.IPlanterRepository;
-import com.cg.sprint1_onlineplantnursery.service.IPlanterServiceImpl;
+import com.cg.sprint1_onlineplantnursery.service.PlanterServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -27,7 +27,7 @@ class TestPlanterService {
 	IPlanterRepository dao;
 	
 	@InjectMocks
-	IPlanterServiceImpl service;
+	PlanterServiceImpl service;
 	
 	List<Planter> planterList;
 	Planter planter1;
@@ -35,10 +35,8 @@ class TestPlanterService {
 	Planter planter3;
 	Planter planter4;
 	
-
 	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-		
+	static void setUpBeforeClass() throws Exception {	
 	}
 
 	@AfterAll

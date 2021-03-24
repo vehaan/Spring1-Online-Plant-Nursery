@@ -1,18 +1,26 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
+import com.cg.sprint1_onlineplantnursery.entity.Type;
+import com.cg.sprint1_onlineplantnursery.entity.Difficulty;
 import com.cg.sprint1_onlineplantnursery.exception.OutOfStockException;
 import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ISeedRepository;
 
 @Service
-public class ISeedServiceImpl implements ISeedService{
+@Transactional
+public class SeedServiceImpl implements ISeedService{
 	
 	@Autowired
 	private ISeedRepository seedRepo;
@@ -49,6 +57,15 @@ public class ISeedServiceImpl implements ISeedService{
 		Optional<Seed> seedOptional = seedRepo.findById(seed.getId());		
 		if(seedOptional.isPresent()) {
 			seedRepo.delete(seed);
+		}
+		return seedOptional.orElseThrow(()->new SeedIdNotFoundException("Invalid seed id...Cannot delete"));	
+	}
+	
+	@Override
+	public Seed deleteSeedById(int id) throws SeedIdNotFoundException {
+		Optional<Seed> seedOptional = seedRepo.findById(id);		
+		if(seedOptional.isPresent()) {
+			seedRepo.delete(seedOptional.get());
 		}
 		return seedOptional.orElseThrow(()->new SeedIdNotFoundException("Invalid seed id...Cannot delete"));	
 	}
@@ -129,19 +146,35 @@ public class ISeedServiceImpl implements ISeedService{
 	//Filter
 	
 	@Override
-	public List<Seed> filterSeedByType(String type) {
+	public List<Seed> filterSeedByType(Type type) {
 		List<Seed> seeds = seedRepo.findAll();
-		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getTypeOfSeed().equals(type)).collect(Collectors.toList());
+		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getType().equals(type)).collect(Collectors.toList());
 		return filteredSeeds;
 			
 	}
 	
 	@Override
-	public List<Seed> filterSeedByDifficulty(String difficultyLevel) {
+	public List<Seed> filterSeedByDifficulty(Difficulty difficultyLevel) {
 		List<Seed> seeds = seedRepo.findAll();
 		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getDifficultyLevel().equals(difficultyLevel)).collect(Collectors.toList());
 		return filteredSeeds;
 			
 	}
 
+	@Override
+	public Seed updateSeed(int id, Map<Object, Object> fields) {
+		Optional<Seed> seedOptional = seedRepo.findById(id);
+		if(seedOptional.isPresent()) {
+		
+			Seed seed = seedRepo.findById(id).get();
+			fields.forEach((k,v)->{
+				Field field = ReflectionUtils.findRequiredField(Seed.class, (String)k);
+				field.setAccessible(true);
+				ReflectionUtils.setField(field, seed, v);	
+			});
+			return seedRepo.save(seed);
+		}
+		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Plant Not Found"));
+
+}
 }

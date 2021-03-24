@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.cg.sprint1_onlineplantnursery.entity.Planter;
 import com.cg.sprint1_onlineplantnursery.entity.Product;
+import com.cg.sprint1_onlineplantnursery.entity.Type;
 
 @Service
 public interface IProductService {
@@ -18,5 +20,11 @@ public interface IProductService {
 	Product getProductById(int productId);
 
 	List<Product> getProducts();
+
+	List<Product> costLowToHigh();
+
+	List<Product> costHighToLow();
+
+	List<Product> filterByType(Type type);
 
 }

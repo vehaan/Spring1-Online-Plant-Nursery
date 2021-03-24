@@ -1,29 +1,39 @@
 package com.cg.sprint1_onlineplantnursery.exception;
 
-public class OrderIdNotFoundException extends Exception {
+public class OrderIdNotFoundException extends RuntimeException {
+
+	private static final long serialVersionUID = 1L;
+	private String message;
+	
+	public OrderIdNotFoundException(String message) {
+		super();
+		this.message = message;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
 	public OrderIdNotFoundException() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public OrderIdNotFoundException(String arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public OrderIdNotFoundException(Throwable cause) {
+		super(cause);
+		
 	}
 
-	public OrderIdNotFoundException(Throwable arg0) {
-		super(arg0);
-		// TODO Auto-generated constructor stub
+	public OrderIdNotFoundException(String message, Throwable cause) {
+		super(message, cause);
+		
 	}
 
-	public OrderIdNotFoundException(String arg0, Throwable arg1) {
-		super(arg0, arg1);
-		// TODO Auto-generated constructor stub
-	}
-
-	public OrderIdNotFoundException(String arg0, Throwable arg1, boolean arg2, boolean arg3) {
-		super(arg0, arg1, arg2, arg3);
-		// TODO Auto-generated constructor stub
+	public OrderIdNotFoundException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+		super(message, cause, enableSuppression, writableStackTrace);
 	}
 
 }

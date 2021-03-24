@@ -1,20 +1,17 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Entity
-public class Seed extends Product {
+public class Seed extends Product{
 	
+
 	@NotBlank(message = "Name is required")
 	@Column(unique = true)
 	private String commonName;
@@ -33,25 +30,6 @@ public class Seed extends Product {
 	@Positive(message = "A positive value of seeds per packet required")
 	private Integer seedsPerPacket;
 	
-//	@Embedded
-//	private AddOns addOns;
-	
-//	public AddOns getAddOns() {
-//		return addOns;
-//	}
-//	public void setAddOns(AddOns addOns) {
-//		this.addOns = addOns;
-//	}
-
-	public enum Difficulty {
-	    EASY, MEDIUM, HARD;
-	}
-	
-	public enum BloomTime {
-	    WINTER, SUMMER, AUTUMN, MONSOON;
-	}
-	
-
 	public Seed(@NotBlank(message = "Name is required") String commonName, BloomTime bloomTime, String watering,
 			Difficulty difficultyLevel, String temperature, String typeOfSeed, String description,
 			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
@@ -85,6 +63,21 @@ public class Seed extends Product {
 			String description,
 			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
 		super(id, cost, stock, type);
+		this.commonName = commonName;
+		this.bloomTime = bloomTime;
+		this.watering = watering;
+		this.difficultyLevel = difficultyLevel;
+		this.temperature = temperature;
+		this.typeOfSeed = typeOfSeed;
+		this.description = description;
+		this.seedsPerPacket = seedsPerPacket;
+	}
+
+	public Seed(int cost, int stock, Type type, @NotBlank(message = "Name is required") String commonName,
+			BloomTime bloomTime, String watering, Difficulty difficultyLevel, String temperature, String typeOfSeed,
+			String description,
+			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
+		super(cost, stock, type);
 		this.commonName = commonName;
 		this.bloomTime = bloomTime;
 		this.watering = watering;
@@ -134,7 +127,6 @@ public class Seed extends Product {
 		this.temperature = temperature;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
@@ -161,6 +153,8 @@ public class Seed extends Product {
 	public String toString() {
 		return "Seed [commonName=" + commonName + ", bloomTime=" + bloomTime + ", watering=" + watering
 				+ ", difficultyLevel=" + difficultyLevel + ", temperature=" + temperature + ", typeOfSeed=" + typeOfSeed
-				+ ", description=" + description + ", seedsPerPacket=" + seedsPerPacket + "]";
+				+ ", description=" + description + ", seedsPerPacket=" + seedsPerPacket + ", getType()=" + getType()
+				+ ", getId()=" + getId() + ", getCost()=" + getCost() + ", getStock()=" + getStock() + "]";
 	}
+
 }

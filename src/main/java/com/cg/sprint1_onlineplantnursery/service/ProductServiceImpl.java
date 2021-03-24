@@ -4,17 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.sprint1_onlineplantnursery.entity.Plant;
+import com.cg.sprint1_onlineplantnursery.entity.Type;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
 import com.cg.sprint1_onlineplantnursery.entity.Product;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.exception.ResourceNotFoundException;
-import com.cg.sprint1_onlineplantnursery.repository.ProductRepository;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements IProductService {
 	
 	@Autowired
@@ -52,8 +55,10 @@ public class ProductServiceImpl implements IProductService {
 		for(Seed s:seedList) {
 			list.add((Product)s);
 		}
+		if (list.size() == 0)
+			throw new ResourceNotFoundException("No resource found");
 		return list;
-	}
+}
 
 	@Override
 	public Product updateProduct(Product product) {
@@ -72,7 +77,7 @@ public class ProductServiceImpl implements IProductService {
 		}else if(product instanceof Seed) {
 			return seedService.deleteSeed((Seed)product);
 		}
-		return plantService.deletePlant((Plant)product);
+		return plantService.deletePlant(product.getId());
 	}
 
 	@Override
@@ -82,5 +87,27 @@ public class ProductServiceImpl implements IProductService {
 			throw new ResourceNotFoundException("No product found with the given id");
 		return products.get(0);
 	}
-
+	
+	
+	@Override
+	public List<Product> costLowToHigh() {
+		List<Product> allProducts = getProducts();
+		List<Product> sortedProducts = allProducts.stream().sorted((Product o1,Product o2) -> o1.getCost() - o2.getCost()).collect(Collectors.toList());
+		return sortedProducts;
+	}
+	
+	@Override
+	public List<Product> costHighToLow() {
+		List<Product> allProducts = getProducts();
+		List<Product> sortedProducts = allProducts.stream().sorted((Product o1,Product o2) -> o2.getCost() - o1.getCost()).collect(Collectors.toList());
+		return sortedProducts;
+	}
+	
+	@Override
+	public List<Product> filterByType(Type type) {
+		List<Product> allProducts = getProducts();
+		List<Product> requiredProducts = allProducts.stream().filter((p) -> p.getType() == type).collect(Collectors.toList());
+		return requiredProducts;	
+	}
+	
 }

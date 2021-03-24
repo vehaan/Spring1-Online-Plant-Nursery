@@ -22,16 +22,10 @@ import com.cg.sprint1_onlineplantnursery.service.IPlanterService;
 
 @RestController
 //@RequestMapping("/planters")
-public class PlanterController extends WebSecurityConfigurerAdapter {
+public class PlanterController {
 
 	@Autowired
 	private IPlanterService planterService;
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-       super.configure(http);
-       http.csrf().disable();
-    }
 	
     //CUSTOMER CAN PLACE CHOICE AND ADMIN CAN ADD
 	@PostMapping("/planter")

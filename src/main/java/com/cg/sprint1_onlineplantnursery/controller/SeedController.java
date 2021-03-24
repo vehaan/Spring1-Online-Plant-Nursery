@@ -1,15 +1,11 @@
 package com.cg.sprint1_onlineplantnursery.controller;
 
-import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.ReflectionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,11 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
+import com.cg.sprint1_onlineplantnursery.entity.Type;
+import com.cg.sprint1_onlineplantnursery.entity.Difficulty;
 import com.cg.sprint1_onlineplantnursery.service.ISeedService;
 
 @RestController
+//@RequestMapping("/products")
 public class SeedController{
 	
 	@Autowired
@@ -41,49 +41,42 @@ public class SeedController{
 	
 	@PutMapping("/seeds/{commonName}/{stock}")
 	public ResponseEntity<Seed> addStock(@PathVariable String commonName,@PathVariable int stock){
-		Seed seedResult = seedService.addStock(commonName, stock);
-		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
+		return new ResponseEntity<Seed>(seedService.addStock(commonName, stock),HttpStatus.ACCEPTED);
 	}
 	
 	@PatchMapping("/seeds/id/{id}")
 	public ResponseEntity<Seed> updateSeed(@PathVariable int id, @RequestBody Map<Object,Object> fields){
-		Seed seed = seedService.getSeed(id);
-		fields.forEach((k,v) -> {
-			Field field = ReflectionUtils.findRequiredField(Seed.class, (String) k);
-			field.setAccessible(true);
-			ReflectionUtils.setField(field, seed, v);
-		});
-		return new ResponseEntity<Seed>(seedService.updateSeed(seed),HttpStatus.ACCEPTED);
+		return new ResponseEntity<Seed>(seedService.updateSeed(id,fields),HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/seeds")
 	public ResponseEntity<Seed> deleteSeed(@RequestBody Seed seed){
-		Seed seedDeleted = seedService.deleteSeed(seed);
-		return new ResponseEntity<Seed> (seedDeleted,HttpStatus.ACCEPTED);
+		return new ResponseEntity<Seed> (seedService.deleteSeed(seed),HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/seeds/name/{commonName}/{stock}")
 	public ResponseEntity<Seed> buySeeds(@PathVariable String commonName,@PathVariable int stock){
-		Seed seedResult = seedService.buySeeds(commonName, stock);
-		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
+		return new ResponseEntity<Seed>(seedService.buySeeds(commonName, stock),HttpStatus.ACCEPTED);
 	}
 	
 	@DeleteMapping("/seeds/id/{id}/{stock}")
 	public ResponseEntity<Seed> buySeeds(@PathVariable int id,@PathVariable int stock){
-		Seed seedResult = seedService.buySeeds(id, stock);
-		return new ResponseEntity<Seed>(seedResult,HttpStatus.ACCEPTED);
+		return new ResponseEntity<Seed>(seedService.buySeeds(id, stock),HttpStatus.ACCEPTED);
+	}
+	
+	@DeleteMapping("/seeds/id/{id}")
+	public ResponseEntity<Seed> deleteSeedById(@PathVariable int id){
+		return new ResponseEntity<Seed>(seedService.deleteSeedById(id),HttpStatus.OK);
 	}
 		
 	@GetMapping("/seeds/id/{id}")
 	public ResponseEntity<Seed> getSeed(@PathVariable int id){
-		Seed seedRes = seedService.getSeed(id);
-		return new ResponseEntity<Seed>(seedRes,HttpStatus.OK);	
+		return new ResponseEntity<Seed>(seedService.getSeed(id),HttpStatus.OK);	
 	}
 	
 	@GetMapping("/seeds/commonName/{commonName}")
 	public ResponseEntity<Seed> getSeed(@PathVariable String commonName) {
-		Seed seedRes = seedService.getSeed(commonName);
-		return new ResponseEntity<Seed>(seedRes,HttpStatus.ACCEPTED);	
+		return new ResponseEntity<Seed>(seedService.getSeed(commonName),HttpStatus.ACCEPTED);	
 	}
 	
 	@GetMapping("/seeds")
@@ -110,14 +103,14 @@ public class SeedController{
 		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
 	}
 	
-	@GetMapping("/seeds/filterbyType/{type}")
-	public ResponseEntity<List<Seed>> filterByType(@PathVariable String type){
+	@GetMapping("/seeds/filterbytype/{type}")
+	public ResponseEntity<List<Seed>> filterByType(@PathVariable Type type){
 		List<Seed> seeds = seedService.filterSeedByType(type);
 		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
 	}
 	
-	@GetMapping("/seeds/filterbyDifficulty/{difficulty}")
-	public ResponseEntity<List<Seed>> filterByDifficulty(@PathVariable String difficulty){
+	@GetMapping("/seeds/filterbydifficulty/{difficulty}")
+	public ResponseEntity<List<Seed>> filterByDifficulty(@PathVariable Difficulty difficulty){
 		List<Seed> seeds = seedService.filterSeedByDifficulty(difficulty);
 		return new ResponseEntity<List<Seed>>(seeds,HttpStatus.OK);
 	}

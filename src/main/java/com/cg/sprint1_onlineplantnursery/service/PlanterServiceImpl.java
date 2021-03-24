@@ -1,22 +1,24 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
-import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.exception.InsufficientStockException;
 import com.cg.sprint1_onlineplantnursery.exception.ResourceNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.IPlanterRepository;
 
 @Service 
-public class IPlanterServiceImpl implements IPlanterService {
+@Transactional
+public class PlanterServiceImpl implements IPlanterService {
 	
 	@Autowired
 	IPlanterRepository planterRepo;
@@ -76,7 +78,6 @@ public class IPlanterServiceImpl implements IPlanterService {
 	
 	@Override
 	public Planter updatePlanter(Planter planter) {
-		//id must be given
 		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId());  
 		if (optionalPlanter.isPresent()) {
 			//not null check
@@ -106,9 +107,6 @@ public class IPlanterServiceImpl implements IPlanterService {
 		}
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("Planter with given id does not exist. So, patch can not be done."));
 	}
-	
-	
-	//ADD A SERVICE FOR PATCH HERE
 	
 //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
@@ -222,18 +220,4 @@ public class IPlanterServiceImpl implements IPlanterService {
 			
 	}
 	
-//	WITH SEED SERVICES
-//-----------------------------------------------------------------------------------------------------------------------------------------------------
-	
-
-//	@Override
-//	public Planter addCustomPlanter(int planterId, int seedId, int seedStock){
-//		List<Seed> seedList = new ArrayList<>();
-//		Planter planter = deletePlanterById(planterId);
-//		Seed seed = seedService.buySeeds(seedId, seedStock);
-//			seedList.add(seed);
-//			planter.setSeeds(seedList);
-//		return planter;
-//	}
-
 }
