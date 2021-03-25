@@ -1,8 +1,5 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -12,11 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-
-
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
-//@DiscriminatorColumn(name="type",discriminatorType=DiscriminatorType.STRING)
-//@DiscriminatorValue(value="Product")
 @Entity
 public class Product {
 	
@@ -27,7 +20,6 @@ public class Product {
 	private int stock;
 	@Enumerated(EnumType.STRING)
 	private Type type;
-	
 
 	public Product(int cost, int stock, Type type) {
 		super();
@@ -48,7 +40,6 @@ public class Product {
 		this.cost = cost;
 		this.stock = stock;
 	}
-	
 	
 	public Type getType() {
 		return type;
@@ -77,18 +68,17 @@ public class Product {
 	public void setStock(int stock) {
 		this.stock = stock;
 	}
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", cost=" + cost + ", stock=" + stock + "]";
-	}
+
 	public Product(int cost, int stock) {
 		super();
 		this.cost = cost;
 		this.stock = stock;
 	}
 	
-
-
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", cost=" + cost + ", stock=" + stock + "]";
+	}
 	
 
 }

@@ -13,6 +13,7 @@ import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.entity.Type;
+import com.cg.sprint1_onlineplantnursery.entity.BloomTime;
 import com.cg.sprint1_onlineplantnursery.entity.Difficulty;
 import com.cg.sprint1_onlineplantnursery.exception.OutOfStockException;
 import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
@@ -124,7 +125,7 @@ public class SeedServiceImpl implements ISeedService{
 
 	@Override
 	public List<Seed> getSeeds(String type) {
-		return seedRepo.findByType(type);
+		return seedRepo.findByTypeOfSeed(type);
 	}
 	
 	//SORT BY
@@ -177,4 +178,14 @@ public class SeedServiceImpl implements ISeedService{
 		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Plant Not Found"));
 
 }
+	
+	@Override
+	public List<Seed> filterSeedByBloomTime(BloomTime type) {
+		List<Seed> seeds = seedRepo.findAll();
+		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getBloomTime() == type).collect(Collectors.toList());
+		return filteredSeeds;
+		
+	}
+	
+	
 }

@@ -4,17 +4,17 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.ReflectionUtils;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Admin;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
-import com.cg.sprint1_onlineplantnursery.entity.Order;
 import com.cg.sprint1_onlineplantnursery.entity.Role;
 import com.cg.sprint1_onlineplantnursery.entity.User;
+import com.cg.sprint1_onlineplantnursery.exception.ResourceNotFoundException;
+import com.cg.sprint1_onlineplantnursery.exception.UserAlreadyExists;
 import com.cg.sprint1_onlineplantnursery.exception.UserNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.IUserRepository;
 
@@ -35,19 +35,17 @@ public class UserServiceImpl implements IUserService {
 		if (user instanceof Customer) {
 
 			if (userRepository.findByEmail(user.getEmail()).isPresent())
-				throw new UserNotFoundException("Email is already registered.Try to login");
+				throw new UserAlreadyExists("Email is already registered.Try to login");
 			else if (user.getRole() == Role.ADMIN)
 				throw new UserNotFoundException("Customer role cannot be admin");
-			
+
 			userToBeCreated = userRepository.save(user);
 
 		}
 
 		else if (user instanceof Admin) {
 			if (userRepository.findByEmail(user.getEmail()).isPresent())
-				throw new UserNotFoundException("Email is already registered.Try to login");
-
-			// TODO implement only admin can add another admin
+				throw new UserAlreadyExists("Email is already registered.Try to login");
 
 			userToBeCreated = userRepository.save(user);
 
@@ -104,33 +102,55 @@ public class UserServiceImpl implements IUserService {
 			return userRepository.save(user);
 		}
 	}
+	
+	//method to get the users by role
 
-	// method to reset the userEmail using the userId
 	@Override
-	public User resetEmailById(Integer id, Map<Object, Object> fields) throws UserNotFoundException {
+	public List<User> userByRole(Role role) {
 
-		if (userRepository.findById(id).isEmpty())
-			throw new UserNotFoundException("Not customer found by id : " + id);
-		else {
-			User user = userRepository.findById(id).get();
+		List<User> findAll = userRepository.findAll();
+		List<User> collect = null;
 
-			fields.forEach((k, v) -> {
-				Field field = ReflectionUtils.findRequiredField(User.class, (String) k);
+		if (!findAll.isEmpty())
+			collect = findAll.stream().filter(u -> u.getRole().equals(role)).collect(Collectors.toList());
+		else
+			throw new ResourceNotFoundException("Not records found for the role:" + role);
 
-				field.setAccessible(true);
+		return collect;
+	}
+	
+	//method to delete the user using id
 
-				if (field.getName().equals("email")) {
-					if (userRepository.findByEmail(v.toString()).isPresent())
-						throw new UserNotFoundException("Email is already register .Try to login");
+	@Override
+	public User removeUser(Integer id) {
+		
+		
+		Optional<User> findById = userRepository.findById(id);
+		findById.orElseThrow(() -> new UserNotFoundException("There are no customer having id:" + id));
 
-				}
+		userRepository.deleteById(id);
 
-				ReflectionUtils.setField(field, user, v);
-			});
+		return findById.get();
+	}
 
-			return userRepository.save(user);
+	//method to update the user
+	@Override
+	public User updateUser(Integer id, User user) {
+		Optional<User> findById = userRepository.findById(id);
+		findById.orElseThrow(() -> new UserNotFoundException("There are no customer having id: " + id));
+
+		if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+			if (userRepository.findByEmail(user.getEmail()).get().getId() != id)
+				throw new UserAlreadyExists("Email is already registered try to login");
+
+		}
+		if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+			if (userRepository.findByEmail(user.getEmail()).get().getRole()!= user.getRole())
+				throw new UserAlreadyExists("Role cannot be changed");
+
 		}
 
+		return userRepository.save(user);
 	}
 
 }

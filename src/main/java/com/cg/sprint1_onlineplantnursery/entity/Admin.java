@@ -45,8 +45,6 @@ public class Admin extends User {
 		this.phone = phone;
 	}
 	
-	
-
 	@Override
 	public String toString() {
 		return "Admin [name=" + name + ", phone=" + phone + "]";

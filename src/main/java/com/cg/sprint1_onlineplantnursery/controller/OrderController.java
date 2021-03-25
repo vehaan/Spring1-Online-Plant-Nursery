@@ -11,42 +11,56 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.cg.sprint1_onlineplantnursery.entity.Order;
+import com.cg.sprint1_onlineplantnursery.entity.TransactionMode;
 import com.cg.sprint1_onlineplantnursery.service.IOrderService;
 
 @RestController
-@RequestMapping("/orders")
 public class OrderController{
 	
 	@Autowired
 	private IOrderService orderService;
 	
-	@PostMapping
+	@PostMapping({"/admin/order", "/customers/order"})
 	public ResponseEntity<Order> addOrder(@Valid @RequestBody Order order) {
 		return new ResponseEntity<Order>(orderService.addOrder(order), HttpStatus.CREATED);
 	}
 	
-	@PutMapping
+	@PutMapping("/admin/order")
 	public ResponseEntity<Order> update(@Valid @RequestBody Order order) {
 		return new ResponseEntity<Order>(orderService.patchOrder(order), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/id/{id}")
+	@DeleteMapping("/admin/order/id/{id}")
 	public ResponseEntity<String> delete(@PathVariable int id)  {
 		orderService.deleteOrder(id);
 		return new ResponseEntity<String>("The order with id " + id + " got deleted.", HttpStatus.OK);
 	}
 	
-	@GetMapping("/id/{id}")
+	@GetMapping("/admin/order/id/{id}")
 	public ResponseEntity<Order> viewOrder(@PathVariable int id) {
 		return new ResponseEntity<Order>(orderService.viewOrder(id), HttpStatus.OK);
 	}
 	
-	@GetMapping
+	@GetMapping("/admin/orders")
 	public ResponseEntity<List<Order>> getAllOrders(){
 		return new ResponseEntity<List<Order>>(orderService.viewAllOrders(), HttpStatus.OK);
 	}
+	
+	@GetMapping("/admin/orders/costLowToHigh")
+	public ResponseEntity<List<Order>> sortOrderLowToHigh(){
+		return new ResponseEntity<List<Order>>(orderService.sortOrderLowToHigh(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/admin/orders/costHighToLow")
+	public ResponseEntity<List<Order>> sortOrderHighToLow(){
+		return new ResponseEntity<List<Order>>(orderService.sortOrderHighToLow(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/admin/orders/filterByTransactionMode/{mode}")
+	public ResponseEntity<List<Order>> viewByTransactionMode(@PathVariable TransactionMode mode){
+		return new ResponseEntity<List<Order>>(orderService.filterByTransactionMode(mode), HttpStatus.OK);
+	}
+	
 }

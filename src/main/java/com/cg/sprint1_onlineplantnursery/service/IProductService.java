@@ -27,4 +27,6 @@ public interface IProductService {
 
 	List<Product> filterByType(Type type);
 
+	List<Product> getProducts(double minCost, double maxCost);
+
 }

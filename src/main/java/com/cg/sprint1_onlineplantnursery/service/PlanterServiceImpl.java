@@ -80,14 +80,6 @@ public class PlanterServiceImpl implements IPlanterService {
 	public Planter updatePlanter(Planter planter) {
 		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId());  
 		if (optionalPlanter.isPresent()) {
-			//not null check
-			/*
-			 * Planter p = optionalPlanter.get(); p.setColor(planter.getColor());
-			 * p.setDrainageHoles(planter.getDrainageHoles());
-			 * p.setCapacity(planter.getCapacity()); p.setCost(planter.getCost());
-			 * p.setHeight(planter.getHeight()); p.setShape(planter.getShape());
-			 * p.setStock(planter.getStock());
-			 */
 			planterRepo.save(planter);
 		}
 		return planterRepo.findById(planter.getId()).orElseThrow(() -> new ResourceNotFoundException("Planter with given id does not exist. So, update can not be done"));
@@ -146,14 +138,6 @@ public class PlanterServiceImpl implements IPlanterService {
 		//id must be given
 		Optional<Planter> optionalPlanter = planterRepo.findById(id);  
 		if (optionalPlanter.isPresent()) {
-			//not null check
-			/*
-			 * Planter p = optionalPlanter.get(); p.setColor(planter.getColor());
-			 * p.setDrainageHoles(planter.getDrainageHoles());
-			 * p.setCapacity(planter.getCapacity()); p.setCost(planter.getCost());
-			 * p.setHeight(planter.getHeight()); p.setShape(planter.getShape());
-			 * p.setStock(planter.getStock());
-			 */
 			Planter p = optionalPlanter.get();
 			p.setStock(p.getStock()+quantity);
 			planterRepo.save(p);

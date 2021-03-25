@@ -110,4 +110,12 @@ public class ProductServiceImpl implements IProductService {
 		return requiredProducts;	
 	}
 	
+	@Override
+	public List<Product> getProducts(double minCost, double maxCost) {
+		List<Product> allProducts = getProducts();
+		List<Product> requiredProducts = allProducts.stream().filter((p) -> p.getCost() >minCost && p.getCost() < maxCost).collect(Collectors.toList());
+		return requiredProducts;
+	}
+	
+	
 }

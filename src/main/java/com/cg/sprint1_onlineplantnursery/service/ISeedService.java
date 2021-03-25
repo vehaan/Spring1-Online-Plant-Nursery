@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.entity.Type;
+import com.cg.sprint1_onlineplantnursery.entity.BloomTime;
 import com.cg.sprint1_onlineplantnursery.entity.Difficulty;
 import com.cg.sprint1_onlineplantnursery.exception.OutOfStockException;
 import com.cg.sprint1_onlineplantnursery.exception.SeedIdNotFoundException;
@@ -27,6 +28,7 @@ public interface ISeedService {
 	Seed updateSeed(int id, Map<Object, Object> fields);
 	List<Seed> filterSeedByDifficulty(Difficulty difficultyLevel);
 	Seed deleteSeedById(int id) throws SeedIdNotFoundException;
+	List<Seed> filterSeedByBloomTime(BloomTime bloomTime);
 	
 	
 }

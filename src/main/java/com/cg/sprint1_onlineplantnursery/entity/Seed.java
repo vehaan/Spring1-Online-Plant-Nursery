@@ -11,7 +11,6 @@ import javax.validation.constraints.Positive;
 @Entity
 public class Seed extends Product{
 	
-
 	@NotBlank(message = "Name is required")
 	@Column(unique = true)
 	private String commonName;

@@ -48,7 +48,6 @@ public class PlantServiceImpl implements IPlantService{
 		return plantOptional.orElseThrow(() -> new PlantIdNotFoundException("Plant Not Found"));
 	}
 
-
 	@Override
 	public Plant updatePlant(Plant plant, int id){
 		Optional<Plant> plantOptional = plantRepo.findById(id);
@@ -72,9 +71,6 @@ public class PlantServiceImpl implements IPlantService{
 		return plantOptional.orElseThrow(() -> new PlantIdNotFoundException("Plant Not Found"));
 	}
 	
-
-
-
 	@Override
 	public Plant partialUpdatePlant(Map<Object, Object> fields, int id){
 		

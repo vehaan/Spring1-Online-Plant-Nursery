@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.cg.sprint1_onlineplantnursery.entity.Product;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface IProductRepository extends JpaRepository<Product, Integer> {
 
 }

@@ -1,10 +1,10 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +16,7 @@ import com.cg.sprint1_onlineplantnursery.entity.Plant;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
 import com.cg.sprint1_onlineplantnursery.entity.Product;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
+import com.cg.sprint1_onlineplantnursery.entity.TransactionMode;
 import com.cg.sprint1_onlineplantnursery.exception.OrderIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.IOrderRepository;
 import com.cg.sprint1_onlineplantnursery.repository.IPlantRepository;
@@ -104,6 +105,27 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public List<Order> viewAllOrders() {
 		return orderRepository.findAll();
+	}
+	
+	@Override
+	public List<Order> sortOrderLowToHigh() {
+		List<Order> orders = orderRepository.findAll();
+		List<Order> sortedOrders = orders.stream().sorted((Order ord1, Order ord2) -> (int) ord1.getTotalCost() - (int) ord2.getTotalCost()).collect(Collectors.toList());
+		return sortedOrders;
+	}
+
+	@Override
+	public List<Order> sortOrderHighToLow() {
+		List<Order> orders = orderRepository.findAll();
+		List<Order> sortedOrders = orders.stream().sorted((Order ord1, Order ord2) -> (int)ord2.getTotalCost() - (int)ord1.getTotalCost()).collect(Collectors.toList());
+		return sortedOrders;
+	}
+	
+	@Override
+	public List<Order> filterByTransactionMode(TransactionMode transactionMode) {
+		List<Order> orders = orderRepository.findAll();
+		List<Order> sameTransactionModeOrders = orders.stream().filter((t) -> t.getTransactionMode().equals(transactionMode)).collect(Collectors.toList());
+		return sameTransactionModeOrders;
 	}
 	
 }

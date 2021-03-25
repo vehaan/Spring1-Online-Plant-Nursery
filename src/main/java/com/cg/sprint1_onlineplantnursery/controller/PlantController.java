@@ -26,95 +26,95 @@ import com.cg.sprint1_onlineplantnursery.exception.PlantIdNotFoundException;
 import com.cg.sprint1_onlineplantnursery.service.IPlantService;
 
 @RestController
-@RequestMapping("/plants")
+@RequestMapping("/products")
 public class PlantController {	
 
 	@Autowired
 	private IPlantService plantService;
 
-	@PostMapping()
+	@PostMapping("/admin/plant")
 	public ResponseEntity<Plant> addNewPlant(@Valid @RequestBody Plant plant) {
 		plantService.addNewPlant(plant);
 		return new ResponseEntity<Plant>(plant, HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/id/{id}")
+	@PutMapping({"/admin/plant/id/{id}"})
 	public ResponseEntity<Plant> updatePlant(@Valid @RequestBody Plant plant, @PathVariable int id) {
 		// logger.trace("updating the whole plant having id "+ id);  
 		plantService.updatePlant(plant, id);
 		return new ResponseEntity<Plant>(plant, HttpStatus.ACCEPTED);
 	}
 
-	@PutMapping("/{commonName}/{stock}")
+	@PutMapping("/admin/plant/{commonName}/{stock}")
 	public ResponseEntity<Plant> addPlantStock(@PathVariable String commonName, @PathVariable int stock){
 		//logger.trace("adding "+stock+" plants to the stock");
 		return new ResponseEntity<Plant>(plantService.addPlantStock(commonName,stock), HttpStatus.ACCEPTED);
 	}
 	
 
-	@PatchMapping("/id/{id}")
+	@PatchMapping("/admin/plant/id/{id}")
 	public ResponseEntity<Plant> partialUpdate(@RequestBody Map<Object, Object> fields, @PathVariable("id") int id) {
 	 // logger.trace("updating partially using partialUpadate");    
 	  return new ResponseEntity<Plant>(plantService.partialUpdatePlant(fields, id), HttpStatus.ACCEPTED);
 	}
 	
-	@DeleteMapping("/id/{id}")
+	@DeleteMapping("/admin/plant/id/{id}")
 	public ResponseEntity<Plant> deletePlant(@PathVariable int id) throws PlantIdNotFoundException{
 		//logger.trace("deleting the whole plant");	
 		return new ResponseEntity<Plant>(plantService.deletePlant(id), HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/id/{id}/{stock}")       
+	@DeleteMapping("/admin/plant/id/{id}/{stock}")       
 	public ResponseEntity<Plant> decreaseStock(@PathVariable int id, @PathVariable int stock){
 		//logger.trace("decreasing stock of plant "+commonName+" by quantity "+ stock);
 		return new ResponseEntity<Plant>(plantService.decreaseStock(id,stock), HttpStatus.OK);
 	}
 
-	@GetMapping("/id/{id}")
+	@GetMapping({"/admin/plant/id/{id}", "/customers/plant/id/{id}"})
 	public ResponseEntity<Plant> viewPlant(@PathVariable Integer id) {
 		//logger.trace("fetching the plant with id "+ id);
 		return new ResponseEntity<Plant>(plantService.getPlant(id), HttpStatus.OK);
 	}
 
-	@GetMapping("/commonName/{commonName}")
+	@GetMapping({"/admin/plant/commonName/{commonName}", "/customers/plant/commonName/{commonName}"})
 	public ResponseEntity<Plant> viewPlant(@PathVariable String commonName){
 	//	logger.trace("fetching "+commonName+" plant");
 		return new ResponseEntity<Plant>(plantService.getPlant(commonName), HttpStatus.OK);
 	}
 
-	@GetMapping()
+	@GetMapping({"/admin/plants","/customers/plants"})
 	public ResponseEntity<List<Plant>> viewAllPlants() {
 		//logger.trace("fetching all the plants");
 		return new ResponseEntity<List<Plant>>(plantService.getAllPlants(), HttpStatus.OK);
 	}
 
-	@GetMapping("/typeOfPlant/{typeOfPlant}")
+	@GetMapping({"/admin/plants/typeOfPlant/{typeOfPlant}", "/customers/plants/typeOfPlant/{typeOfPlant}"})
 	public ResponseEntity<List<Plant>> viewAllPlants(@PathVariable String typeOfPlant) {
 		//logger.trace("searching the plants of type "+typeOfPlant);
 		return new ResponseEntity<List<Plant>>(plantService.getAllPlants(typeOfPlant), HttpStatus.OK);
 	}
 	
-	@GetMapping("/costLowToHigh")
+	@GetMapping({"/admin/plants/costLowToHigh", "/customers/plants/costLowToHigh"})
 	public ResponseEntity<List<Plant>> costLowToHigh(){
 		return new ResponseEntity<List<Plant>>(plantService.costLowToHigh(),HttpStatus.OK);
 	}
 		
-	@GetMapping("/costHighToLow")
+	@GetMapping({"/admin/plants/costHighToLow", "/customers/plants/costHighToLow"})
 	public ResponseEntity<List<Plant>> costHighToLow(){
 		return new ResponseEntity<List<Plant>>(plantService.costHighToLow(),HttpStatus.OK);
 	}
 	
-	@GetMapping("/filterByBloomTime/{bloomTime}")
+	@GetMapping({"/admin/plants/filterByBloomTime/{bloomTime}", "/customers/plants/filterByBloomTime/{bloomTime}"})
 	public ResponseEntity<List<Plant>> filterByType(@PathVariable BloomTime bloomTime){
 		return new ResponseEntity<List<Plant>>(plantService.filterPlantByBloomTime(bloomTime),HttpStatus.OK);
 	}
 	
-	@GetMapping("/filterByDifficulty/{difficulty}")
+	@GetMapping({"/admin/plants/filterByDifficulty/{difficulty}","/customers/plants/filterByDifficulty/{difficulty}"})
 	public ResponseEntity<List<Plant>> filterByDifficulty(@PathVariable Difficulty difficulty){
 		return new ResponseEntity<List<Plant>>(plantService.filterPlantByDifficulty(difficulty),HttpStatus.OK);
 	}
 	
-	@GetMapping("/viewBloomStatus/id/{id}")
+	@GetMapping({"/admin/plants/viewBloomStatus/id/{id}","/customers/plants/viewBloomStatus/id/{id}"})
 	public String viewBloomingStatus(@PathVariable int id) {
 		return plantService.getBloomingStatus(id);
 	}

@@ -2,12 +2,7 @@ package com.cg.sprint1_onlineplantnursery.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import javax.validation.Valid;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +15,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
 import com.cg.sprint1_onlineplantnursery.entity.Product;
@@ -41,9 +34,9 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private IUserService userService;
-	
+
 	@Autowired
-	private IProductService productService;
+	IProductService productService;
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -51,12 +44,8 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 	}
 
-	Logger logger = LoggerFactory.getLogger(CustomerController.class);
-
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@Valid @RequestBody Customer customer) {
-
-		logger.trace("Adding  the customer");
 
 		return new ResponseEntity<>(userService.register(customer), HttpStatus.CREATED);
 	}
@@ -77,25 +66,14 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 				+ ((Customer) userService.resetPasswordById(id, fields)).getName(), HttpStatus.CREATED);
 	}
 
-	@PatchMapping("/resetEmail/{id}")
-	public ResponseEntity<String> resetEmail(@Valid @PathVariable Integer id, @RequestBody Map<Object, Object> fields) {
-
-		return new ResponseEntity<>("Your password is successfully updated "
-				+ (((Customer) userService.resetEmailById(id, fields)).getName()), HttpStatus.CREATED);
-	}
-
 	@PutMapping("/id/{id}")
 	public ResponseEntity<Customer> update(@Valid @PathVariable Integer id, @RequestBody Customer customer) {
 
-		logger.trace("Updating the customer having id : " + id);
-
-		return new ResponseEntity<Customer>(customerService.updateCustomer(id, customer), HttpStatus.CREATED);
+		return new ResponseEntity<Customer>((Customer)userService.updateUser(id, customer), HttpStatus.CREATED);
 	}
 
 	@DeleteMapping("/id/{id}")
 	public ResponseEntity<Customer> deleteById(@PathVariable Integer id) {
-
-		logger.trace("Deleting the customer having id : " + id);
 
 		return new ResponseEntity<Customer>(customerService.deleteCustomer(id), HttpStatus.OK);
 	}
@@ -106,11 +84,12 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 		return new ResponseEntity<>(customerService.getCustomer(id), HttpStatus.OK);
 	}
 
-	@GetMapping
-	public ResponseEntity<List<Customer>> getCustomers() {
+	@GetMapping("/products")
+	public ResponseEntity<List<Product>> getProducts() {
 
-		return new ResponseEntity<>(customerService.getCustomers(), HttpStatus.OK);
+		return new ResponseEntity<List<Product>>(productService.getProducts(), HttpStatus.OK);
 	}
+
 
 	@GetMapping("/orders/id/{id}")
 	public ResponseEntity<List<Order>> getByCustomerId(@PathVariable Integer id) {
@@ -123,12 +102,6 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 			@PathVariable Integer orderId) {
 
 		return new ResponseEntity<>(customerService.getOrderDetails(customerId, orderId), HttpStatus.OK);
-	}
-	
-	@GetMapping("/products")
-	public ResponseEntity<List<Product>> getProducts() {
-		List<Product> products =  productService.getProducts();
-			return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
 	}
 
 }

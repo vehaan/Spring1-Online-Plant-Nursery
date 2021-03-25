@@ -16,10 +16,15 @@ import javax.validation.constraints.NotBlank;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
+import net.minidev.json.annotate.JsonIgnore;
+
 @Component
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name="NURSERY_USERS")
+@Table(name = "NURSERY_USERS")
 public class User {
 
 	@Id
@@ -33,23 +38,34 @@ public class User {
 	private String email;
 
 	@NotBlank
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	
-	//constructors
-	
+	// constructors
+
 	public User() {
 		super();
 	}
-	
 
+	public User(Integer id) {
+	super();
+	this.id = id;
+}
 	public User(@Email(message = "Enter a valid  Email") String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;
+	}
+	
+
+	public User(Integer id, @NotBlank @Email(message = "Enter a valid Email") String email, Role role) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.role = role;
 	}
 
 
@@ -60,7 +76,6 @@ public class User {
 		this.role = role;
 	}
 
-
 	public User(Integer id, @NotBlank @Email(message = "Enter a valid Email") String email, @NotBlank String password,
 			Role role) {
 		super();
@@ -70,9 +85,8 @@ public class User {
 		this.role = role;
 	}
 
-
 //setters and getters
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -89,31 +103,26 @@ public class User {
 		this.email = email;
 	}
 
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}	
+	}
 
 	public Role getRole() {
 		return role;
 	}
 
-
 	public void setRole(Role role) {
 		this.role = role;
 	}
-
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + ", role=" + role + "]";
 	}
-
-
-
-
 
 }

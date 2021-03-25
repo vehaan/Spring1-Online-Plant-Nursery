@@ -9,6 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -59,10 +60,6 @@ class TestPlanterService {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
-	/*
-	 * @Test void test() { fail("Not yet implemented"); }
-	 */
 	
 	@Test
 	public void viewAllPlantersTest() {
@@ -96,16 +93,7 @@ class TestPlanterService {
 	
 	
 	@Test
-	public void viewPlantersInRangeTest() {
-		List<Planter> newList = new ArrayList<>();
-		newList.add(planter2);
-		newList.add(planter4);
-		when(dao.findAll()).thenReturn(newList);
-		assertEquals(2, service.getPlanters(500,1000).size());
-	}
-	
-	@Test
-	public void costLowToHighTest() {
+	public void costHighToLowTest() {
 		List<Planter> sortedList = new ArrayList<>();
 		sortedList.add(planter1);
 		sortedList.add(planter3);
@@ -113,7 +101,7 @@ class TestPlanterService {
 		sortedList.add(planter4);
 		
 		when(dao.findAll()).thenReturn(sortedList);
-		assertEquals(sortedList, service.costLowToHigh());
+		assertEquals(sortedList.get(0), service.costHighToLow().get(0));
 	}
 	
 	@Test

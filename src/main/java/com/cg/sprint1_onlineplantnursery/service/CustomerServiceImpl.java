@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
-import com.cg.sprint1_onlineplantnursery.entity.Role;
+import com.cg.sprint1_onlineplantnursery.exception.ResourceNotFoundException;
 import com.cg.sprint1_onlineplantnursery.exception.UserNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ICustomerRepository;
 
@@ -18,34 +18,10 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Autowired
 	private ICustomerRepository customerRepository;
 
-	// method to register the customer
-
-	@Override
-	public Customer addCustomer(Customer customer) throws UserNotFoundException {
-		Customer save = null;
-		if (customerRepository.findByEmail(customer.getEmail()).isPresent())
-			throw new UserNotFoundException("Email is already registered.Try to login");
-		else if (customer.getRole() == Role.ADMIN)
-			throw new UserNotFoundException("Customer role cannot be admin");
-		save = customerRepository.save(customer);
-		return save;
-	}
-
-	// method to update the customer using customer Id
-
-	@Override
-	public Customer updateCustomer(int customerId, Customer customer) throws UserNotFoundException {
-
-		Optional<Customer> findById = customerRepository.findById(customerId);
-		findById.orElseThrow(() -> new UserNotFoundException("There are no customer having id: " + customerId));
-
-		return customerRepository.save(customer);
-	}
-
 	// method to find the details of the customer using customer Id
 
 	@Override
-	public Customer getCustomer(int customerId) throws UserNotFoundException {
+	public Customer getCustomer(int customerId) {
 		Optional<Customer> findById = customerRepository.findById(customerId);
 
 		return findById.orElseThrow(() -> new UserNotFoundException("There are no customer having id:" + customerId));
@@ -66,7 +42,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	// method to delete the customer using customer Id
 
 	@Override
-	public Customer deleteCustomer(int customerId) throws UserNotFoundException {
+	public Customer deleteCustomer(int customerId) {
 
 		Optional<Customer> findById = customerRepository.findById(customerId);
 		findById.orElseThrow(() -> new UserNotFoundException("There are no customer having id:" + customerId));
@@ -82,9 +58,9 @@ public class CustomerServiceImpl implements ICustomerService {
 
 		Optional<Customer> findById = customerRepository.findById(id);
 		Customer customer = findById.orElseThrow(() -> new UserNotFoundException("Customer not found:"));
-		
-		if(customer.getOrders().isEmpty())
-			throw new UserNotFoundException("Order not found");
+
+		if (customer.getOrders().isEmpty())
+			throw new ResourceNotFoundException("Order not found");
 		return customer.getOrders();
 	}
 
@@ -94,15 +70,13 @@ public class CustomerServiceImpl implements ICustomerService {
 	public Order getOrderDetails(Integer customerId, Integer orderId) {
 
 		Customer customer = customerRepository.findById(customerId)
-				                        .orElseThrow(() -> new UserNotFoundException("Customer not found"));
+				.orElseThrow(() -> new UserNotFoundException("Customer not found"));
 
 		List<Order> collect = customer.getOrders().stream().filter(order -> order.getBookingId() == orderId)
-				                                                    .collect(Collectors.toList());
-
-		// TODO change the exception to order not found
+				.collect(Collectors.toList());
 
 		if (collect.isEmpty()) {
-			throw new UserNotFoundException("Order not found");
+			throw new ResourceNotFoundException("Orders not found");
 		}
 
 		return collect.get(0);

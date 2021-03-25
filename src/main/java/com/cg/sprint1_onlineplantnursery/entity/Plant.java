@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import io.swagger.annotations.ApiModelProperty;
 
-
 @Entity
 public class Plant extends Product{
 	
