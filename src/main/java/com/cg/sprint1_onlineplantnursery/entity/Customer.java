@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "CUSTOMERS")
 public class Customer extends User {
-
-	@NotBlank
-	@Size(min = 3, message = "Name should be atleast three characters")
+//
+//	@NotBlank
+//	@Size(min = 3, message = "Name should be atleast three characters")
 	private String name;
 
 	@NotNull

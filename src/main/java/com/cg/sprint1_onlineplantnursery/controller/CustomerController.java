@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
 import com.cg.sprint1_onlineplantnursery.entity.Product;
@@ -25,10 +24,11 @@ import com.cg.sprint1_onlineplantnursery.service.ICustomerService;
 import com.cg.sprint1_onlineplantnursery.service.IProductService;
 import com.cg.sprint1_onlineplantnursery.service.IUserService;
 
+@CrossOrigin(origins = "http://localhost:53240", maxAge = 3600)
 @RestController
 @RequestMapping("/customers")
-public class CustomerController extends WebSecurityConfigurerAdapter {
-
+public class CustomerController {
+//	extends WebSecurityConfigurerAdapter
 	@Autowired
 	private ICustomerService customerService;
 
@@ -38,11 +38,11 @@ public class CustomerController extends WebSecurityConfigurerAdapter {
 	@Autowired
 	IProductService productService;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		super.configure(http);
-		http.csrf().disable();
-	}
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		super.configure(http);
+//		http.csrf().disable();
+//	}
 
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@Valid @RequestBody Customer customer) {

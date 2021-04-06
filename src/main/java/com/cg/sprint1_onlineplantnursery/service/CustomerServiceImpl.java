@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
@@ -13,6 +15,7 @@ import com.cg.sprint1_onlineplantnursery.exception.UserNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ICustomerRepository;
 
 @Service
+@Transactional
 public class CustomerServiceImpl implements ICustomerService {
 
 	@Autowired

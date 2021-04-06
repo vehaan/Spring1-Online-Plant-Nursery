@@ -32,12 +32,12 @@ public class User {
 	@SequenceGenerator(name = "id_Sequence", sequenceName = "ID_SEQ_FOR_USER", initialValue = 201, allocationSize = 1)
 	private Integer id;
 
-	@NotBlank
-	@Email(message = "Enter a valid Email")
-	@Column(unique = true)
+//	@NotBlank
+//	@Email(message = "Enter a valid Email")
+//	@Column(unique = true)
 	private String email;
 
-	@NotBlank
+//	@NotBlank
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 
