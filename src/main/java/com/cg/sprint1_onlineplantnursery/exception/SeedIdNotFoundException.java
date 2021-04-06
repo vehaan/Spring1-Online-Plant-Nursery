@@ -1,6 +1,6 @@
 package com.cg.sprint1_onlineplantnursery.exception;
 
-public class SeedIdNotFoundException extends Exception {
+public class SeedIdNotFoundException extends RuntimeException {
 
 	public SeedIdNotFoundException() {
 		// TODO Auto-generated constructor stub

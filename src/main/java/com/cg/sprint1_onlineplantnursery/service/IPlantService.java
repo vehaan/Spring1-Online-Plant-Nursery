@@ -1,21 +1,40 @@
 package com.cg.sprint1_onlineplantnursery.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cg.sprint1_onlineplantnursery.entity.Plant;
+import com.cg.sprint1_onlineplantnursery.entity.BloomTime;
+import com.cg.sprint1_onlineplantnursery.entity.Difficulty;
 
 public interface IPlantService {
-	Plant addPlant(Plant plant);
+	Plant addNewPlant(Plant plant);
+	
+	Plant addPlantStock(String commonName, int stock);
 
-	Plant updatePlant(Plant plant);
+	Plant updatePlant(Plant plant, int id);
+	
+	Plant partialUpdatePlant(Map<Object, Object> fields, int id);
 
-	Plant deletePlant(Plant plant);
+	Plant deletePlant(int plantId);
+	
+	Plant decreaseStock(int id, int stock);
 
-	Plant viewPlant(int plantId);
+	Plant getPlant(int plantId);
 
-	Plant viewPlant(String commonName);
+	Plant getPlant(String commonName);
 
-	List<Plant> viewAllPlants();
+	List<Plant> getAllPlants();
 
-	List<Plant> viewAllPlants(String typeOfPlant);
+	List<Plant> getAllPlants(String typeOfPlant);
+	
+	List<Plant> costLowToHigh();
+	
+	List<Plant> costHighToLow();
+	
+	List<Plant> filterPlantByBloomTime(BloomTime type);
+	
+	List<Plant> filterPlantByDifficulty(Difficulty difficulty);
+	
+	String getBloomingStatus(int id);
 }

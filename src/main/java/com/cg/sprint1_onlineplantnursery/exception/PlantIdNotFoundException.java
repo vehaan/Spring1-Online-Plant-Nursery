@@ -1,27 +1,27 @@
 package com.cg.sprint1_onlineplantnursery.exception;
 
-public class ResourceNotFoundException extends RuntimeException {
+public class PlantIdNotFoundException extends RuntimeException{
 
-	public ResourceNotFoundException() {
+	public PlantIdNotFoundException() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ResourceNotFoundException(String message) {
+	public PlantIdNotFoundException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ResourceNotFoundException(Throwable cause) {
+	public PlantIdNotFoundException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ResourceNotFoundException(String message, Throwable cause) {
+	public PlantIdNotFoundException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ResourceNotFoundException(String message, Throwable cause, boolean enableSuppression,
+	public PlantIdNotFoundException(String message, Throwable cause, boolean enableSuppression,
 			boolean writableStackTrace) {
 		super(message, cause, enableSuppression, writableStackTrace);
 		// TODO Auto-generated constructor stub
