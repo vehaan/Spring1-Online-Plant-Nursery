@@ -5,7 +5,6 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import com.cg.sprint1_onlineplantnursery.entity.AddOns;
 import com.cg.sprint1_onlineplantnursery.entity.Product.Type;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.entity.Seed.BloomTime;
@@ -98,8 +95,8 @@ class SeedServiceTest {
 		List<Seed> seedList = new ArrayList<>();
 		seedList.add(seed1);
 		seedList.add(seed2);
-		when(seedRepoMock.findByType("Apple")).thenReturn(seedList);
-		assertEquals(seedList.size(),seedServiceMock.getSeeds("Apple").size());
+		when(seedRepoMock.findByTypeOfSeed("Vegetable")).thenReturn(seedList);
+		assertEquals(seedList.size(),seedServiceMock.getSeeds("Vegetable").size());
 	}
 	
 	@Test

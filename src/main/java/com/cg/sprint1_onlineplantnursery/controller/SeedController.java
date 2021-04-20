@@ -6,8 +6,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -22,20 +23,21 @@ import com.cg.sprint1_onlineplantnursery.entity.Seed.BloomTime;
 import com.cg.sprint1_onlineplantnursery.entity.Seed.Difficulty;
 import com.cg.sprint1_onlineplantnursery.service.ISeedService;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/products")
-public class SeedController extends WebSecurityConfigurerAdapter{
+public class SeedController{
 	
 	@Autowired
 	private ISeedService seedService;
 	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-	    super.configure(http);
-	    http.csrf().disable();
-	}
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//	    super.configure(http);
+//	    http.csrf().disable();
+//	}
 	 
-	@PostMapping()
+	@PostMapping("admin/seeds")
 	public ResponseEntity<Seed> addSeed(@Valid @RequestBody Seed seed){
 		seedService.addSeed(seed);
 		return new ResponseEntity<Seed>(seed,HttpStatus.CREATED);

@@ -122,7 +122,7 @@ public class ISeedServiceImpl implements ISeedService{
 
 	@Override
 	public List<Seed> getSeeds(String type) {
-		return seedRepo.findByType(type);
+		return seedRepo.findByTypeOfSeed(type);
 	}
 	
 	//SORT BY
@@ -147,17 +147,16 @@ public class ISeedServiceImpl implements ISeedService{
 	@Override
 	public List<Seed> filterSeedByBloomTime(BloomTime type) {
 		List<Seed> seeds = seedRepo.findAll();
-		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getType().equals(type)).collect(Collectors.toList());
+		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getBloomTime().equals(type)).collect(Collectors.toList());
 		return filteredSeeds;
-			
+		
 	}
 	
 	@Override
 	public List<Seed> filterSeedByDifficulty(Difficulty difficultyLevel) {
 		List<Seed> seeds = seedRepo.findAll();
 		List<Seed> filteredSeeds = seeds.stream().filter((p) -> p.getDifficultyLevel().equals(difficultyLevel)).collect(Collectors.toList());
-		return filteredSeeds;
-			
+		return filteredSeeds;		
 	}
 
 	@Override
