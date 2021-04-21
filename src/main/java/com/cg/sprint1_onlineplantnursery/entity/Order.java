@@ -3,6 +3,7 @@ package com.cg.sprint1_onlineplantnursery.entity;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -15,10 +16,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -36,13 +35,13 @@ public class Order {
 	@Enumerated(EnumType.STRING)
 	private TransactionMode transactionMode;
 	
-	private int quantity; 
+	private int quantity;
 	
 	private double totalCost;
 	
 	@CollectionTable(name = "Order_Products")
 	@ElementCollection
-	private Map<Integer, Integer> products = new HashMap<Integer, Integer>();
+	private Map<Integer, @Positive (message = "Not a valid order. Quantity must be positive")Integer> products = new HashMap<Integer, Integer>(); //Productid -> Quantity bought
 	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
@@ -61,16 +60,6 @@ public class Order {
 		this.totalCost = totalCost;
 	}
 
-	
-	public Order(Integer bookingId, TransactionMode transactionMode, Map<Integer, Integer> products,
-			Customer customer) {
-		super();
-		this.bookingId = bookingId;
-		this.transactionMode = transactionMode;
-		this.products = products;
-		this.customer = customer;
-	}
-
 	public Order(Integer bookingId, LocalDate bookingDate, TransactionMode transactionMode, int quantity, double totalCost) {
 		super();
 		this.bookingId = bookingId;
@@ -80,17 +69,9 @@ public class Order {
 		this.totalCost = totalCost;
 	}
 
-	public Order(LocalDate bookingDate, TransactionMode transactionMode, Map<Integer, Integer> products,
-			Customer customer) {
-		super();
-		this.bookingDate = bookingDate;
-		this.transactionMode = transactionMode;
-		this.products = products;
-		this.customer = customer;
-	}
-	
 	public Order(LocalDate bookingDate, TransactionMode transactionMode, int quantity, double totalCost,
-			Map<Integer, Integer> products, Customer customer) {
+			Map<Integer, @Positive(message = "Not a valid order. Quantity must be positive") Integer> products,
+			Customer customer) {
 		super();
 		this.bookingDate = bookingDate;
 		this.transactionMode = transactionMode;
@@ -101,7 +82,8 @@ public class Order {
 	}
 
 	public Order(Integer bookingId, LocalDate bookingDate, TransactionMode transactionMode, int quantity, double totalCost,
-			Map<Integer, Integer> products, Customer customer) {
+			Map<Integer, @Positive(message = "Not a valid order. Quantity must be positive") Integer> products,
+			Customer customer) {
 		super();
 		this.bookingId = bookingId;
 		this.bookingDate = bookingDate;
@@ -118,23 +100,35 @@ public class Order {
 		this.transactionMode = transactionMode;
 	}
 
-	public Order(Map<Integer, Integer> products, Customer customer) {
+	public Order(Map<Integer, @Positive(message = "Not a valid order. Quantity must be positive") Integer> products,
+			Customer customer) {
 		super();
 		this.products = products;
 		this.customer = customer;
 	}
 
-	public Order(Map<Integer, Integer> products) {
+	public Order(Map<Integer, @Positive(message = "Not a valid order. Quantity must be positive") Integer> products) {
 		super();
 		this.products = products;
 	}
 
-	public Order(TransactionMode transactionMode, Map<Integer, Integer> products) {
+	public Order(TransactionMode transactionMode,
+			Map<Integer, @Positive(message = "Not a valid order. Quantity must be positive") Integer> products) {
 		super();
 		this.transactionMode = transactionMode;
 		this.products = products;
 	}
-	
+
+	public Order(Integer bookingId, TransactionMode transactionMode,
+			Map<Integer, @Positive(message = "Not a valid order. Quantity must be positive") Integer> products,
+			Customer customer) {
+		super();
+		this.bookingId = bookingId;
+		this.transactionMode = transactionMode;
+		this.products = products;
+		this.customer = customer;
+	}
+
 	public Integer getBookingId() {
 		return bookingId;
 	}
@@ -151,16 +145,13 @@ public class Order {
 		this.bookingDate = bookingDate;
 	}
 
-
 	public TransactionMode getTransactionMode() {
 		return transactionMode;
 	}
 
-
 	public void setTransactionMode(TransactionMode transactionMode) {
 		this.transactionMode = transactionMode;
 	}
-
 
 	public int getQuantity() {
 		return quantity;
@@ -186,7 +177,6 @@ public class Order {
 		this.products = products;
 	}
 
-	@JsonIgnore
 	public Customer getCustomer() {
 		return customer;
 	}
@@ -244,10 +234,7 @@ public class Order {
 			return false;
 		if (Double.doubleToLongBits(totalCost) != Double.doubleToLongBits(other.totalCost))
 			return false;
-		if (transactionMode == null) {
-			if (other.transactionMode != null)
-				return false;
-		} else if (!transactionMode.equals(other.transactionMode))
+		if (transactionMode != other.transactionMode)
 			return false;
 		return true;
 	}
@@ -258,6 +245,6 @@ public class Order {
 				+ ", quantity=" + quantity + ", totalCost=" + totalCost + ", products=" + products + ", customer="
 				+ customer + "]";
 	}
-	
+
 	
 }

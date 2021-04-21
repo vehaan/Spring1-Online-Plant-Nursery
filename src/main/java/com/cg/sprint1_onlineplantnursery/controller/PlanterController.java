@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.sprint1_onlineplantnursery.entity.Planter;
 import com.cg.sprint1_onlineplantnursery.service.IPlanterService;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/products")
 public class PlanterController {
@@ -61,6 +64,13 @@ public class PlanterController {
 		return new ResponseEntity<Planter>(planterService.partialUpdatePlanter(fields, id), HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "admin/deletePlanter/id/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+	public ResponseEntity<Planter> deleteById(@PathVariable int id) {
+		Planter planter =  planterService.deletePlanterById(id);
+		return new ResponseEntity<Planter>(planter,HttpStatus.OK);
+		
+	}
+	
 //-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	
 	
@@ -89,6 +99,8 @@ public class PlanterController {
 		List<Planter> planters =  planterService.deletePlanters();
 		return new ResponseEntity<List<Planter>>(planters,HttpStatus.OK);
 	}
+	
+	
 	
 	
 	

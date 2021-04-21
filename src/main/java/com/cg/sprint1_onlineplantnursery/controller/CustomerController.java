@@ -24,7 +24,7 @@ import com.cg.sprint1_onlineplantnursery.service.ICustomerService;
 import com.cg.sprint1_onlineplantnursery.service.IProductService;
 import com.cg.sprint1_onlineplantnursery.service.IUserService;
 
-@CrossOrigin(origins = "http://localhost:53240", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:60051", maxAge = 3600)
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {

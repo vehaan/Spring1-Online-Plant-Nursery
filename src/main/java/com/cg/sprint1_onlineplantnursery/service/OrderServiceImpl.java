@@ -91,8 +91,19 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public Order deleteOrder(int bookingId) {
 		Optional<Order> orderToBeRemoved = orderRepository.findById(bookingId);
-		if(orderToBeRemoved.isPresent()) 
+		if(orderToBeRemoved.isPresent()) {
+			Map<Integer, Integer> prod = orderToBeRemoved.get().getProducts();
+			for(Map.Entry<Integer, Integer> entry : prod.entrySet()) {
+				Product product = productService.getProductById(entry.getKey());
+				if(product instanceof Plant)
+					plantService.addPlantStock(plantService.getPlant(entry.getKey()).getCommonName(), entry.getValue());	
+				else if(product instanceof Seed) 
+					seedService.addStock(seedService.getSeed(entry.getKey()).getCommonName(), entry.getValue());
+				else 
+					planterService.addPlanterStock(entry.getKey(), entry.getValue());
+			}
 			orderRepository.deleteById(bookingId);
+		}
 		return orderToBeRemoved.orElseThrow(()-> new OrderIdNotFoundException("Order with id: "+bookingId+" is not found"));
 	}
 

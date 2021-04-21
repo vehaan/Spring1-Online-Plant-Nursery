@@ -40,6 +40,19 @@ public class PlanterServiceImpl implements IPlanterService {
 		}
 	}
 
+//	@Override
+//	public Planter deletePlanter(int planterId) {
+//		Optional<Planter> optionalPlanter = planterRepo.findById(planterId); 
+//		if (optionalPlanter.isPresent()) {
+//			Planter p = optionalPlanter.get();
+//			p.setStock(p.getStock()-1);
+//			if (p.getStock() < 0)
+//				throw new InsufficientStockException("Stock is insufficient");
+//				planterRepo.save(p);
+//		}
+//		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The planter with given id does not exist"));
+//	}
+	
 	@Override
 	public Planter deletePlanter(Planter planter) {
 		Optional<Planter> optionalPlanter = planterRepo.findById(planter.getId()); 
@@ -58,8 +71,9 @@ public class PlanterServiceImpl implements IPlanterService {
 		Optional<Planter> optionalPlanter = planterRepo.findById(id); 
 		if (optionalPlanter.isPresent()) {
 			Planter p = optionalPlanter.get();
-			p.setStock(p.getStock()-1);
-				planterRepo.save(p);
+//			p.setStock(p.getStock()-1);
+				planterRepo.delete(p);
+				return p;
 		}
 		return optionalPlanter.orElseThrow(() -> new ResourceNotFoundException("The planter with given id does not exist"));
 	}
