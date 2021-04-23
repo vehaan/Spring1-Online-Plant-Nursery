@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class Plant extends Product{
 	
 	@ApiModelProperty(notes = "Provide in inches")							
-	private Integer height;
+	private float height;
 	private String spread;
 	
 	@Enumerated(EnumType.STRING)
@@ -27,18 +27,15 @@ public class Plant extends Product{
 	
 	private String temperature;
 	private String typeOfPlant;
-	@Column(unique = true)
-	@NotBlank(message = "Name is necessary")
-	private String commonName;  //NotEmpty
-
 	private String description;
 	
 	public Plant() {
 	}
 
-	public Plant(Integer height, String spread, BloomTime bloomTime, String medicinalOrCulinaryUse,
-			Difficulty difficultyLevel, String temperature, String typeOfPlant,
-			@NotBlank(message = "Name is necessary") String commonName, String description) {
+
+
+	public Plant(float height, String spread, BloomTime bloomTime, String medicinalOrCulinaryUse,
+			Difficulty difficultyLevel, String temperature, String typeOfPlant, String description) {
 		super();
 		this.height = height;
 		this.spread = spread;
@@ -47,14 +44,15 @@ public class Plant extends Product{
 		this.difficultyLevel = difficultyLevel;
 		this.temperature = temperature;
 		this.typeOfPlant = typeOfPlant;
-		this.commonName = commonName;
 		this.description = description;
 	}
 
-	public Plant(int cost, int stock, Type type, Integer height, String spread, BloomTime bloomTime,
+
+
+	public Plant(int cost, int stock, Type type, float height, String spread, BloomTime bloomTime,
 			String medicinalOrCulinaryUse, Difficulty difficultyLevel, String temperature, String typeOfPlant,
-			@NotBlank(message = "Name is necessary") String commonName, String description) {
-		super(cost, stock, type);
+			@NotBlank(message = "Name is necessary") String name, String description) {
+		super(cost, stock, type,name);
 		this.height = height;
 		this.spread = spread;
 		this.bloomTime = bloomTime;
@@ -62,15 +60,15 @@ public class Plant extends Product{
 		this.difficultyLevel = difficultyLevel;
 		this.temperature = temperature;
 		this.typeOfPlant = typeOfPlant;
-		this.commonName = commonName;
+//		this.name = name;
 		this.description = description;
 	}
 	
 	
-	public Plant(int id, int cost, int stock, Type type, Integer height, String spread, BloomTime bloomTime,
+	public Plant(int id, int cost, int stock, Type type, float height, String spread, BloomTime bloomTime,
 			String medicinalOrCulinaryUse, Difficulty difficultyLevel, String temperature, String typeOfPlant,
-			@NotBlank(message = "Name is necessary") String commonName, String description) {
-		super(id, cost, stock, type);
+			@NotBlank(message = "Name is necessary") String name, String description) {
+		super(id, cost, stock, type,name);
 		this.height = height;
 		this.spread = spread;
 		this.bloomTime = bloomTime;
@@ -78,22 +76,20 @@ public class Plant extends Product{
 		this.difficultyLevel = difficultyLevel;
 		this.temperature = temperature;
 		this.typeOfPlant = typeOfPlant;
-		this.commonName = commonName;
 		this.description = description;
 	}
 	
-	public Plant(int cost, int stock, Integer height, String spread, BloomTime bloomTime, String medicinalOrCulinaryUse,
+	public Plant(int cost, int stock, float height, String spread, BloomTime bloomTime, String medicinalOrCulinaryUse,
 			Difficulty difficultyLevel, String temperature, String typeOfPlant,
-			@NotBlank(message = "Name is necessary") String commonName, String description) {
-		super(cost, stock);
+			@NotBlank(message = "Name is necessary") String name, String description) {
+		super(cost, stock,name);
 		this.height = height;
 		this.spread = spread;
 		this.bloomTime = bloomTime;
 		this.medicinalOrCulinaryUse = medicinalOrCulinaryUse;
 		this.difficultyLevel = difficultyLevel;
 		this.temperature = temperature;
-		this.typeOfPlant = typeOfPlant;
-		this.commonName = commonName;
+		this.typeOfPlant = typeOfPlant;	
 		this.description = description;
 	}
 
@@ -106,11 +102,11 @@ public class Plant extends Product{
 	}
 
 
-	public Integer getHeight() {
+	public float getHeight() {
 		return height;
 	}
 
-	public void setHeight(Integer height) {
+	public void setHeight(float height) {
 		this.height = height;
 	}
 
@@ -156,13 +152,7 @@ public class Plant extends Product{
 		this.typeOfPlant = typeOfPlant;
 	}
 
-	public String getCommonName() {
-		return commonName;
-	}
 
-	public void setCommonName(String commonName) {
-		this.commonName = commonName;
-	}
 
 	public String getDescription() {
 		return description;
@@ -172,13 +162,18 @@ public class Plant extends Product{
 		this.description = description;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Plant [height=" + height + ", spread=" + spread + ", bloomTime=" + bloomTime
 				+ ", medicinalOrCulinaryUse=" + medicinalOrCulinaryUse + ", difficultyLevel=" + difficultyLevel
-				+ ", temperature=" + temperature + ", typeOfPlant=" + typeOfPlant + ", commonName=" + commonName
-				+ ", description=" + description + ", getType()=" + getType() + ", getId()=" + getId() + ", getCost()="
-				+ getCost() + ", getStock()=" + getStock() + "]";
+				+ ", temperature=" + temperature + ", typeOfPlant=" + typeOfPlant + ", description=" + description
+				+ "]";
 	}
+	
+	
+
+
 
 }

@@ -9,7 +9,7 @@ import com.cg.sprint1_onlineplantnursery.entity.Seed;
 
 public interface ISeedRepository extends JpaRepository<Seed, Integer>{
 	
-	Optional<Seed> findByCommonName(String commonName);
+	Optional<Seed> findByName(String name);
 	List<Seed> findByTypeOfSeed(String typeOfSeeds);
 
 }

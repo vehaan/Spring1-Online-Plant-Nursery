@@ -9,6 +9,7 @@ public interface IPlanterService {
 	//BASIC CRUD
 	Planter addPlanter(Planter planter);
 	Planter updatePlanter(Planter planter);
+//	Planter deletePlanter(int planterId);
 	Planter deletePlanter(Planter planter);
 	Planter getPlanter(int planterId);
 	List<Planter> getPlanters();

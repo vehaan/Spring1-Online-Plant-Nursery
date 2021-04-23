@@ -51,8 +51,8 @@ class SeedServiceTest {
 	void setUp() throws Exception{
 		seedList = new ArrayList<>();
 		seed1 = new Seed(12,20,8,Type.SEED,"Grape",BloomTime.MONSOON,"normal",Difficulty.EASY,"25 degree celcius","Vegetable","For Lemon",10);
-		seed2 = new Seed(20,5,Type.SEED,"Mango",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",10);
-		seed3 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",10);
+//		seed2 = new Seed(20,5,Type.SEED,"Mango",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",10);
+//		seed3 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Vegetable","For Lemon",10);
 		seedList.add(seed1);
 		seedList.add(seed2);
 		seedList.add(seed3);
@@ -61,13 +61,13 @@ class SeedServiceTest {
 	@Test
 	public void addSeedTest() {
 		when(seedRepoMock.save(seed1)).thenReturn(seed1);
-		assertEquals("Grape",seedServiceMock.addSeed(seed1).getCommonName());
+		assertEquals("Grape",seedServiceMock.addSeed(seed1).getName());
 	}
 	
 	@Test
 	public void updateSeedTest() {
 		when(seedRepoMock.save(seed1)).thenReturn(seed1);
-		assertEquals("Grape",seedServiceMock.addSeed(seed1).getCommonName());
+		assertEquals("Grape",seedServiceMock.addSeed(seed1).getName());
 	}
 	
 	@Test
@@ -78,7 +78,7 @@ class SeedServiceTest {
 	
 	@Test
 	public void getSeedByCommonNameTest() {
-		when(seedRepoMock.findByCommonName("Grape")).thenReturn(Optional.of(seed1));
+		when(seedRepoMock.findByName("Grape")).thenReturn(Optional.of(seed1));
 		assertEquals(seed1,seedServiceMock.getSeed("Grape"));
 	}
 	
@@ -90,8 +90,8 @@ class SeedServiceTest {
 	
 	@Test
 	public void getSeedsByTypeTest() {
-		Seed seed1 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Fruit","For Lemon",10);
-		Seed seed2 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Fruit","For Lemon",10);
+//		Seed seed1 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Fruit","For Lemon",10);
+//		Seed seed2 = new Seed(20,5,Type.SEED,"Apple",BloomTime.MONSOON,"normal",Difficulty.MEDIUM,"25 degree celcius","Fruit","For Lemon",10);
 		List<Seed> seedList = new ArrayList<>();
 		seedList.add(seed1);
 		seedList.add(seed2);
@@ -102,12 +102,12 @@ class SeedServiceTest {
 	@Test
 	public void deleteSeedTest() {
 		when(seedRepoMock.findById(12)).thenReturn(Optional.of(seed1));
-		assertEquals("Grape",seedServiceMock.deleteSeed(seed1).getCommonName());
+		assertEquals("Grape",seedServiceMock.deleteSeed(seed1).getName());
 	}
 	
 	@Test
 	public void buySeedsTest() {
-		when(seedRepoMock.findByCommonName("Grape")).thenReturn(Optional.of(seed1));
+		when(seedRepoMock.findByName("Grape")).thenReturn(Optional.of(seed1));
 		when(seedRepoMock.save(seed1)).thenReturn(seed1);
 		assertEquals(3,seedServiceMock.buySeeds("Grape", 5).getStock());
 		assertThrows(SeedIdNotFoundException.class, ()->seedServiceMock.buySeeds("Watermelon", 2));
@@ -115,7 +115,7 @@ class SeedServiceTest {
 	
 	@Test
 	public void addStockTest() {
-		when(seedRepoMock.findByCommonName("Grape")).thenReturn(Optional.of(seed1));
+		when(seedRepoMock.findByName("Grape")).thenReturn(Optional.of(seed1));
 		when(seedRepoMock.save(seed1)).thenReturn(seed1);
 		assertEquals(13,seedServiceMock.addStock("Grape", 5).getStock());
 		assertThrows(SeedIdNotFoundException.class, ()->seedServiceMock.buySeeds("Watermelon", 2));

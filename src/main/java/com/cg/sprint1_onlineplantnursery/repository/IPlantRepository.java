@@ -11,7 +11,7 @@ import com.cg.sprint1_onlineplantnursery.entity.Plant;
 @Repository
 public interface IPlantRepository extends JpaRepository<Plant, Integer>{
 	
-	Optional<Plant> findByCommonName(String commonName);
+	Optional<Plant> findByname(String name);
 	
 	List<Plant> findByTypeOfPlant(String typeOfPlant);
 }

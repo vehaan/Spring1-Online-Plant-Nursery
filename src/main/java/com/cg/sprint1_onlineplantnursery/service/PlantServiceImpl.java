@@ -37,7 +37,7 @@ public class PlantServiceImpl implements IPlantService{
 	@Override
 	public Plant addPlantStock(String commonName, int stock){
 			
-		Optional<Plant> plantOptional = plantRepo.findByCommonName(commonName);
+		Optional<Plant> plantOptional = plantRepo.findByname(commonName);
 		if(plantOptional.isPresent()) {
 			Plant plant = plantOptional.get();
 			int newStock = plant.getStock()+stock;
@@ -54,7 +54,7 @@ public class PlantServiceImpl implements IPlantService{
 		if(plantOptional.isPresent()) {
 			Plant plantToBeUpdated = plantOptional.get();
 			plantToBeUpdated.setBloomTime(plant.getBloomTime());
-			plantToBeUpdated.setCommonName(plant.getCommonName());
+			plantToBeUpdated.setName(plant.getName());
 			plantToBeUpdated.setCost(plant.getCost());
 			plantToBeUpdated.setDescription(plant.getDescription());
 			plantToBeUpdated.setDifficultyLevel(plant.getDifficultyLevel());
@@ -132,7 +132,7 @@ public class PlantServiceImpl implements IPlantService{
 
 	@Override
 	public Plant getPlant(String commonName){
-		Optional<Plant> plantOptional = plantRepo.findByCommonName(commonName);
+		Optional<Plant> plantOptional = plantRepo.findByname(commonName);
 		if(plantOptional.isPresent()) {
 			Plant plant = plantOptional.get();
 			return plant;
