@@ -11,9 +11,6 @@ import javax.validation.constraints.Positive;
 @Entity
 public class Seed extends Product{
 	
-	@NotBlank(message = "Name is required")
-	@Column(unique = true)
-	private String commonName;
 	
 	@Enumerated(EnumType.STRING)
 	private BloomTime bloomTime;
@@ -22,6 +19,7 @@ public class Seed extends Product{
 	@Enumerated(EnumType.STRING)
 	private Difficulty difficultyLevel;
 	private String temperature;
+	
 	private String typeOfSeed;
 	private String description;
 
@@ -29,11 +27,11 @@ public class Seed extends Product{
 	@Positive(message = "A positive value of seeds per packet required")
 	private Integer seedsPerPacket;
 	
-	public Seed(@NotBlank(message = "Name is required") String commonName, BloomTime bloomTime, String watering,
-			Difficulty difficultyLevel, String temperature, String typeOfSeed, String description,
+
+	public Seed(BloomTime bloomTime, String watering, Difficulty difficultyLevel, String temperature, String typeOfSeed,
+			String description,
 			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
 		super();
-		this.commonName = commonName;
 		this.bloomTime = bloomTime;
 		this.watering = watering;
 		this.difficultyLevel = difficultyLevel;
@@ -43,11 +41,13 @@ public class Seed extends Product{
 		this.seedsPerPacket = seedsPerPacket;
 	}
 
-	public Seed(int cost, int stock, @NotBlank(message = "Name is required") String commonName, BloomTime bloomTime,
-			String watering, Difficulty difficultyLevel, String temperature, String typeOfSeed, String description,
+
+	public Seed(int id, @Positive(message = "The cost should be positive") int cost,
+			@Positive(message = "The stock should be positive") int stock, Type type,
+			@NotBlank(message = "Name is necessary") String name, BloomTime bloomTime, String watering,
+			Difficulty difficultyLevel, String temperature, String typeOfSeed, String description,
 			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
-		super(cost, stock);
-		this.commonName = commonName;
+		super(id, cost, stock, type, name);
 		this.bloomTime = bloomTime;
 		this.watering = watering;
 		this.difficultyLevel = difficultyLevel;
@@ -57,27 +57,25 @@ public class Seed extends Product{
 		this.seedsPerPacket = seedsPerPacket;
 	}
 
-	public Seed(int id, int cost, int stock, Type type, @NotBlank(message = "Name is required") String commonName,
-			BloomTime bloomTime, String watering, Difficulty difficultyLevel, String temperature, String typeOfSeed,
-			String description,
-			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
-		super(id, cost, stock, type);
-		this.commonName = commonName;
-		this.bloomTime = bloomTime;
-		this.watering = watering;
-		this.difficultyLevel = difficultyLevel;
-		this.temperature = temperature;
-		this.typeOfSeed = typeOfSeed;
-		this.description = description;
-		this.seedsPerPacket = seedsPerPacket;
-	}
 
-	public Seed(int cost, int stock, Type type, @NotBlank(message = "Name is required") String commonName,
-			BloomTime bloomTime, String watering, Difficulty difficultyLevel, String temperature, String typeOfSeed,
-			String description,
+	public Seed(int cost, int stock, Type type, BloomTime bloomTime, String watering, Difficulty difficultyLevel,
+			String temperature, String typeOfSeed, String description,
 			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
 		super(cost, stock, type);
-		this.commonName = commonName;
+		this.bloomTime = bloomTime;
+		this.watering = watering;
+		this.difficultyLevel = difficultyLevel;
+		this.temperature = temperature;
+		this.typeOfSeed = typeOfSeed;
+		this.description = description;
+		this.seedsPerPacket = seedsPerPacket;
+	}
+	
+
+	public Seed(int id, int cost, int stock, Type type, BloomTime bloomTime, String watering,
+			Difficulty difficultyLevel, String temperature, String typeOfSeed, String description,
+			@NotNull @Positive(message = "A positive value of seeds per packet required") Integer seedsPerPacket) {
+		super(id, cost, stock, type);
 		this.bloomTime = bloomTime;
 		this.watering = watering;
 		this.difficultyLevel = difficultyLevel;
@@ -91,12 +89,7 @@ public class Seed extends Product{
 		super();
 	}
 
-	public String getCommonName() {
-		return commonName;
-	}
-	public void setCommonName(String commonName) {
-		this.commonName = commonName;
-	}
+
 
 	public BloomTime getBloomTime() {
 		return bloomTime;
@@ -150,10 +143,11 @@ public class Seed extends Product{
 
 	@Override
 	public String toString() {
-		return "Seed [commonName=" + commonName + ", bloomTime=" + bloomTime + ", watering=" + watering
-				+ ", difficultyLevel=" + difficultyLevel + ", temperature=" + temperature + ", typeOfSeed=" + typeOfSeed
-				+ ", description=" + description + ", seedsPerPacket=" + seedsPerPacket + ", getType()=" + getType()
-				+ ", getId()=" + getId() + ", getCost()=" + getCost() + ", getStock()=" + getStock() + "]";
+		return "Seed [bloomTime=" + bloomTime + ", watering=" + watering + ", difficultyLevel=" + difficultyLevel
+				+ ", temperature=" + temperature + ", typeOfSeed=" + typeOfSeed + ", description=" + description
+				+ ", seedsPerPacket=" + seedsPerPacket + "]";
 	}
+
+
 
 }

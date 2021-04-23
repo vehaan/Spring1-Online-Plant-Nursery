@@ -1,6 +1,7 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import com.sun.istack.NotNull;
 
@@ -50,6 +51,47 @@ public class Planter extends Product{
 	public Planter(int cost, int stock, Type type, @Positive(message = "The height must be positive") float height,
 			String shape, int capacity, int drainageHoles, String color) {
 		super(cost, stock, type);
+		this.height = height;
+		this.shape = shape;
+		this.capacity = capacity;
+		this.drainageHoles = drainageHoles;
+		this.color = color;
+	}
+	
+	
+
+	public Planter(int id, @Positive(message = "The cost should be positive") int cost,
+			@Positive(message = "The stock should be positive") int stock, Type type,
+			@NotBlank(message = "Name is necessary") String name,
+			@Positive(message = "The height must be positive") float height, String shape, int capacity,
+			int drainageHoles, String color) {
+		super(id, cost, stock, type, name);
+		this.height = height;
+		this.shape = shape;
+		this.capacity = capacity;
+		this.drainageHoles = drainageHoles;
+		this.color = color;
+	}
+
+	public Planter(@Positive(message = "The cost should be positive") int cost,
+			@Positive(message = "The stock should be positive") int stock, Type type,
+			@NotBlank(message = "Name is necessary") String name,
+			@Positive(message = "The height must be positive") float height, String shape, int capacity,
+			int drainageHoles, String color) {
+		super(cost, stock, type, name);
+		this.height = height;
+		this.shape = shape;
+		this.capacity = capacity;
+		this.drainageHoles = drainageHoles;
+		this.color = color;
+	}
+
+	public Planter(@Positive(message = "The cost should be positive") int cost,
+			@Positive(message = "The stock should be positive") int stock,
+			@NotBlank(message = "Name is necessary") String name,
+			@Positive(message = "The height must be positive") float height, String shape, int capacity,
+			int drainageHoles, String color) {
+		super(cost, stock, name);
 		this.height = height;
 		this.shape = shape;
 		this.capacity = capacity;

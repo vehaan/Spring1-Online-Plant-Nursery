@@ -96,9 +96,9 @@ public class OrderServiceImpl implements IOrderService {
 			for(Map.Entry<Integer, Integer> entry : prod.entrySet()) {
 				Product product = productService.getProductById(entry.getKey());
 				if(product instanceof Plant)
-					plantService.addPlantStock(plantService.getPlant(entry.getKey()).getCommonName(), entry.getValue());	
+					plantService.addPlantStock(plantService.getPlant(entry.getKey()).getName(), entry.getValue());	
 				else if(product instanceof Seed) 
-					seedService.addStock(seedService.getSeed(entry.getKey()).getCommonName(), entry.getValue());
+					seedService.addStock(seedService.getSeed(entry.getKey()).getName(), entry.getValue());
 				else 
 					planterService.addPlanterStock(entry.getKey(), entry.getValue());
 			}

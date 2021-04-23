@@ -32,8 +32,8 @@ public class SeedServiceImpl implements ISeedService{
 	}
 	
 	@Override
-	public Seed addStock(String commonName, int stock) throws SeedIdNotFoundException {
-		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
+	public Seed addStock(String name, int stock) throws SeedIdNotFoundException {
+		Optional<Seed> seedOptional = seedRepo.findByName(name);
 		if(seedOptional.isPresent()) {
 			Seed seedNew = seedOptional.get();
 			int newStock = seedNew.getStock() + stock;
@@ -72,7 +72,7 @@ public class SeedServiceImpl implements ISeedService{
 	}
 	
 	public Seed buySeeds(String commonName, int stock) throws SeedIdNotFoundException, OutOfStockException {
-		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
+		Optional<Seed> seedOptional = seedRepo.findByName(commonName);
 		if(seedOptional.isPresent()) {
 			Seed seedNew = seedOptional.get();
 			int newStock = seedNew.getStock() - stock;
@@ -114,7 +114,7 @@ public class SeedServiceImpl implements ISeedService{
 
 	@Override
 	public Seed getSeed(String commonName) throws SeedIdNotFoundException {
-		Optional<Seed> seedOptional = seedRepo.findByCommonName(commonName);
+		Optional<Seed> seedOptional = seedRepo.findByName(commonName);
 		return seedOptional.orElseThrow(() -> new SeedIdNotFoundException("Seed Not Found...Invalid Name"));
 	}
 
