@@ -139,4 +139,30 @@ public class OrderServiceImpl implements IOrderService {
 		return sameTransactionModeOrders;
 	}
 	
+	
+	@Override
+	public Order viewOrder(int customerId, int bookingId) {
+		Optional<Order> orderOptional = orderRepository.findById(bookingId);
+		return orderOptional.orElseThrow(()-> new OrderIdNotFoundException("Order with id: "+bookingId+" is not found"));
+	}
+	
+	
+	@Override
+	public List<Order> viewAllOrders(int customerId) {
+		List<Order> allOrders =  orderRepository.findAll();
+		List<Order> allSortedOrders = allOrders.stream().sorted((Order ord1, Order ord2) -> (int)ord2.getBookingId() - (int)ord1.getBookingId()).collect(Collectors.toList());
+		List<Order> orders = allSortedOrders.stream().filter((custId)-> custId.getCustomer().getId().equals(customerId)).collect(Collectors.toList());
+		return orders;
+	}
+	
+	
+	@Override
+    public List<Order> filterByTransactionMode(TransactionMode transactionMode, int customerId) {
+        List<Order> orders = orderRepository.findAll();
+        List<Order> allSortedOrders = orders.stream().sorted((Order ord1, Order ord2) -> (int)ord2.getBookingId() - (int)ord1.getBookingId()).collect(Collectors.toList());
+        List<Order> custOrders = allSortedOrders.stream().filter((custId)-> custId.getCustomer().getId().equals(customerId)).collect(Collectors.toList());
+        List<Order> sameTransactionModeOrders = custOrders.stream().filter((t) -> t.getTransactionMode().equals(transactionMode)).collect(Collectors.toList());
+        return sameTransactionModeOrders;
+    }
+	
 }

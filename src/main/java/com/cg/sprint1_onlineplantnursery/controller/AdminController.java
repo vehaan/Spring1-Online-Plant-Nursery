@@ -2,7 +2,9 @@ package com.cg.sprint1_onlineplantnursery.controller;
 
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.cg.sprint1_onlineplantnursery.entity.Admin;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
+import com.cg.sprint1_onlineplantnursery.entity.Product;
 import com.cg.sprint1_onlineplantnursery.entity.Role;
 import com.cg.sprint1_onlineplantnursery.entity.User;
 import com.cg.sprint1_onlineplantnursery.service.ICustomerService;
@@ -51,12 +55,11 @@ public class AdminController {
 
 	}
 
-	@PatchMapping("/resetPassword/{id}")
-	public ResponseEntity<String> resetPassword(@Valid @PathVariable Integer id,
-			@RequestBody Map<Object, Object> fields) {
+	@PostMapping("/resetPassword")
+	public ResponseEntity<Admin> resetPassword(@Valid @PathVariable Integer id,
+			@RequestBody Admin admin) {
 
-		return new ResponseEntity<>("Your password is successfully updated "
-				+ ((Admin) userService.resetPasswordById(id, fields)).getName(), HttpStatus.CREATED);
+		return new ResponseEntity<>((Admin)userService.resetPasswordById(admin), HttpStatus.CREATED);
 
 	}
 	
@@ -93,4 +96,7 @@ public class AdminController {
 		return new ResponseEntity<>(userService.userByRole(role),HttpStatus.OK);
 	}
 	
+	
+	
+
 }

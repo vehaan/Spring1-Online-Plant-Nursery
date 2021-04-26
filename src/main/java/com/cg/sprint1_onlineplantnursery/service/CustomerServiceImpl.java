@@ -4,22 +4,37 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
+import com.cg.sprint1_onlineplantnursery.entity.Role;
+import com.cg.sprint1_onlineplantnursery.entity.Status;
+import com.cg.sprint1_onlineplantnursery.entity.User;
 import com.cg.sprint1_onlineplantnursery.exception.ResourceNotFoundException;
+import com.cg.sprint1_onlineplantnursery.exception.UserAlreadyExists;
 import com.cg.sprint1_onlineplantnursery.exception.UserNotFoundException;
 import com.cg.sprint1_onlineplantnursery.repository.ICustomerRepository;
 
 @Service
-@Transactional
 public class CustomerServiceImpl implements ICustomerService {
 
 	@Autowired
 	private ICustomerRepository customerRepository;
+
+	@Override
+	public Customer register(Customer customer) {
+
+		if (customerRepository.findByEmail(customer.getEmail()).isPresent())
+			throw new UserAlreadyExists("Email is already registered.Try to login");
+
+		customer.setRole(Role.CUSTOMER);
+		customer.setStatus(Status.UNBLOCK);
+		Customer save = customerRepository.save(customer);
+
+		return save;
+	}
 
 	// method to find the details of the customer using customer Id
 
@@ -84,5 +99,38 @@ public class CustomerServiceImpl implements ICustomerService {
 
 		return collect.get(0);
 	}
+
+	@Override
+	public Customer getUser(String email) {
+		Optional<Customer> findByEmail = customerRepository.findByEmail(email);
+
+		System.out.println("I am in controller");
+		System.out.println(findByEmail.isEmpty());
+		System.out.println(email);
+		return findByEmail
+				.orElseThrow(() -> new UserNotFoundException("There are no customer having id:" + findByEmail));
+
+	}
+
+	@Override
+	public Customer toggleStatus(Integer customerId) {
+		Customer customer = null;
+		Optional<Customer> findById = customerRepository.findById(customerId);
+
+		if (findById.isPresent()) {
+			customer = findById.get();
+
+			if (customer.getStatus().equals(Status.UNBLOCK)) {
+				customer.setStatus(Status.BLOCK);
+			} else if (customer.getStatus().equals(Status.BLOCK)) {
+				customer.setStatus(Status.UNBLOCK);
+			}
+
+		}
+
+		Customer save = customerRepository.save(customer);
+		return save;
+	}
+
 
 }

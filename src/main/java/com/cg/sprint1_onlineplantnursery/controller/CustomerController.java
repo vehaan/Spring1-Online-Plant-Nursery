@@ -2,7 +2,10 @@ package com.cg.sprint1_onlineplantnursery.controller;
 
 import java.util.List;
 import java.util.Map;
+
 import javax.validation.Valid;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+
 import com.cg.sprint1_onlineplantnursery.entity.Customer;
 import com.cg.sprint1_onlineplantnursery.entity.Order;
 import com.cg.sprint1_onlineplantnursery.entity.Product;
@@ -24,11 +29,11 @@ import com.cg.sprint1_onlineplantnursery.service.ICustomerService;
 import com.cg.sprint1_onlineplantnursery.service.IProductService;
 import com.cg.sprint1_onlineplantnursery.service.IUserService;
 
-//@CrossOrigin(origins = "http://localhost:60051", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/customers")
-public class CustomerController {
-//	extends WebSecurityConfigurerAdapter
+public class CustomerController  {
+
 	@Autowired
 	private ICustomerService customerService;
 
@@ -38,13 +43,8 @@ public class CustomerController {
 	@Autowired
 	IProductService productService;
 
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		super.configure(http);
-//		http.csrf().disable();
-//	}
 
-	@PostMapping("/register")
+	@PostMapping
 	public ResponseEntity<User> register(@Valid @RequestBody Customer customer) {
 
 		return new ResponseEntity<>(userService.register(customer), HttpStatus.CREATED);
@@ -58,12 +58,10 @@ public class CustomerController {
 
 	}
 
-	@PatchMapping("/resetPassword/{id}")
-	public ResponseEntity<String> resetPassword(@Valid @PathVariable Integer id,
-			@RequestBody Map<Object, Object> fields) {
+	@PostMapping("/resetPassword")
+	public ResponseEntity<Customer> resetPassword(@RequestBody Customer customer) {
 
-		return new ResponseEntity<>("Your password is successfully updated "
-				+ ((Customer) userService.resetPasswordById(id, fields)).getName(), HttpStatus.CREATED);
+		return new ResponseEntity<>( (Customer)userService.resetPasswordById(customer), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/id/{id}")
@@ -83,6 +81,25 @@ public class CustomerController {
 
 		return new ResponseEntity<>(customerService.getCustomer(id), HttpStatus.OK);
 	}
+	
+	
+
+	@GetMapping("/{email}")
+	public ResponseEntity<?> getCustomer(@PathVariable String email) {
+
+		return new ResponseEntity<>(userService.getUser(email), HttpStatus.OK);
+	}
+	
+	
+	
+	
+	@GetMapping
+	public ResponseEntity<List<Customer>> allCustomers() {
+
+		return new ResponseEntity<>(customerService.getCustomers(), HttpStatus.OK);
+
+	}
+	
 
 	@GetMapping("/products")
 	public ResponseEntity<List<Product>> getProducts() {
@@ -104,4 +121,14 @@ public class CustomerController {
 		return new ResponseEntity<>(customerService.getOrderDetails(customerId, orderId), HttpStatus.OK);
 	}
 
+	
+	@GetMapping("/toggleStatus/{id}")
+	public ResponseEntity<Customer> setStatus(@PathVariable Integer id) {
+
+		return new ResponseEntity<>(customerService.toggleStatus(id), HttpStatus.OK);
+	}
+	
+	
+	
+	
 }

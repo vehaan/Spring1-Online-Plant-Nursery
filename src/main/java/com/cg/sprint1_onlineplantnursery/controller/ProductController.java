@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.cg.sprint1_onlineplantnursery.entity.Product;
 import com.cg.sprint1_onlineplantnursery.entity.Seed;
 import com.cg.sprint1_onlineplantnursery.service.IProductService;
 
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -46,6 +48,12 @@ public class ProductController {
 	public ResponseEntity<List<Product>> getProducts() {
 		List<Product> products =  productService.getProducts();
 			return new ResponseEntity<List<Product>>(products,HttpStatus.OK);
+	}
+	
+	@GetMapping({"admin/product/id/{id}", "customer/product/id/{id}"})
+	public ResponseEntity<Product> getProductById(@PathVariable int id) {
+		Product product = productService.getProductById(id);
+		return new ResponseEntity<Product>(product,HttpStatus.OK); 
 	}
 	
 	@GetMapping({"admin/costLowToHigh", "customers/costLowToHigh"})

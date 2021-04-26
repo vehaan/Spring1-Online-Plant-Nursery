@@ -22,5 +22,11 @@ public interface IOrderService {
 
 	List<Order> filterByTransactionMode(TransactionMode transactionMode);
 
+	Order viewOrder(int customerId, int bookingId);
+
+	List<Order> viewAllOrders(int customerId);
+
+	List<Order> filterByTransactionMode(TransactionMode transactionMode, int customerId);
+
 	
 }

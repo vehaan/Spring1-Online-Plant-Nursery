@@ -1,31 +1,34 @@
 package com.cg.sprint1_onlineplantnursery.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Address {
 
-	@NotBlank
+	
 	private String houseNo;
 	private String colony;
 	private String city;
 	private String state;
-	@NotNull
+	
+	@Column(nullable = true)
 	private int pincode;
+
 
 	public Address() {
 		super();
 	}
 
-	public Address(@NotBlank String houseNo, String colony, String city, String state, @NotNull int pincode) {
+	public Address( String houseNo, String colony, String city, String state,int pincode) {
 		super();
 		this.houseNo = houseNo;
 		this.colony = colony;
 		this.city = city;
 		this.state = state;
-		this.pincode = pincode;
+		this.pincode=pincode;
+		
 	}
 
 	public String getHouseNo() {
@@ -60,6 +63,8 @@ public class Address {
 		this.state = state;
 	}
 
+
+
 	public int getPincode() {
 		return pincode;
 	}
@@ -73,5 +78,6 @@ public class Address {
 		return "Address [houseNo=" + houseNo + ", colony=" + colony + ", city=" + city + ", state=" + state
 				+ ", pincode=" + pincode + "]";
 	}
+
 
 }

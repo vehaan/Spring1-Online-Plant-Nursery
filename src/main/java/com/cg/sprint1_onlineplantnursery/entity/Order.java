@@ -242,9 +242,10 @@ public class Order {
 	@Override
 	public String toString() {
 		return "Order [bookingId=" + bookingId + ", bookingDate=" + bookingDate + ", transactionMode=" + transactionMode
-				+ ", quantity=" + quantity + ", totalCost=" + totalCost + ", products=" + products + ", customer="
-				+ customer + "]";
+				+ ", quantity=" + quantity + ", totalCost=" + totalCost + ", products=" + products + "]";
 	}
+
+
 
 	
 }

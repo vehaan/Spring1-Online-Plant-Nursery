@@ -1,0 +1,603 @@
+2021-04-26 01:24:33.533  INFO 6424 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Starting Sprint1OnlinePlantNurseryApplication using Java 12.0.1 on DESKTOP-H39N34A with PID 6424 (D:\javaworksEE\Sprint1_OnlinePlantNursery\bin\main started by Vehaan in D:\javaworksEE\Sprint1_OnlinePlantNursery)
+2021-04-26 01:24:33.543 DEBUG 6424 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Running with Spring Boot v2.4.3, Spring v5.3.4
+2021-04-26 01:24:33.552  INFO 6424 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : No active profile set, falling back to default profiles: default
+2021-04-26 01:24:35.630  INFO 6424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-26 01:24:35.773  INFO 6424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 129 ms. Found 7 JPA repository interfaces.
+2021-04-26 01:24:36.633  INFO 6424 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@bb25753' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 01:24:36.652  INFO 6424 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 01:24:37.106  INFO 6424 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9191 (http)
+2021-04-26 01:24:37.125  INFO 6424 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-26 01:24:37.126  INFO 6424 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-04-26 01:24:37.320  INFO 6424 --- [main] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring embedded WebApplicationContext
+2021-04-26 01:24:37.320  INFO 6424 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3652 ms
+2021-04-26 01:24:38.147  INFO 6424 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-26 01:24:38.155  WARN 6424 --- [main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2021-04-26 01:24:39.067  INFO 6424 --- [main] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Driver does not support get/set network timeout for connections. (Receiver class oracle.jdbc.driver.T4CConnection does not define or inherit an implementation of the resolved method abstract getNetworkTimeout()I of interface java.sql.Connection.)
+2021-04-26 01:24:39.073  INFO 6424 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-26 01:24:43.567  INFO 6424 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-26 01:24:44.303  WARN 6424 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-26 01:24:44.966 DEBUG 6424 --- [main] com.cg.JwtRequestFilter                  : Filter 'jwtRequestFilter' configured for use
+2021-04-26 01:24:46.697  INFO 6424 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@45ea6c24, org.springframework.security.web.context.SecurityContextPersistenceFilter@3359217d, org.springframework.security.web.header.HeaderWriterFilter@eccaf1b, org.springframework.security.web.authentication.logout.LogoutFilter@1ec96512, com.cg.JwtRequestFilter@44103266, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@732ae29c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@510d4d4b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@51f31fad, org.springframework.security.web.session.SessionManagementFilter@4f93303f, org.springframework.security.web.access.ExceptionTranslationFilter@1545ef47, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@69c7fb94]
+2021-04-26 01:24:47.033  INFO 6424 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-26 01:24:47.674  INFO 6424 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9191 (http) with context path '/onlineplantnursery'
+2021-04-26 01:24:48.760  INFO 6424 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Started Sprint1OnlinePlantNurseryApplication in 15.953 seconds (JVM running for 17.975)
+2021-04-26 01:24:56.383  INFO 6424 --- [http-nio-9191-exec-1] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-26 01:24:56.384  INFO 6424 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-26 01:24:56.386  INFO 6424 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2021-04-26 01:24:56.426  WARN 6424 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:24:56.508  WARN 6424 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:25:14.488  WARN 6424 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:25:14.503  WARN 6424 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:25:15.027  WARN 6424 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:25:15.120  WARN 6424 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:25:15.135  WARN 6424 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:25:15.166  WARN 6424 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:25:41.098  WARN 6424 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:26:02.092  WARN 6424 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:26:02.370  WARN 6424 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:26:09.961  WARN 6424 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:28:05.294  WARN 6424 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:28:07.639  WARN 6424 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:10.369  WARN 6424 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:10.369  WARN 6424 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:10.370  WARN 6424 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:10.370  WARN 6424 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:30.423  WARN 6424 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:32.445  WARN 6424 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:32.446  WARN 6424 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:32.449  WARN 6424 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:31:32.450  WARN 6424 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 01:32:01.601  INFO 6424 --- [RMI TCP Connection(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-04-26 01:32:02.190  INFO 6424 --- [RMI TCP Connection(11)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-26 01:32:02.205  INFO 6424 --- [RMI TCP Connection(11)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-04-26 01:32:02.309  INFO 6424 --- [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-04-26 01:32:02.324  INFO 6424 --- [RMI TCP Connection(11)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-04-26 09:31:13.035  INFO 4240 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Starting Sprint1OnlinePlantNurseryApplication using Java 12.0.1 on DESKTOP-H39N34A with PID 4240 (D:\javaworksEE\Sprint1_OnlinePlantNursery\bin\main started by Vehaan in D:\javaworksEE\Sprint1_OnlinePlantNursery)
+2021-04-26 09:31:13.059 DEBUG 4240 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Running with Spring Boot v2.4.3, Spring v5.3.4
+2021-04-26 09:31:13.060  INFO 4240 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : No active profile set, falling back to default profiles: default
+2021-04-26 09:31:15.152  INFO 4240 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-26 09:31:15.297  INFO 4240 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 133 ms. Found 7 JPA repository interfaces.
+2021-04-26 09:31:16.053  INFO 4240 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@721d5b74' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 09:31:16.062  INFO 4240 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 09:31:16.581  INFO 4240 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9191 (http)
+2021-04-26 09:31:16.602  INFO 4240 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-26 09:31:16.603  INFO 4240 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-04-26 09:31:16.821  INFO 4240 --- [main] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring embedded WebApplicationContext
+2021-04-26 09:31:16.823  INFO 4240 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3662 ms
+2021-04-26 09:31:17.907  INFO 4240 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-26 09:31:17.917  WARN 4240 --- [main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2021-04-26 09:31:18.991  INFO 4240 --- [main] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Driver does not support get/set network timeout for connections. (Receiver class oracle.jdbc.driver.T4CConnection does not define or inherit an implementation of the resolved method abstract getNetworkTimeout()I of interface java.sql.Connection.)
+2021-04-26 09:31:18.997  INFO 4240 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-26 09:31:25.003  INFO 4240 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-26 09:31:27.841  WARN 4240 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-26 09:31:28.596 DEBUG 4240 --- [main] com.cg.JwtRequestFilter                  : Filter 'jwtRequestFilter' configured for use
+2021-04-26 09:31:30.647  INFO 4240 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5f606ab6, org.springframework.security.web.context.SecurityContextPersistenceFilter@146b4c6c, org.springframework.security.web.header.HeaderWriterFilter@1dd4c691, org.springframework.security.web.authentication.logout.LogoutFilter@1ef8f7e6, com.cg.JwtRequestFilter@2bf2523f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@49318c2a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6287e312, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@384cd83a, org.springframework.security.web.session.SessionManagementFilter@3304362e, org.springframework.security.web.access.ExceptionTranslationFilter@52539624, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6b83ec49]
+2021-04-26 09:31:31.097  INFO 4240 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-26 09:31:31.888  INFO 4240 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9191 (http) with context path '/onlineplantnursery'
+2021-04-26 09:31:33.095  INFO 4240 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Started Sprint1OnlinePlantNurseryApplication in 20.816 seconds (JVM running for 22.754)
+2021-04-26 09:34:34.950  INFO 4240 --- [http-nio-9191-exec-1] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-26 09:34:34.951  INFO 4240 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-26 09:34:34.956  INFO 4240 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2021-04-26 09:34:35.005  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:34:35.283  WARN 4240 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:34:49.886  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:34:50.027  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:34:51.417  WARN 4240 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:34:51.484  WARN 4240 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:34:51.484  WARN 4240 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:34:51.507  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:35:02.408  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:37:49.021  WARN 4240 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:38:01.037  WARN 4240 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:38:05.164  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:38:21.097  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:38:40.603  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:39:26.172  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:39:26.173  WARN 4240 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:39:26.186  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:39:26.187  WARN 4240 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:52:32.476  WARN 4240 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:52:32.520  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:52:32.801  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:52:32.812  WARN 4240 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:52:32.822  WARN 4240 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:52:32.837  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:09.351  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:09.401  WARN 4240 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:09.737  WARN 4240 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:09.744  WARN 4240 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:09.753  WARN 4240 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:09.764  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:16.644  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:16.688  WARN 4240 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:16.793  WARN 4240 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:16.793  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:16.812  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:16.829  WARN 4240 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:31.102  WARN 4240 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:31.133  WARN 4240 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:31.264  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:31.264  WARN 4240 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:31.282  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:31.299  WARN 4240 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:47.783  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:47.813  WARN 4240 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:47.979  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:47.981  WARN 4240 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:47.993  WARN 4240 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:53:47.996  WARN 4240 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:54:09.994  WARN 4240 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:54:10.020  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:54:10.095  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:54:10.095  WARN 4240 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:54:10.102  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:54:10.116  WARN 4240 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:54:21.097  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 09:54:33.726  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:20:31.999  WARN 4240 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:21:49.123  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:21:49.133  WARN 4240 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:22:01.613  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:22:01.628  WARN 4240 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:22:01.842  WARN 4240 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:22:09.727  WARN 4240 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:23:10.353  WARN 4240 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:26:09.453  WARN 4240 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:26:15.181  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:26:15.215  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:26:48.960  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:26:52.429  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:28:36.036  WARN 4240 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:30:48.764  WARN 4240 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:32:10.834  WARN 4240 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:35:50.928  WARN 4240 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:35:53.498  WARN 4240 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:38:31.573  WARN 4240 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:39:54.115  WARN 4240 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:39:57.698  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:41:04.085  WARN 4240 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:42:15.435  INFO 4240 --- [RMI TCP Connection(73)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-04-26 10:42:16.166  INFO 4240 --- [RMI TCP Connection(73)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-26 10:42:16.218  INFO 4240 --- [RMI TCP Connection(73)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-04-26 10:42:16.252  INFO 4240 --- [RMI TCP Connection(73)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-04-26 10:42:16.268  INFO 4240 --- [RMI TCP Connection(73)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-04-26 10:42:28.191  INFO 14940 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Starting Sprint1OnlinePlantNurseryApplication using Java 12.0.1 on DESKTOP-H39N34A with PID 14940 (D:\javaworksEE\Sprint1_OnlinePlantNursery\bin\main started by Vehaan in D:\javaworksEE\Sprint1_OnlinePlantNursery)
+2021-04-26 10:42:28.195 DEBUG 14940 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Running with Spring Boot v2.4.3, Spring v5.3.4
+2021-04-26 10:42:28.196  INFO 14940 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : No active profile set, falling back to default profiles: default
+2021-04-26 10:42:30.272  INFO 14940 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-26 10:42:30.445  INFO 14940 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 160 ms. Found 7 JPA repository interfaces.
+2021-04-26 10:42:31.171  INFO 14940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@1f782c05' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 10:42:31.179  INFO 14940 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 10:42:31.683  INFO 14940 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9191 (http)
+2021-04-26 10:42:31.702  INFO 14940 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-26 10:42:31.702  INFO 14940 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-04-26 10:42:31.898  INFO 14940 --- [main] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring embedded WebApplicationContext
+2021-04-26 10:42:31.898  INFO 14940 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3593 ms
+2021-04-26 10:42:32.833  INFO 14940 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-26 10:42:32.840  WARN 14940 --- [main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2021-04-26 10:42:33.609  INFO 14940 --- [main] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Driver does not support get/set network timeout for connections. (Receiver class oracle.jdbc.driver.T4CConnection does not define or inherit an implementation of the resolved method abstract getNetworkTimeout()I of interface java.sql.Connection.)
+2021-04-26 10:42:33.614  INFO 14940 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-26 10:42:36.703  INFO 14940 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-26 10:42:37.448  WARN 14940 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-26 10:42:38.051 DEBUG 14940 --- [main] com.cg.JwtRequestFilter                  : Filter 'jwtRequestFilter' configured for use
+2021-04-26 10:42:39.400  INFO 14940 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6259d7a0, org.springframework.security.web.context.SecurityContextPersistenceFilter@2c34ce24, org.springframework.security.web.header.HeaderWriterFilter@6287e312, org.springframework.security.web.authentication.logout.LogoutFilter@7a02d760, com.cg.JwtRequestFilter@3a2881d6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@31406eab, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@608b74f3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@374712f8, org.springframework.security.web.session.SessionManagementFilter@56c7e2d1, org.springframework.security.web.access.ExceptionTranslationFilter@b2db8bc, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@29897daf]
+2021-04-26 10:42:39.611  INFO 14940 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-26 10:42:40.170  INFO 14940 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9191 (http) with context path '/onlineplantnursery'
+2021-04-26 10:42:41.539  INFO 14940 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Started Sprint1OnlinePlantNurseryApplication in 14.064 seconds (JVM running for 15.728)
+2021-04-26 10:43:59.553  INFO 14940 --- [http-nio-9191-exec-1] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-26 10:43:59.554  INFO 14940 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-26 10:43:59.558  INFO 14940 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2021-04-26 10:44:21.572  WARN 14940 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:56:44.127  WARN 14940 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:56:44.142  WARN 14940 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 10:59:18.176  WARN 14940 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:05:07.867  WARN 14940 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:08:51.061  WARN 14940 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:08:51.097  WARN 14940 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:14.169  WARN 14940 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:14.224  WARN 14940 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:23.900  WARN 14940 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:23.931  WARN 14940 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:26.263  WARN 14940 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:26.263  WARN 14940 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:26.263  WARN 14940 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:26.264  WARN 14940 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:43.838  WARN 14940 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:09:43.845  WARN 14940 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:11:57.463  INFO 14940 --- [RMI TCP Connection(34)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-04-26 11:11:57.947  INFO 14940 --- [RMI TCP Connection(34)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-04-26 11:11:57.964  INFO 14940 --- [RMI TCP Connection(34)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-04-26 11:11:57.968  INFO 14940 --- [RMI TCP Connection(34)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-04-26 11:11:57.984  INFO 14940 --- [RMI TCP Connection(34)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-04-26 11:12:14.588  INFO 3244 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Starting Sprint1OnlinePlantNurseryApplication using Java 12.0.1 on DESKTOP-H39N34A with PID 3244 (D:\javaworksEE\Sprint1_OnlinePlantNursery\bin\main started by Vehaan in D:\javaworksEE\Sprint1_OnlinePlantNursery)
+2021-04-26 11:12:14.594 DEBUG 3244 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Running with Spring Boot v2.4.3, Spring v5.3.4
+2021-04-26 11:12:14.595  INFO 3244 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : No active profile set, falling back to default profiles: default
+2021-04-26 11:12:16.468  INFO 3244 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-26 11:12:16.617  INFO 3244 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 138 ms. Found 7 JPA repository interfaces.
+2021-04-26 11:12:17.334  INFO 3244 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@1f782c05' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 11:12:17.341  INFO 3244 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 11:12:17.807  INFO 3244 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9191 (http)
+2021-04-26 11:12:17.826  INFO 3244 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-26 11:12:17.827  INFO 3244 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-04-26 11:12:18.025  INFO 3244 --- [main] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring embedded WebApplicationContext
+2021-04-26 11:12:18.025  INFO 3244 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3338 ms
+2021-04-26 11:12:18.934  INFO 3244 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-26 11:12:18.943  WARN 3244 --- [main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2021-04-26 11:12:19.684  INFO 3244 --- [main] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Driver does not support get/set network timeout for connections. (Receiver class oracle.jdbc.driver.T4CConnection does not define or inherit an implementation of the resolved method abstract getNetworkTimeout()I of interface java.sql.Connection.)
+2021-04-26 11:12:19.690  INFO 3244 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-26 11:12:21.933  INFO 3244 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-26 11:12:22.591  WARN 3244 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-26 11:12:23.036 DEBUG 3244 --- [main] com.cg.JwtRequestFilter                  : Filter 'jwtRequestFilter' configured for use
+2021-04-26 11:12:24.213  INFO 3244 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@75128cf, org.springframework.security.web.context.SecurityContextPersistenceFilter@2553fbd0, org.springframework.security.web.header.HeaderWriterFilter@31406eab, org.springframework.security.web.authentication.logout.LogoutFilter@50b010d4, com.cg.JwtRequestFilter@439b0198, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@20a434a8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1545ef47, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@33ccab9c, org.springframework.security.web.session.SessionManagementFilter@5e9a9683, org.springframework.security.web.access.ExceptionTranslationFilter@2c34ce24, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@59da4992]
+2021-04-26 11:12:24.418  INFO 3244 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-26 11:12:24.924  INFO 3244 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9191 (http) with context path '/onlineplantnursery'
+2021-04-26 11:12:26.065  INFO 3244 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Started Sprint1OnlinePlantNurseryApplication in 12.159 seconds (JVM running for 13.867)
+2021-04-26 11:12:53.650  INFO 3244 --- [http-nio-9191-exec-1] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-26 11:12:53.651  INFO 3244 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-26 11:12:53.655  INFO 3244 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2021-04-26 11:14:42.726  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:14:51.394  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:15:18.835  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:15:22.421  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:25:22.698  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:25:22.977  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:27:20.082  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:27:20.286  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:27:31.523  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:18.530  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:18.531  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:18.539  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:18.556  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:57.446  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:57.495  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:57.607  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:57.608  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:57.608  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:28:57.631  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:23.427  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:23.486  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:23.914  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:23.943  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:23.958  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:23.966  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:33.589  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:33.637  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:33.961  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:33.973  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:34.030  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:34.043  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:39.982  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:40.545  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:40.573  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:40.589  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:40.602  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:29:40.609  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:44.193  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:44.323  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:44.648  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:44.655  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:44.672  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:44.687  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:49.172  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:49.193  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:49.401  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:49.405  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:49.409  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:30:49.466  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:18.641  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:18.699  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:18.821  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:18.834  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:18.842  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:18.865  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:36.121  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:36.155  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:36.281  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:36.282  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:36.304  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:36.306  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:41.353  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:41.386  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:41.485  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:41.486  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:41.486  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:41.487  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:47.117  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:47.145  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:50.404  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:50.405  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:50.406  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:31:50.405  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:07.143  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:07.194  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:07.643  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:07.658  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:07.672  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:07.690  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:24.284  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:24.318  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:24.443  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:24.444  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:24.474  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:24.493  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:34.613  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:34.675  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:34.871  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:34.878  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:34.890  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:32:34.903  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:17.814  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:17.816  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:17.824  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:17.832  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:19.148  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:22.464  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:22.465  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:22.469  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:33:22.483  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:03.189  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:03.216  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:03.338  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:03.339  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:03.349  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:03.357  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:06.909  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:06.955  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:07.651  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:07.651  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:07.652  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:07.671  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:20.746  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:20.762  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:23.660  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:25.232  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:25.243  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:25.243  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:25.248  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:36.344  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:36.368  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:36.470  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:36.473  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:36.485  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:34:36.493  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:35:14.418  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:35:16.949  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:35:16.950  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:35:16.950  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:35:16.967  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:37:44.617  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:37:44.849  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:37:46.046  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:37:46.226  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:37:46.229  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:37:46.229  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:07.435  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:07.459  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:07.591  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:07.628  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:07.650  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:07.671  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:35.686  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:36.071  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:36.436  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:36.450  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:36.474  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:36.490  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:48.844  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:48.887  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:49.014  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:49.030  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:49.030  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:38:49.030  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:26.874  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:26.898  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:27.030  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:27.034  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:27.037  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:27.037  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:50.895  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:50.911  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:51.212  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:39:51.363  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:41:31.038  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:41:31.334  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:42:00.293  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 11:42:24.144  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:01:05.824  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:01:06.110  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:10:11.410  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:10:11.411  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:10:11.410  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:10:11.411  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:10:23.831  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:10:23.842  WARN 3244 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:10:39.656  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:10:39.826  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:11:37.926  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:11:37.954  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:11:50.088  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:12:09.051  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:12:21.271  WARN 3244 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:17:09.938  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:17:15.922  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:17:22.072  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:17:25.606  WARN 3244 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:17:41.276  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:18:26.323  WARN 3244 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:20:26.034  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:20:30.432  WARN 3244 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:21:21.255  WARN 3244 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:21:23.131  WARN 3244 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:21:36.904  WARN 3244 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:21:54.690  WARN 3244 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 12:22:10.954  WARN 3244 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:39:32.074  INFO 13708 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Starting Sprint1OnlinePlantNurseryApplication using Java 12.0.1 on DESKTOP-H39N34A with PID 13708 (D:\javaworksEE\Sprint1_OnlinePlantNursery\bin\main started by Vehaan in D:\javaworksEE\Sprint1_OnlinePlantNursery)
+2021-04-26 13:39:32.120 DEBUG 13708 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Running with Spring Boot v2.4.3, Spring v5.3.4
+2021-04-26 13:39:32.121  INFO 13708 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : No active profile set, falling back to default profiles: default
+2021-04-26 13:39:34.279  INFO 13708 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-04-26 13:39:34.441  INFO 13708 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 152 ms. Found 7 JPA repository interfaces.
+2021-04-26 13:39:35.182  INFO 13708 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@5bcec67e' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 13:39:35.189  INFO 13708 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-04-26 13:39:35.964  INFO 13708 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 9191 (http)
+2021-04-26 13:39:35.986  INFO 13708 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-04-26 13:39:35.987  INFO 13708 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-04-26 13:39:36.237  INFO 13708 --- [main] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring embedded WebApplicationContext
+2021-04-26 13:39:36.238  INFO 13708 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 4031 ms
+2021-04-26 13:39:37.173  INFO 13708 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-04-26 13:39:37.181  WARN 13708 --- [main] com.zaxxer.hikari.util.DriverDataSource  : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2021-04-26 13:39:38.196  INFO 13708 --- [main] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Driver does not support get/set network timeout for connections. (Receiver class oracle.jdbc.driver.T4CConnection does not define or inherit an implementation of the resolved method abstract getNetworkTimeout()I of interface java.sql.Connection.)
+2021-04-26 13:39:38.202  INFO 13708 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-04-26 13:39:48.932  INFO 13708 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-04-26 13:39:50.401  WARN 13708 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-04-26 13:39:51.350 DEBUG 13708 --- [main] com.cg.JwtRequestFilter                  : Filter 'jwtRequestFilter' configured for use
+2021-04-26 13:39:53.690  INFO 13708 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@475b796d, org.springframework.security.web.context.SecurityContextPersistenceFilter@4fe687b5, org.springframework.security.web.header.HeaderWriterFilter@3d5b2c1e, org.springframework.security.web.authentication.logout.LogoutFilter@39d44217, com.cg.JwtRequestFilter@4d204b30, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5a86112a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@732ae29c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@24244ea, org.springframework.security.web.session.SessionManagementFilter@5a0f5567, org.springframework.security.web.access.ExceptionTranslationFilter@608b74f3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7e092ca]
+2021-04-26 13:39:54.254  INFO 13708 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-04-26 13:39:55.229  INFO 13708 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 9191 (http) with context path '/onlineplantnursery'
+2021-04-26 13:39:57.250  INFO 13708 --- [main] c.c.Sprint1OnlinePlantNurseryApplication : Started Sprint1OnlinePlantNurseryApplication in 26.091 seconds (JVM running for 29.487)
+2021-04-26 13:40:58.300  INFO 13708 --- [http-nio-9191-exec-1] o.a.c.c.C.[.[.[/onlineplantnursery]      : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-04-26 13:40:58.301  INFO 13708 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-04-26 13:40:58.305  INFO 13708 --- [http-nio-9191-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
+2021-04-26 13:40:58.365  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:40:58.613  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:41:04.026  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:41:04.028  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:41:04.029  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:41:04.030  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:30.976  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:31.097  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:37.286  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:37.675  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:37.722  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:37.727  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:37.729  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:55.165  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:42:55.335  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:43:04.392  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:43:04.416  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:43:06.536  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:43:06.550  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:43:06.553  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:43:06.564  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:43:21.549  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:43:33.524  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:45:49.479  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:45:49.498  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:45:51.596  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:45:51.596  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:45:51.602  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:45:51.602  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:46:07.142  WARN 13708 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:48:42.060  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:48:44.725  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:48:46.825  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:49:04.439  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:49:51.317  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:50:14.113  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:50:25.639  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 13:59:13.965  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:00:12.132  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:00:49.073  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:02:48.102  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:02:50.408  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:02:52.415  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:12:47.151  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:14:07.786  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:14:10.600  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:14:12.646  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:14:14.602  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:14:21.636  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:14:24.346  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:14:31.526  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:14:33.073  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:17:19.873  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:20:43.641  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:20:43.673  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:20:55.319  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:20:55.331  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:28:05.765  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:31:36.380  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:31:45.218  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:34:38.538  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:34:38.714  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:41:06.271  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:41:17.663  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:42:06.943  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:42:16.523  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:42:42.657  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:42:42.658  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:42:42.667  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:43:01.663  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:45:49.378  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:45:49.378  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:46:26.154  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:46:28.698  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 14:46:30.182  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:04:00.066  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:04:00.077  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:04:00.317  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:04:21.238  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:04:42.403  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:05:23.954  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:05:30.854  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:05:32.527  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:17:33.792  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:18:31.086  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:19:06.248  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:22:22.434  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:28:01.166  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:28:30.932  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:29:29.150  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:29:29.298  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:29:41.603  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:33:30.065  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:33:30.065  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:33:30.066  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:33:30.068  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:42:45.320  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:42:45.332  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:42:58.743  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:42:58.751  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:42:58.950  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:42:59.013  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:42:59.015  WARN 13708 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:42:59.032  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:46:23.284  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:46:23.313  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:46:49.533  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:46:51.505  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:47:21.980  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:47:22.160  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:47:48.532  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:48:04.653  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:48:11.605  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:48:27.525  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:48:50.469  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:48:58.708  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:48:58.710  WARN 13708 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:48:58.711  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:48:58.711  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:55:42.424  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 15:56:03.218  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:00:52.372  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:00:52.426  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:00:53.608  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:00:53.611  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:00:53.620  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:00:53.631  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:01:04.937  WARN 13708 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:09:34.421  WARN 13708 --- [http-nio-9191-exec-5] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:09:34.422  WARN 13708 --- [http-nio-9191-exec-2] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:09:34.422  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:09:34.425  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:10:03.985  WARN 13708 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:10:03.986  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:10:03.986  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:10:03.993  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:33:19.630  WARN 13708 --- [http-nio-9191-exec-1] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:33:19.670  WARN 13708 --- [http-nio-9191-exec-7] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:33:43.246  WARN 13708 --- [http-nio-9191-exec-10] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:33:43.272  WARN 13708 --- [http-nio-9191-exec-3] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:33:54.922  WARN 13708 --- [http-nio-9191-exec-9] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:33:54.929  WARN 13708 --- [http-nio-9191-exec-6] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:33:55.106  WARN 13708 --- [http-nio-9191-exec-4] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String
+2021-04-26 16:43:03.564  WARN 13708 --- [http-nio-9191-exec-8] com.cg.JwtRequestFilter                  : JWT Token does not begin with Bearer String

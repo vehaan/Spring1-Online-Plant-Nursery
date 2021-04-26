@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,6 +34,9 @@ public class Customer extends User {
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Order> orders = new ArrayList<>();
+	
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
 	public Customer() {
 		super();
@@ -48,14 +53,41 @@ public class Customer extends User {
 
 	}
 
-	public Customer(Integer id, @NotBlank @Email(message = "Enter a valid Email") String email, Role role,
+	
+	public Customer(Integer id,@NotBlank @Email(message = "Enter a valid Email") String email, @NotBlank String password,
+			Role role, @NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
+			@NotNull String phone) {
+		super(id,email, password, role);
+		this.name = name;
+		this.phone = phone;
+	}
+	
+	
+	
+
+	public Customer(Integer id, @NotBlank @Email(message = "Enter a valid Email") String email, Role role, @NotBlank String password,
 			@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
-			@NotNull String phone, Address address) {
-		super(id, email, role);
+			@NotNull String phone, Address address,Status status) {
+		super(id, email,password, role);
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
+	    this.status=status;
 	}
+	
+	
+
+	public Customer(@NotBlank @Email(message = "Enter a valid Email") String email, @NotBlank String password,
+			Role role, @NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
+			@NotNull String phone) {
+		super(email, password, role);
+		this.name = name;
+		this.phone = phone;	
+
+	}
+	
+	
+	
 
 	public Customer(@NotBlank @Email(message = "Enter a valid Email") String email, @NotBlank String password,
 			Role role, @NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
@@ -64,7 +96,6 @@ public class Customer extends User {
 		this.name = name;
 		this.phone = phone;
 		this.address = address;
-
 	}
 
 	public Customer(@NotBlank @Size(min = 3, message = "Name should be atleast three characters") String name,
@@ -74,10 +105,6 @@ public class Customer extends User {
 		this.phone = phone;
 		this.address = address;
 	}
-	
-	public Customer(Integer id) {
-	super(id);
-}
 
 	public String getName() {
 		return name;
@@ -110,11 +137,22 @@ public class Customer extends User {
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
 	}
+	
+	
 
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
 	@Override
 	public String toString() {
-		return "Customer [name=" + name + ", phone=" + phone + ", address=" + address + ", orders=" + orders + "]";
+		return "Customer [name=" + name + ", phone=" + phone + ", address=" + address + ", orders=" + orders
+				+ ", status=" + status + "]";
 	}
 
 }
